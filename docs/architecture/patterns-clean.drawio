@@ -1,0 +1,1211 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0" pages="15">
+  <diagram name="Primitives" id="primitives">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Primitives_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Public Terraform primitives" vertex="1">
+          <mxGeometry height="34" width="320" x="510" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="API" vertex="1">
+          <mxGeometry height="150" width="220" x="90" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="HTTP API&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS API Gateway&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="125" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Compute" vertex="1">
+          <mxGeometry height="150" width="220" x="340" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Lambda Function&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="375" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Data" vertex="1">
+          <mxGeometry height="150" width="220" x="590" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="DynamoDB Table&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="625" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Events" vertex="1">
+          <mxGeometry height="150" width="220" x="840" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="EventBridge Bus&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="875" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Security and configuration" vertex="1">
+          <mxGeometry height="180" width="650" x="250" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#DD344C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="KMS Key&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS KMS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="300" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#DD344C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="IAM Role&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS IAM&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="500" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="Primitives_14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#DD344C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="SSM / Secrets refs&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Secrets Manager&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="700" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; Reusable Terraform building blocks for serverless AWS infrastructure.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Root stacks compose API, compute, data, events, IAM, encryption and configuration primitives.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Modules accept artefact references and settings; they do not package application code." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Event Hub" id="event-hub">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Event_Hub_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Event hub pattern" vertex="1">
+          <mxGeometry height="34" width="320" x="540" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Producer Services&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="90" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Custom Event Bus&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Archive&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Consumer A&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="640" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Consumer A DLQ&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="900" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Consumer B&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Step Functions&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="640" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Consumer B DLQ&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="900" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Optional Pipe&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge Pipe&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="640" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Point-to-point Target&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="900" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_12" edge="1" parent="1" source="Event_Hub_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_4" value="PutEvents">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_13" edge="1" parent="1" source="Event_Hub_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_6" value="rule A">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="405" y="260" />
+              <mxPoint x="715" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Event_Hub_14" edge="1" parent="1" source="Event_Hub_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_7" value="failure path">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_15" edge="1" parent="1" source="Event_Hub_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_8" value="rule B">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="335" />
+              <mxPoint x="530" y="335" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Event_Hub_16" edge="1" parent="1" source="Event_Hub_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_9" value="failure path">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_17" edge="1" parent="1" source="Event_Hub_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_5" value="archive all">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Hub_18" edge="1" parent="1" source="Event_Hub_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_10" value="pipe source">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="430" />
+              <mxPoint x="715" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Event_Hub_19" edge="1" parent="1" source="Event_Hub_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Hub_11" value="filtered delivery">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A subsystem event backbone for many-to-many event collaboration.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Producers publish facts to a custom EventBridge bus; rules route to consumers with DLQs and optional archive.&lt;br&gt;&lt;b&gt;Variant:&lt;/b&gt; EventBridge Pipes are shown only for deliberate point-to-point delivery." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="BFF Service" id="bff-service">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BFF_Service_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Backend for Frontend service pattern" vertex="1">
+          <mxGeometry height="34" width="320" x="500" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Synchronous user path" vertex="1">
+          <mxGeometry height="160" width="930" x="70" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Database-first event publication" vertex="1">
+          <mxGeometry height="170" width="930" x="70" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Inbound event materialisation" vertex="1">
+          <mxGeometry height="150" width="690" x="70" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Frontend Client&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudFront&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="100" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="HTTP API + JWT&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS API Gateway&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="310" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="REST Handler&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="520" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Owned Table&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="730" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Table Stream&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB Stream&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="740" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Trigger&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="500" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="250" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Listener Queue&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="250" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Listener&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="520" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_15" edge="1" parent="1" source="BFF_Service_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_7" value="request">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_16" edge="1" parent="1" source="BFF_Service_7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_8" value="invoke">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_17" edge="1" parent="1" source="BFF_Service_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_9" value="read/write">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_18" edge="1" parent="1" source="BFF_Service_9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_10" value="changes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_19" edge="1" parent="1" source="BFF_Service_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_11" value="consume stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_20" edge="1" parent="1" source="BFF_Service_11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_12" value="publish event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_21" edge="1" parent="1" source="BFF_Service_12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_13" value="route">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_22" edge="1" parent="1" source="BFF_Service_13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_14" value="consume">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BFF_Service_23" edge="1" parent="1" source="BFF_Service_14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="BFF_Service_9" value="update view">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="675" />
+              <mxPoint x="940" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A frontend-specific backend that owns request composition and read-model materialisation.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; HTTP requests invoke the BFF handler; table changes become events; inbound events update the view model asynchronously.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; The frontend talks to the BFF, not directly to subsystem data stores or downstream services." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="ESG Service" id="esg-service">
+    <mxGraphModel dx="2066" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ESG_Service_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="External Service Gateway pattern" vertex="1">
+          <mxGeometry height="34" width="320" x="500" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Ingress: external to subsystem" vertex="1">
+          <mxGeometry height="150" width="900" x="70" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Egress: subsystem to external" vertex="1">
+          <mxGeometry height="150" width="900" x="70" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="External System&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS External System&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="80" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Webhook API&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS API Gateway&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="300" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Ingress Adapter&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="520" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="780" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Egress Rule&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="780" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Egress Queue&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="520" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Egress Adapter&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="300" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#DD344C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Secrets / Params&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Secrets Manager&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="80" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_13" edge="1" parent="1" source="ESG_Service_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_6" value="webhook">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_14" edge="1" parent="1" source="ESG_Service_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_7" value="invoke">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_15" edge="1" parent="1" source="ESG_Service_7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_8" value="normalise + publish">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_16" edge="1" parent="1" source="ESG_Service_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_9" value="match outbound">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_17" edge="1" parent="1" source="ESG_Service_9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_10" value="enqueue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_18" edge="1" parent="1" source="ESG_Service_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_11" value="consume">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_19" edge="1" parent="1" source="ESG_Service_11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="ESG_Service_5" value="call API">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="375" y="570" />
+              <mxPoint x="40" y="570" />
+              <mxPoint x="40" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ESG_Service_20" edge="1" parent="1" source="ESG_Service_12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="ESG_Service_11" value="credentials">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ESG_Service_21" edge="1" parent="1" source="ESG_Service_12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="ESG_Service_7" value="configuration">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="155" y="370" />
+              <mxPoint x="595" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A gateway that isolates external systems from subsystem services.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Inbound webhooks are normalised into events; outbound integration events are queued and adapted to external APIs.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Credentials, retries, protocol mapping and external failure handling stay inside the ESG." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Control - Event Reactor" id="control---event-reactor">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Control___Event_Reactor_2" value="Control Service pattern - event reactor mode" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="35" width="440" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_3" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="220" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_4" value="Control Rule&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="310" y="220" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_5" value="Listener Queue&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="520" y="220" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_6" value="Listener&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="730" y="220" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_7" value="Micro Event Store&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="730" y="470" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_8" value="Store Stream&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB Stream&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="520" y="470" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_9" value="Trigger&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="310" y="470" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_10" value="lower-order events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_3" target="Control___Event_Reactor_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_11" value="route" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_4" target="Control___Event_Reactor_5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_12" value="consume" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_5" target="Control___Event_Reactor_6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_13" value="collect/correlate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_6" target="Control___Event_Reactor_7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_14" value="changes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_7" target="Control___Event_Reactor_8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_15" value="evaluate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_8" target="Control___Event_Reactor_9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Event_Reactor_16" value="higher-order events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" edge="1" parent="1" source="Control___Event_Reactor_9" target="Control___Event_Reactor_3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="505" as="point" />
+              <mxPoint x="210" y="255" as="point" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A control service that derives higher-order events from observed lower-order events.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Rules and queues feed a listener; state is collected in a private store; stream triggers publish decisions.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Control state is private; other services see decisions through events." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Control - Step Functions" id="control---step-functions">
+    <mxGraphModel dx="2066" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Control___Step_Functions_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Control Service pattern - Step Functions mode" vertex="1">
+          <mxGeometry height="34" width="480" x="440" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="100" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Workflow Rule&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="State Machine&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Step Functions&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="570" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#DD344C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Start Role&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS IAM&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Execution Logs&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="820" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Trace Data&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS X-Ray&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="820" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Result Events&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="570" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_10" edge="1" parent="1" source="Control___Step_Functions_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Control___Step_Functions_4" value="matching event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_11" edge="1" parent="1" source="Control___Step_Functions_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Control___Step_Functions_5" value="start execution">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_12" edge="1" parent="1" source="Control___Step_Functions_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Control___Step_Functions_4" value="assume">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_13" edge="1" parent="1" source="Control___Step_Functions_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Control___Step_Functions_7" value="errors">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_14" edge="1" parent="1" source="Control___Step_Functions_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Control___Step_Functions_8" value="traces">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_15" edge="1" parent="1" source="Control___Step_Functions_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Control___Step_Functions_9" value="PutEvents">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Control___Step_Functions_16" edge="1" parent="1" source="Control___Step_Functions_9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Control___Step_Functions_3" value="publish result">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="645" y="600" />
+              <mxPoint x="175" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A control service for explicit orchestration, waits, compensation and approvals.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; EventBridge starts a Step Functions workflow; the workflow logs/traces execution and publishes result events.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; The workflow coordinates process state without turning downstream services into shared libraries." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Event Lake" id="event-lake">
+    <mxGraphModel dx="2066" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Event_Lake_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Event lake pattern" vertex="1">
+          <mxGeometry height="34" width="320" x="540" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="100" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Archive Rule&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="320" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Delivery Stream&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Firehose&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="540" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Lake Bucket&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS S3&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="800" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Analytics / Replay Jobs&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Athena / Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1060" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#DD344C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="KMS Key&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS KMS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="540" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Delivery Logs&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="540" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_10" edge="1" parent="1" source="Event_Lake_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Lake_4" value="facts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_11" edge="1" parent="1" source="Event_Lake_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Lake_5" value="deliver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_12" edge="1" parent="1" source="Event_Lake_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Lake_6" value="GZIP objects">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_13" edge="1" parent="1" source="Event_Lake_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Event_Lake_7" value="query/replay">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_14" edge="1" parent="1" source="Event_Lake_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Event_Lake_5" value="encrypt stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Event_Lake_15" edge="1" parent="1" source="Event_Lake_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Event_Lake_6" value="encrypt objects">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="835" y="355" as="point" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Event_Lake_16" edge="1" parent="1" source="Event_Lake_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Event_Lake_9" value="delivery errors">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="440" />
+              <mxPoint x="615" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; An immutable analytical record of selected subsystem facts.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; EventBridge routes facts to Firehose, which writes encrypted objects to S3 for analytics and replay jobs.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Analytics consumers read from the lake without coupling to operational services." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Observability Baseline" id="observability-baseline">
+    <mxGraphModel dx="2066" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Observability_Baseline_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Observability baseline pattern" vertex="1">
+          <mxGeometry height="34" width="320" x="500" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Service Lambdas&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="100" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Logs&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="XIWA8-sqXxoLzGegdr-5-1" edge="1" parent="1" source="Observability_Baseline_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" target="Observability_Baseline_8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XIWA8-sqXxoLzGegdr-5-2" connectable="0" parent="XIWA8-sqXxoLzGegdr-5-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="SLO thresholds" vertex="1">
+          <mxGeometry relative="1" x="0.0909" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Observability_Baseline_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Metrics&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Traces&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS X-Ray&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Dashboard&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="590" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Metric Alarms&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="590" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Alarm Topic&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SNS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="830" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="ADOT / Powertools Env&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="100" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_11" edge="1" parent="1" source="Observability_Baseline_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Observability_Baseline_4" value="structured logs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="195" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Observability_Baseline_12" edge="1" parent="1" source="Observability_Baseline_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Observability_Baseline_5" value="EMF">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_13" edge="1" parent="1" source="Observability_Baseline_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Observability_Baseline_6" value="active tracing">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="175" y="410" />
+              <mxPoint x="405" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Observability_Baseline_14" edge="1" parent="1" source="Observability_Baseline_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Observability_Baseline_7" value="widgets">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_15" edge="1" parent="1" source="Observability_Baseline_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Observability_Baseline_7" value="widgets">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="405" y="260" />
+              <mxPoint x="665" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Observability_Baseline_17" edge="1" parent="1" source="Observability_Baseline_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Observability_Baseline_9" value="notify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Observability_Baseline_18" edge="1" parent="1" source="Observability_Baseline_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Observability_Baseline_3" value="standard settings">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A shared monitoring baseline for autonomous services.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Services emit structured logs, metrics and traces; dashboards and alarms expose health and symptom signals.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; The baseline standardises telemetry without owning service business logic." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Subsystem Core" id="subsystem-core">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Subsystem_Core_2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Reference subsystem core" vertex="1">
+          <mxGeometry height="34" width="320" x="520" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Subsystem ownership boundary" vertex="1">
+          <mxGeometry height="650" width="1140" x="60" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Request path" vertex="1">
+          <mxGeometry height="150" width="980" x="100" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Event collaboration" vertex="1">
+          <mxGeometry height="220" width="980" x="100" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Operations and records" vertex="1">
+          <mxGeometry height="105" width="980" x="100" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="External estate" vertex="1">
+          <mxGeometry height="150" width="160" x="1220" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Frontend / Client&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudFront&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="130" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="BFF API&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS API Gateway&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="330" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="BFF Handler&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="530" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Owned Table&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="770" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Control Service&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Step Functions&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="150" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="450" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Change Publisher&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="770" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="ESG Service&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="730" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="External System&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;External API / SaaS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="1225" y="445" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Firehose Delivery&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Firehose&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="150" x="450" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Lake Bucket&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS S3&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="150" x="650" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Observability&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;CloudWatch / X-Ray&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="150" x="870" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_20" edge="1" parent="1" source="Subsystem_Core_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_9" value="request">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_21" edge="1" parent="1" source="Subsystem_Core_9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_10" value="invoke">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_22" edge="1" parent="1" source="Subsystem_Core_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_11" value="read / write">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_23" edge="1" parent="1" source="Subsystem_Core_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_13" value="publish events">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="605" y="330" />
+              <mxPoint x="525" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Subsystem_Core_24" edge="1" parent="1" source="Subsystem_Core_11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_14" value="table changes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_25" edge="1" parent="1" source="Subsystem_Core_14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_13" value="normalised events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_26" edge="1" parent="1" source="Subsystem_Core_12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;startArrow=block;startFill=1;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_13" value="policy events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_27" edge="1" parent="1" source="Subsystem_Core_13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;startArrow=block;startFill=1;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_15" value="integration events">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="525" y="520" />
+              <mxPoint x="730" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Subsystem_Core_28" edge="1" parent="1" source="Subsystem_Core_15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;startArrow=block;startFill=1;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_16" value="bridge external boundary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_29" edge="1" parent="1" source="Subsystem_Core_13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_17" value="archive facts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_30" edge="1" parent="1" source="Subsystem_Core_17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="Subsystem_Core_18" value="deliver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Subsystem_Core_31" edge="1" parent="1" source="Subsystem_Core_13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="Subsystem_Core_19" value="telemetry">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="945" y="465" />
+              <mxPoint x="945" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A reference composition for an autonomous serverless subsystem.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; User intent enters through the BFF; collaboration happens through the event hub; operations observe, archive and bridge events.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Owned data remains inside the subsystem and other capabilities integrate through events." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Frontend Edge" id="frontend-edge">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frontend-edge_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Frontend edge pattern" vertex="1">
+          <mxGeometry height="34" width="360" x="520" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_L1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Edge delivery boundary" vertex="1">
+          <mxGeometry height="320" width="1240" x="80" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Browser Client&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;User agent&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="90" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="CloudFront Distribution&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudFront&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="340" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Private Static Origin&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS S3 + OAC&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="600" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="BFF Origin&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;API Gateway HTTP API&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="600" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Security Headers&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;CloudFront Response Headers&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="1070" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Access Logs&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;S3 / CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="1070" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_E1" edge="1" parent="1" source="FE_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FE_2" value="HTTPS request">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_E2" edge="1" parent="1" source="FE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FE_3" value="static paths">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_E3" edge="1" parent="1" source="FE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FE_4" value="/api paths">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_E4" edge="1" parent="1" source="FE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="FE_5" value="apply headers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE_E5" edge="1" parent="1" source="FE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="FE_6" value="write logs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="285" />
+              <mxPoint x="790" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A secure edge entry point for frontend artefacts and API routing.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; CloudFront serves private S3 content through OAC and routes API paths to the BFF origin.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Security headers, access logs and failover behaviour live at the edge." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Regional Health Check" id="regional-health-check">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="regional-health-check_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Regional health check pattern" vertex="1">
+          <mxGeometry height="34" width="360" x="520" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_L1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Regional readiness and failover" vertex="1">
+          <mxGeometry height="380" width="1160" x="90" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Primary Region Endpoint&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Route 53 / API&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="100" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Metric Alarms&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;CloudWatch (5xx, SystemErrors)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="380" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_2b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Composite Alarm&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;CloudWatch Composite&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="380" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Calculated Health Check&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Route 53 Calculated&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="720" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Secondary Region Endpoint&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Route 53 / API&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="1000" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Alarm Topic&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SNS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="670" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Runbook / Operator&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Incident Process&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="1000" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_E1" edge="1" parent="1" source="RHC_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="RHC_2" value="service metrics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_E2" edge="1" parent="1" source="RHC_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="RHC_3" value="cloudwatch_alarm_name">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_E2b" edge="1" parent="1" source="RHC_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="RHC_2b" value="OR rule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_E3" edge="1" parent="1" source="RHC_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="RHC_4" value="fail over">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_E4" edge="1" parent="1" source="RHC_2b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="RHC_5" value="alarm_actions">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RHC_E5" edge="1" parent="1" source="RHC_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="RHC_6" value="notify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A regional readiness signal for failover decisions.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Per-service CloudWatch metric alarms wrap each AWS dependency the subsystem relies on; a Route 53 calculated health check aggregates them so DNS failover trips only when the region as a whole is unhealthy; a composite CloudWatch alarm fans the same signal to on-call.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; The check represents subsystem readiness rather than only raw endpoint uptime. A CloudWatch Synthetics canary in the opposite region is the recommended traffic source but lives outside this module." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Fault Monitor" id="fault-monitor">
+    <mxGraphModel dx="2066" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fault-monitor_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Fault monitor pattern" vertex="1">
+          <mxGeometry height="34" width="360" x="520" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_L1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Independent operational monitoring" vertex="1">
+          <mxGeometry height="430" width="1080" x="80" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Subsystem Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="110" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Fault Rule&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;EventBridge Rule&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="340" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Delivery Stream&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Firehose&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="600" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Fault Bucket&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS S3&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="850" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Fault Topic&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SNS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="600" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Rule DLQ&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS SQS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="340" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Resubmission CLI&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Operator tool&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="850" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_E1" edge="1" parent="1" source="FM_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FM_2" value="fault events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_E2" edge="1" parent="1" source="FM_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FM_3" value="archive target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_E3" edge="1" parent="1" source="FM_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FM_4" value="GZIP objects">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_E4" edge="1" parent="1" source="FM_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="FM_5" value="notify target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_E5" edge="1" parent="1" source="FM_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="FM_6" value="dead-letter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FM_E6" edge="1" parent="1" source="FM_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="FM_7" value="read for replay">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; An independent monitor for fault events and operational failure signals.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; A dedicated EventBridge rule fans fault events to Firehose for S3 archival and to SNS for on-call notification, with a shared SQS DLQ catching any delivery failure. An out-of-band CLI replays archived events once the root cause is fixed.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; Monitoring remains outside individual services so one service failure does not hide another." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Micro Frontend" id="micro-frontend">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="micro-frontend_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Micro-frontend manifest deployer pattern" vertex="1">
+          <mxGeometry height="34" width="500" x="450" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_L1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Per-micro-app upload" vertex="1">
+          <mxGeometry height="360" width="290" x="80" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_L2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Manifest aggregation" vertex="1">
+          <mxGeometry height="360" width="540" x="400" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_L3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Edge delivery" vertex="1">
+          <mxGeometry height="360" width="270" x="970" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Micro-app CI/CD&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Per-app pipeline&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="140" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Micro-app CI/CD&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Per-app pipeline&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="140" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Micro-app CI/CD&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Per-app pipeline&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="140" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Manifest Bucket&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS S3 (manifests/, main/)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="440" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Manifest Deployer&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="700" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Master Manifests&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;importmap / apps / mount-points&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="700" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="CloudFront Distribution&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudFront&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="1010" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E1" edge="1" parent="1" source="MFE_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="MFE_4" value="upload mfe.json">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E2" edge="1" parent="1" source="MFE_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="MFE_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E3" edge="1" parent="1" source="MFE_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="MFE_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E4" edge="1" parent="1" source="MFE_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="MFE_5" value="s3:ObjectCreated">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E5" edge="1" parent="1" source="MFE_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="MFE_6" value="write master">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E6" edge="1" parent="1" source="MFE_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="MFE_7" value="invalidate (optional)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_E7" edge="1" parent="1" source="MFE_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="MFE_7" value="serve manifests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFE_Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Pattern description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; Independent deployment of micro applications without coordinated releases.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; Each micro-app&#39;s CI/CD uploads its mfe.json to the manifest bucket; an S3 trigger drives the deployer Lambda to merge every fragment into the master importmap, apps and mount-points manifests; CloudFront serves the master files after an optional invalidation.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; The deployer owns aggregation; micro-app teams own their own fragments and pipeline cadence." vertex="1">
+          <mxGeometry height="115" width="1240" x="80" y="795" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Public App Stack" id="public-app-stack">
+    <mxGraphModel dx="1198" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="public-app_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Reference public app stack" vertex="1">
+          <mxGeometry height="34" width="360" x="520" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_L_EDGE" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Edge (us-east-1)" vertex="1">
+          <mxGeometry height="220" width="380" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_L_SUB" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Subsystem ownership boundary (primary region)" vertex="1">
+          <mxGeometry height="540" width="820" x="470" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_L_OPS" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=13;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;" value="Cross-cutting operations" vertex="1">
+          <mxGeometry height="270" width="380" x="60" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_browser" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Browser Client&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;User agent&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="80" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_cf" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Frontend Edge&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS CloudFront + S3&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="250" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_mfe" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Manifest Deployer&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda + S3&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="250" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_api" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FDEDED;strokeColor=#D13212;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="BFF API&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;API Gateway HTTP API&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="500" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_handler" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="BFF Handler&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="740" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Owned Table&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS DynamoDB&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="980" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_hub" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Event Hub&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS EventBridge&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="700" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_trigger" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Change Publisher&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;AWS Lambda&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="980" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_fault" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Fault Monitor&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Firehose + S3 + SNS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="500" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_obs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Observability Baseline&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;CloudWatch / SNS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="70" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_rhc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Regional Health Check&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Route 53 + CloudWatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="260" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_oncall" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="On-call / Runbook&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Incident process&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="900" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E1" edge="1" parent="1" source="PA_browser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_cf" value="HTTPS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E2" edge="1" parent="1" source="PA_cf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_api" value="/api/*">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E3" edge="1" parent="1" source="PA_mfe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="PA_cf" value="invalidate manifests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E4" edge="1" parent="1" source="PA_api" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_handler" value="invoke">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E5" edge="1" parent="1" source="PA_handler" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_table" value="read / write">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E6" edge="1" parent="1" source="PA_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_trigger" value="stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E7" edge="1" parent="1" source="PA_trigger" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_hub" value="publish events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E8" edge="1" parent="1" source="PA_handler" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_hub" value="put events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E9" edge="1" parent="1" source="PA_hub" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;jumpStyle=none;" target="PA_fault" value="fault events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E10" edge="1" parent="1" source="PA_fault" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="PA_oncall" value="page on-call">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E11" edge="1" parent="1" source="PA_handler" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="PA_obs" value="metrics / logs / traces">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E12" edge="1" parent="1" source="PA_rhc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="PA_obs" value="alarm fan-out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_E13" edge="1" parent="1" source="PA_rhc" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;jumpStyle=none;" target="PA_handler" value="probe metrics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PA_Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=12;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;Stack description&lt;/b&gt;&lt;br&gt;&lt;b&gt;Intent:&lt;/b&gt; A reference composition for a publicly-reachable single-page application backed by an autonomous subsystem.&lt;br&gt;&lt;b&gt;Flow:&lt;/b&gt; CloudFront serves the SPA from a private S3 origin and routes /api/* to the BFF; the BFF owns the table and publishes facts to the event hub; fault and regional health signals feed on-call through the observability baseline.&lt;br&gt;&lt;b&gt;Boundary:&lt;/b&gt; CloudFront, ACM, OAC and Route 53 health checks live in us-east-1; the BFF, event hub and operational patterns stay in the subsystem&#39;s primary region." vertex="1">
+          <mxGeometry height="115" width="1240" x="30" y="720" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Example: Online Order Subsystem" id="example-online-order">
+    <mxGraphModel dx="31998" dy="21493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ex_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#172B4D;fontSize=15;fontStyle=1;" value="Worked example: Online order subsystem" vertex="1">
+          <mxGeometry height="30" width="500" x="450" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#6B778C;fontSize=11;fontStyle=2;" value="Brackets show which library module each component is built from." vertex="1">
+          <mxGeometry height="16" width="500" x="450" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_LZ_edge" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Customer journey (us-east-1 edge)" vertex="1">
+          <mxGeometry height="135" width="670" x="60" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_LZ_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="User-facing micro-apps - each a BFF + private table" vertex="1">
+          <mxGeometry height="220" width="1280" x="60" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_LZ_hub" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FBF2FE;strokeColor=#C925D1;dashed=0;strokeWidth=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Event backbone" vertex="1">
+          <mxGeometry height="90" width="1280" x="60" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_LZ_sub" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Subsystem-owned business workflow and integration boundaries" vertex="1">
+          <mxGeometry height="160" width="1090" x="60" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_LZ_ext" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F4F5F7;strokeColor=#6B778C;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="External providers" vertex="1">
+          <mxGeometry height="160" width="180" x="1160" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_LZ_ops" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Cross-cutting operations (consume from the hub via dedicated rules)" vertex="1">
+          <mxGeometry height="135" width="600" x="740" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_browser" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Shopper Browser&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;User agent&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="85" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_cdn" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF2FF;strokeColor=#527FFF;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Storefront CDN&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[frontend_edge]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="170" x="270" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_manifest" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Storefront Manifest Deployer&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[micro_frontend]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="240" x="485" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_lake" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Order Event Lake&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[event_lake]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="180" x="760" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_fm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7EA;strokeColor=#3F8624;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Fault Monitor&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[fault_monitor]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="180" x="960" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_obs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Observability Baseline&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[observability_baseline]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="180" x="1160" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_rhc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Regional Health Check&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[regional_health_check]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="580" x="760" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_cat_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Catalogue BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - search&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="70" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_cart_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Cart BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - CRUD&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="320" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_order_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Checkout BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - task&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="570" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_track_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Order Tracking BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - dashboard&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="820" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_acct_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="My Account BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - CRUD&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="1080" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_cat_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=4;" value="Products Table&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[dynamodb_table]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="180" x="90" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_cart_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=4;" value="Carts Table&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[dynamodb_table]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="180" x="340" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_order_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=4;" value="Orders Table&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[dynamodb_table]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="180" x="590" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_track_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=4;" value="Order View Table&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[dynamodb_table] - materialised&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="180" x="840" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_acct_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=4;" value="Customers Table&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[dynamodb_table]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="45" width="180" x="1090" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_hub" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=3;fontColor=#172B4D;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Order Subsystem Event Hub&#xa;[event_hub]" vertex="1">
+          <mxGeometry height="50" width="1240" x="80" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_inventory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Inventory Allocator&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[control_service] - event_reactor&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="80" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_saga" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FCE8F6;strokeColor=#C925D1;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Order Fulfilment Saga&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[control_service] - step_functions&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="350" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_pay_esg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Payments Gateway&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[esg_service]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="620" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_ship_esg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Shipping Gateway&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[esg_service]&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="890" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_ext_pay" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Stripe PSP&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;External SaaS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="140" x="1180" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="ex_ext_carrier" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F5F7;strokeColor=#6B778C;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="DHL Carrier API&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;External SaaS&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="140" x="1180" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="e_browser_cdn" edge="1" parent="1" source="ex_browser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ex_cdn" value="HTTPS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_manifest_cdn" edge="1" parent="1" source="ex_manifest" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="ex_cdn" value="publish manifests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cdn_cat" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_cat_bff" value="/catalogue/*">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cdn_cart" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_cart_bff" value="/cart/*">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cdn_order" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_order_bff" value="/checkout/*">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cdn_track" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_track_bff" value="/orders/*">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cdn_acct" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_acct_bff" value="/me/*">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cat_t" edge="1" parent="1" source="ex_cat_bff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ex_cat_table" />
+        <mxCell id="e_cart_t" edge="1" parent="1" source="ex_cart_bff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ex_cart_table" />
+        <mxCell id="e_order_t" edge="1" parent="1" source="ex_order_bff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ex_order_table" />
+        <mxCell id="e_track_t" edge="1" parent="1" source="ex_track_bff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ex_track_table" value="read" />
+        <mxCell id="e_acct_t" edge="1" parent="1" source="ex_acct_bff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ex_acct_table" />
+        <mxCell id="e_cat_hub" edge="1" parent="1" source="ex_cat_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.08;entryY=0;entryDx=0;entryDy=0;" target="ex_hub" value="publish facts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cart_hub" edge="1" parent="1" source="ex_cart_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.28;entryY=0;entryDx=0;entryDy=0;" target="ex_hub" />
+        <mxCell id="e_order_hub" edge="1" parent="1" source="ex_order_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.48;entryY=0;entryDx=0;entryDy=0;" target="ex_hub" />
+        <mxCell id="e_acct_hub" edge="1" parent="1" source="ex_acct_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.92;entryY=0;entryDx=0;entryDy=0;" target="ex_hub" />
+        <mxCell id="e_hub_track_table" edge="1" parent="1" source="ex_hub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;exitX=0.72;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="ex_track_table" value="materialise">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hub_inv" edge="1" parent="1" source="ex_hub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.13;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_inventory" value="events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hub_saga" edge="1" parent="1" source="ex_hub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.36;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_saga" value="events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hub_pay" edge="1" parent="1" source="ex_hub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.59;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_pay_esg" value="events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hub_ship" edge="1" parent="1" source="ex_hub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.81;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_ship_esg" value="events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pay_ext" edge="1" parent="1" source="ex_pay_esg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ex_ext_pay" value="API + webhook">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="651" />
+              <mxPoint x="860" y="610" />
+              <mxPoint x="1160" y="610" />
+              <mxPoint x="1160" y="638" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_ship_ext" edge="1" parent="1" source="ex_ship_esg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ex_ext_carrier" value="API + webhook">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hub_lake" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="ex_lake" value="archive">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="500" />
+              <mxPoint x="800" y="250" />
+              <mxPoint x="850" y="250" />
+            </Array>
+            <mxPoint x="800" y="500" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_hub_fm" edge="1" parent="1" source="ex_hub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6B778C;endArrow=block;endFill=1;dashed=1;exitX=0.78;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="ex_fm" value="faults">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1050" y="473" />
+              <mxPoint x="1050" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ex_Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=11;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;How the modules fit together for this domain&lt;/b&gt;&lt;br&gt;&lt;b&gt;Customer journey:&lt;/b&gt; CloudFront (frontend_edge) serves a micro-frontend shell whose master manifests come from the manifest deployer (micro_frontend). Each user activity is its own micro-app backed by its own BFF (bff_service) and private table (dynamodb_table).&lt;br&gt;&lt;b&gt;Event backbone:&lt;/b&gt; Tables publish business facts (CartCheckedOut, OrderPlaced, AddressUpdated) onto a single subsystem-scoped EventBridge bus (event_hub). Every consumer below the hub - Inventory Allocator, Order Fulfilment Saga and both ESG services - subscribes to the events it cares about and emits its own results back to the hub, so all collaboration stays asynchronous and there are no direct service-to-service calls.&lt;br&gt;&lt;b&gt;Order Tracking BFF&lt;/b&gt; is read-only: its Order View Table is materialised from hub events (CQRS) rather than written by the BFF itself.&lt;br&gt;&lt;b&gt;External integration:&lt;/b&gt; Payments Gateway and Shipping Gateway (esg_service) are anti-corruption boundaries around Stripe and DHL. Outbound API calls and inbound webhooks both go through the gateway.&lt;br&gt;&lt;b&gt;Operations:&lt;/b&gt; Event Lake (event_lake) archives every fact for analytics and replay. Fault Monitor (fault_monitor) catches any fault-typed event for resubmission. Observability Baseline (observability_baseline) owns the alarms, SNS topic and dashboard; Regional Health Check (regional_health_check) decides whether Route 53 routes traffic to this region." vertex="1">
+          <mxGeometry height="150" width="1280" x="60" y="770" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

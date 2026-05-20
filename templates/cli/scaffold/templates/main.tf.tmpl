@@ -1,0 +1,23 @@
+module "subsystem_core" {
+  source = "github.com/example/serverless-architecture-patterns//stacks/reference/subsystem_core?ref=v0.1.0"
+
+  system_name    = "{{ system_name }}"
+  subsystem_name = "{{ subsystem_name }}"
+  environment    = "dev"
+  owner          = "{{ owner }}"
+
+  bff_artefacts = {
+    rest = {
+      s3_bucket = "replace-me"
+      s3_key    = "rest.zip"
+    }
+    listener = {
+      s3_bucket = "replace-me"
+      s3_key    = "listener.zip"
+    }
+    trigger = {
+      s3_bucket = "replace-me"
+      s3_key    = "trigger.zip"
+    }
+  }
+}

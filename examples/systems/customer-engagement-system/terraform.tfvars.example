@@ -1,0 +1,56 @@
+primary_region   = "eu-west-2"
+secondary_region = "eu-west-1"
+system_name      = "retail"
+subsystem_name   = "customer-engagement"
+environment      = "dev"
+owner            = "platform"
+
+# S3 bucket names are global. Override this before applying in a shared account.
+event_lake_bucket_name = "replace-me-retail-customer-engagement-dev-events"
+
+# These are example inputs from application build pipelines.
+# Replace them with immutable artefact references produced by your CI/CD system.
+bff_artefacts = {
+  rest = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/bff/rest/1.0.0/app.zip"
+  }
+  listener = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/bff/listener/1.0.0/app.zip"
+  }
+  trigger = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/bff/trigger/1.0.0/app.zip"
+  }
+}
+
+control_artefacts = {
+  listener = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/control/listener/1.0.0/app.zip"
+  }
+  trigger = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/control/trigger/1.0.0/app.zip"
+  }
+}
+
+external_crm_artefacts = {
+  ingress = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/external-crm/ingress/1.0.0/app.zip"
+  }
+  egress = {
+    s3_bucket = "replace-me-application-artefacts"
+    s3_key    = "customer-engagement/external-crm/egress/1.0.0/app.zip"
+  }
+}
+
+external_crm_secret_arns    = []
+external_crm_parameter_arns = []
+notification_emails = []
+
+tags = {
+  CostCentre = "example"
+}

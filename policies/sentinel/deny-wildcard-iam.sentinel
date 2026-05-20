@@ -1,0 +1,19 @@
+import "tfplan/v2" as tfplan
+import "json"
+
+policies = filter tfplan.resource_changes as _, rc {
+  rc.type in ["aws_iam_policy", "aws_iam_role_policy"] and
+  rc.change.after.policy is not null
+}
+
+violations = filter policies as _, rc {
+  policy = json.unmarshal(rc.change.after.policy)
+  any policy.Statement as statement {
+    statement.Action is "*" or
+    (statement.Resource is "*" and statement.Action not matches "^logs:|^xray:")
+  }
+}
+
+main = rule {
+  length(violations) is 0
+}

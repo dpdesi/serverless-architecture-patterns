@@ -1,0 +1,4 @@
+system_name      = "customer"
+subsystem_name   = "customer"
+primary_region   = "eu-west-2"
+secondary_region = "eu-west-1"

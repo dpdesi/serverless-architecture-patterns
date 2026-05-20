@@ -1,0 +1,4 @@
+system_name      = "${{ values.system_name }}"
+subsystem_name   = "${{ values.subsystem_name }}"
+primary_region   = "${{ values.primary_region }}"
+secondary_region = "${{ values.secondary_region }}"

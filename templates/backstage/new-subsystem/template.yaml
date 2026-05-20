@@ -1,0 +1,79 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: new-subsystem
+  title: New Serverless Subsystem
+  description: Creates a Terraform root stack and catalogue metadata for an autonomous subsystem.
+spec:
+  owner: platform
+  type: service
+  parameters:
+    - title: Subsystem
+      required:
+        - system_name
+        - subsystem_name
+        - owner
+        - description
+        - primary_region
+      properties:
+        system_name:
+          type: string
+        subsystem_name:
+          type: string
+        owner:
+          type: string
+        description:
+          type: string
+        primary_region:
+          type: string
+          default: eu-west-2
+        secondary_region:
+          type: string
+          default: eu-west-1
+        environment_tiers:
+          type: array
+          items:
+            type: string
+          default: [dev, np, prod]
+        auth_mode:
+          type: string
+          default: jwt
+        event_transport:
+          type: string
+          default: eventbridge
+        workflow_mode:
+          type: string
+          default: event_reactor
+        artefact_registry:
+          type: string
+          default: s3
+        use_localstack:
+          type: boolean
+          default: true
+        publish_to_registry:
+          type: boolean
+          default: false
+        observability_sink:
+          type: string
+          default: cloudwatch
+  steps:
+    - id: fetch
+      name: Render skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values: ${{ parameters }}
+    - id: publish
+      name: Publish
+      action: publish:github
+      if: ${{ parameters.publish_to_registry }}
+      input:
+        repoUrl: github.com?owner=${{ parameters.owner }}&repo=${{ parameters.subsystem_name }}
+        defaultBranch: main
+    - id: register
+      name: Register
+      action: catalog:register
+      if: ${{ parameters.publish_to_registry }}
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml

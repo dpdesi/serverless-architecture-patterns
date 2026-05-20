@@ -1,0 +1,78 @@
+provider "aws" {
+  region = "eu-west-2"
+}
+
+data "archive_file" "handler" {
+  type        = "zip"
+  source_file = "${path.module}/index.js"
+  output_path = "${path.module}/handler.zip"
+}
+
+resource "aws_s3_bucket" "artefacts" {
+  bucket_prefix = "sap-api-artefacts-"
+  tags = {
+    Environment = "dev"
+    System      = "example"
+    Owner       = "platform"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "artefacts" {
+  bucket                  = aws_s3_bucket.artefacts.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "artefacts" {
+  bucket = aws_s3_bucket.artefacts.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_object" "handler" {
+  bucket = aws_s3_bucket.artefacts.bucket
+  key    = "handler.zip"
+  source = data.archive_file.handler.output_path
+  etag   = data.archive_file.handler.output_md5
+}
+
+module "handler" {
+  source = "../../../modules/primitives/lambda_function"
+
+  name      = "example-api-handler"
+  s3_bucket = aws_s3_bucket.artefacts.bucket
+  s3_key    = aws_s3_object.handler.key
+  tags = {
+    Environment = "dev"
+    System      = "example"
+    Owner       = "platform"
+  }
+}
+
+module "api" {
+  source = "../../../modules/primitives/api_http"
+
+  name = "example-api"
+  routes = {
+    smoke = {
+      route_key            = "GET /smoke"
+      lambda_function_arn  = module.handler.invoke_arn
+      lambda_function_name = module.handler.function_name
+    }
+  }
+  tags = {
+    Environment = "dev"
+    System      = "example"
+    Owner       = "platform"
+  }
+}
+
+output "api_endpoint" {
+  value = module.api.api_endpoint
+}

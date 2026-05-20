@@ -1,0 +1,50 @@
+{
+  "resource_changes": [
+    {
+      "address": "aws_dynamodb_table.bad",
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "bad",
+      "change": {
+        "after": {
+          "tags": {
+            "Environment": "test"
+          },
+          "server_side_encryption": [
+            {
+              "enabled": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_public_access_block.bad",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "bad",
+      "change": {
+        "after": {
+          "tags": {
+            "Environment": "test",
+            "System": "customer",
+            "Owner": "platform"
+          },
+          "block_public_acls": false,
+          "block_public_policy": false
+        }
+      }
+    },
+    {
+      "address": "aws_iam_role_policy.bad",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "bad",
+      "change": {
+        "after": {
+          "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"*\",\"Resource\":\"*\"}]}"
+        }
+      }
+    }
+  ]
+}

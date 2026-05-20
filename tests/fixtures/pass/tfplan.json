@@ -1,0 +1,35 @@
+{
+  "resource_changes": [
+    {
+      "address": "aws_dynamodb_table.good",
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "good",
+      "change": {
+        "after": {
+          "tags": {
+            "Environment": "test",
+            "System": "customer",
+            "Owner": "platform"
+          },
+          "server_side_encryption": [
+            {
+              "enabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_iam_role_policy.good",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "good",
+      "change": {
+        "after": {
+          "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"dynamodb:PutItem\"],\"Resource\":[\"arn:aws:dynamodb:eu-west-2:123456789012:table/customer\"]}]}"
+        }
+      }
+    }
+  ]
+}

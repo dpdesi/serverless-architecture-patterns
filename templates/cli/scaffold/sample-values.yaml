@@ -1,0 +1,15 @@
+system_name: customer
+subsystem_name: customer
+service_type: bff
+owner: platform
+description: Customer subsystem
+primary_region: eu-west-2
+secondary_region: eu-west-1
+environment_tiers: dev,np,prod
+auth_mode: jwt
+event_transport: eventbridge
+workflow_mode: event_reactor
+artefact_registry: s3
+use_localstack: true
+publish_to_registry: false
+observability_sink: cloudwatch

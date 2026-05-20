@@ -1,0 +1,8 @@
+services:
+  localstack:
+    image: localstack/localstack:3
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=apigateway,apigatewayv2,cloudwatch,dynamodb,events,iam,kms,lambda,logs,s3,sqs,sts
+      - AWS_DEFAULT_REGION=eu-west-2

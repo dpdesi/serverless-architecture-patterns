@@ -1,0 +1,16 @@
+import "tfplan/v2" as tfplan
+
+required = ["Environment", "System", "Owner"]
+
+tagged = rule {
+  all tfplan.resource_changes as _, rc {
+    rc.mode is not "managed" or
+    all required as tag {
+      rc.change.after.tags contains tag
+    }
+  }
+}
+
+main = rule {
+  tagged
+}

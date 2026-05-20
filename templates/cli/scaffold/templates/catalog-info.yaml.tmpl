@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {{ subsystem_name }}
+  description: {{ description }}
+spec:
+  type: service
+  lifecycle: experimental
+  owner: {{ owner }}
+  system: {{ system_name }}

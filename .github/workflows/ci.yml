@@ -1,0 +1,114 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  terraform-format:
+    name: terraform fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.1
+      - run: terraform fmt -check -recursive
+
+  validate:
+    name: terraform validate
+    runs-on: ubuntu-latest
+    needs: terraform-format
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.1
+      - run: ./scripts/validate.sh
+
+  terraform-test:
+    name: terraform test
+    runs-on: ubuntu-latest
+    needs: terraform-format
+    strategy:
+      fail-fast: false
+      matrix:
+        module:
+          - modules/primitives/lambda_function
+          - modules/primitives/api_http
+          - modules/primitives/dynamodb_table
+          - modules/primitives/eventbridge_bus
+          - modules/patterns/observability_baseline
+          - modules/patterns/event_hub
+          - modules/patterns/bff_service
+          - modules/patterns/esg_service
+          - modules/patterns/control_service
+          - modules/patterns/event_lake
+          - modules/patterns/frontend_edge
+          - modules/patterns/regional_health_check
+          - modules/patterns/fault_monitor
+          - modules/patterns/micro_frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.1
+      - run: terraform test
+        working-directory: ${{ matrix.module }}
+
+  tflint:
+    name: tflint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: terraform-linters/setup-tflint@v4
+      - run: tflint --init
+      - run: tflint --recursive
+
+  policy:
+    name: conftest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: open-policy-agent/setup-conftest@v1
+      - run: conftest test tests/fixtures/pass --policy policies/opa
+      - run: "! conftest test tests/fixtures/fail --policy policies/opa"
+
+  security:
+    name: trivy config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@0.30.0
+        with:
+          scan-type: config
+          scan-ref: .
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+
+  localstack-smoke:
+    name: localstack smoke
+    runs-on: ubuntu-latest
+    needs:
+      - validate
+      - terraform-test
+    services:
+      localstack:
+        image: localstack/localstack:3
+        ports:
+          - 4566:4566
+        env:
+          SERVICES: apigateway,apigatewayv2,cloudwatch,dynamodb,events,iam,kms,lambda,logs,s3,sqs,sts
+          AWS_DEFAULT_REGION: eu-west-2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.1
+      - run: ./tests/smoke/localstack-smoke.sh

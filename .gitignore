@@ -1,0 +1,15 @@
+.terraform/
+.terraform.lock.hcl
+*.tfplan
+*.zip
+crash.log
+crash.*.log
+.terraform-tmp/
+.terraform-plugin-cache/
+.tf-data/
+.tf-tmp/
+.diagrams-render/
+.claude/settings.local.json
+.claude/worktrees/
+# draw.io editor lock/backup/temp files
+.$*
