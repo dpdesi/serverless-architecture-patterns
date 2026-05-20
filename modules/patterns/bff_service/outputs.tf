@@ -1,6 +1,11 @@
 output "api_endpoint" {
-  description = "BFF API endpoint."
+  description = "BFF API endpoint (full URL including scheme)."
   value       = module.api.api_endpoint
+}
+
+output "api_domain_name" {
+  description = "Host-only portion of the BFF API endpoint. Pass this as `frontend_edge.api_origins[<key>].domain_name` to mount the BFF behind a shared CloudFront distribution."
+  value       = module.api.api_domain_name
 }
 
 output "api_id" {

@@ -9,9 +9,14 @@ module "frontend_edge" {
 
   name = "example-frontend-edge"
 
-  api_origin = {
-    domain_name  = "api.example.com"
-    path_pattern = "/api/*"
+  # Each entry becomes one CloudFront origin + ordered_cache_behavior. Use
+  # several entries to fan a single public domain out to multiple per-BFF
+  # API Gateways - each bff_service instance creates its own api_http.
+  api_origins = {
+    api = {
+      domain_name  = "api.example.com"
+      path_pattern = "/api/*"
+    }
   }
 
   tags = {

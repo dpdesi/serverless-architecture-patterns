@@ -35,17 +35,23 @@ variable "failover_status_codes" {
   }
 }
 
-variable "api_origin" {
-  description = "Optional API origin. When set, requests matching `path_pattern` are routed to the API target with caching disabled, host header stripped, and HTTPS-only origin protocol. Use this to surface a BFF at e.g. /api/* alongside the static SPA."
-  type = object({
+variable "api_origins" {
+  description = "Map of API origins to mount on the distribution. Each entry creates one CloudFront origin plus one ordered_cache_behavior matching its path_pattern, with caching disabled, host header stripped, and HTTPS-only origin protocol. Use multiple entries to fan a single public domain out to multiple BFF API Gateways (e.g. /catalogue/* -> catalogue-bff, /cart/* -> cart-bff). Each BFF owns its own api_http instance; this map is how CloudFront unifies them behind one URL."
+  type = map(object({
     domain_name  = string
     path_pattern = string
-  })
-  default = null
+    origin_path  = optional(string)
+  }))
+  default = {}
 
   validation {
-    condition     = var.api_origin == null || try(can(regex("^/.+", var.api_origin.path_pattern)), false)
-    error_message = "api_origin.path_pattern must be a CloudFront path pattern starting with '/' (e.g. '/api/*')."
+    condition     = alltrue([for entry in values(var.api_origins) : can(regex("^/.+", entry.path_pattern))])
+    error_message = "Every api_origins entry must have a path_pattern starting with '/' (e.g. '/api/*' or '/catalogue/*')."
+  }
+
+  validation {
+    condition     = length(distinct([for entry in values(var.api_origins) : entry.path_pattern])) == length(var.api_origins)
+    error_message = "api_origins path_pattern values must be unique. CloudFront cannot route the same path to two origins."
   }
 }
 

@@ -43,6 +43,11 @@ output "response_headers_policy_id" {
   value       = aws_cloudfront_response_headers_policy.this.id
 }
 
+output "api_origin_ids" {
+  description = "Map of api_origins keys to the CloudFront origin_id assigned to each. Useful when callers need to attach an additional behaviour to one of the API origins (e.g. a CloudFront Function that strips the BFF's path prefix before forwarding)."
+  value       = { for key, _ in var.api_origins : key => "api-${key}" }
+}
+
 output "kms_key_arn" {
   description = "KMS key ARN used for the primary origin bucket."
   value       = local.effective_kms_key_arn

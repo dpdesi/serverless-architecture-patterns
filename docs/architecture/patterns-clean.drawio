@@ -1008,7 +1008,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Example: Online Order Subsystem" id="example-online-order">
-    <mxGraphModel dx="31998" dy="21493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
+    <mxGraphModel dx="2598" dy="1753" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="940" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1021,7 +1021,7 @@
         <mxCell id="ex_LZ_edge" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Customer journey (us-east-1 edge)" vertex="1">
           <mxGeometry height="135" width="670" x="60" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="ex_LZ_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="User-facing micro-apps - each a BFF + private table" vertex="1">
+        <mxCell id="ex_LZ_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FAFBFC;strokeColor=#8993A4;dashed=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="User-facing micro-apps - each owns its own API Gateway, BFF Lambda and private table" vertex="1">
           <mxGeometry height="220" width="1280" x="60" y="240" as="geometry" />
         </mxCell>
         <mxCell id="ex_LZ_hub" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FBF2FE;strokeColor=#C925D1;dashed=0;strokeWidth=1;fontColor=#172B4D;fontStyle=1;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Event backbone" vertex="1">
@@ -1057,19 +1057,19 @@
         <mxCell id="ex_rhc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F1ECFF;strokeColor=#7D4CDB;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Regional Health Check&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[regional_health_check]&lt;/font&gt;" vertex="1">
           <mxGeometry height="40" width="580" x="760" y="170" as="geometry" />
         </mxCell>
-        <mxCell id="ex_cat_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Catalogue BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - search&lt;/font&gt;" vertex="1">
+        <mxCell id="ex_cat_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Catalogue BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service + own api_http] - search&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="220" x="70" y="285" as="geometry" />
         </mxCell>
-        <mxCell id="ex_cart_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Cart BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - CRUD&lt;/font&gt;" vertex="1">
+        <mxCell id="ex_cart_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Cart BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service + own api_http] - CRUD&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="220" x="320" y="285" as="geometry" />
         </mxCell>
-        <mxCell id="ex_order_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Checkout BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - task&lt;/font&gt;" vertex="1">
+        <mxCell id="ex_order_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Checkout BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service + own api_http] - task&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="220" x="570" y="285" as="geometry" />
         </mxCell>
-        <mxCell id="ex_track_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Order Tracking BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - dashboard&lt;/font&gt;" vertex="1">
+        <mxCell id="ex_track_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="Order Tracking BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service + own api_http] - dashboard&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="220" x="820" y="285" as="geometry" />
         </mxCell>
-        <mxCell id="ex_acct_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="My Account BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service] - CRUD&lt;/font&gt;" vertex="1">
+        <mxCell id="ex_acct_bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF4E5;strokeColor=#FF9900;strokeWidth=2;fontColor=#172B4D;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;spacing=6;" value="My Account BFF&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[bff_service + own api_http] - CRUD&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="220" x="1080" y="285" as="geometry" />
         </mxCell>
         <mxCell id="ex_cat_table" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E3F0FF;strokeColor=#2E73B8;strokeWidth=2;fontColor=#172B4D;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=4;" value="Products Table&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;[dynamodb_table]&lt;/font&gt;" vertex="1">
@@ -1138,11 +1138,14 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_cdn_acct" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ex_acct_bff" value="/me/*">
+        <mxCell id="e_cdn_acct" edge="1" parent="1" source="ex_cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="/me/*">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
+              <mxPoint x="355" y="230" />
               <mxPoint x="1180" y="230" />
+              <mxPoint x="1180" y="285" />
             </Array>
+            <mxPoint x="1180" y="285" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e_cat_t" edge="1" parent="1" source="ex_cat_bff" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#253858;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ex_cat_table" />
@@ -1202,7 +1205,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ex_Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=11;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;How the modules fit together for this domain&lt;/b&gt;&lt;br&gt;&lt;b&gt;Customer journey:&lt;/b&gt; CloudFront (frontend_edge) serves a micro-frontend shell whose master manifests come from the manifest deployer (micro_frontend). Each user activity is its own micro-app backed by its own BFF (bff_service) and private table (dynamodb_table).&lt;br&gt;&lt;b&gt;Event backbone:&lt;/b&gt; Tables publish business facts (CartCheckedOut, OrderPlaced, AddressUpdated) onto a single subsystem-scoped EventBridge bus (event_hub). Every consumer below the hub - Inventory Allocator, Order Fulfilment Saga and both ESG services - subscribes to the events it cares about and emits its own results back to the hub, so all collaboration stays asynchronous and there are no direct service-to-service calls.&lt;br&gt;&lt;b&gt;Order Tracking BFF&lt;/b&gt; is read-only: its Order View Table is materialised from hub events (CQRS) rather than written by the BFF itself.&lt;br&gt;&lt;b&gt;External integration:&lt;/b&gt; Payments Gateway and Shipping Gateway (esg_service) are anti-corruption boundaries around Stripe and DHL. Outbound API calls and inbound webhooks both go through the gateway.&lt;br&gt;&lt;b&gt;Operations:&lt;/b&gt; Event Lake (event_lake) archives every fact for analytics and replay. Fault Monitor (fault_monitor) catches any fault-typed event for resubmission. Observability Baseline (observability_baseline) owns the alarms, SNS topic and dashboard; Regional Health Check (regional_health_check) decides whether Route 53 routes traffic to this region." vertex="1">
+        <mxCell id="ex_Guidance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F7F8FA;strokeColor=#B3BAC5;fontColor=#172B4D;fontSize=11;align=left;verticalAlign=top;spacing=10;" value="&lt;b&gt;How the modules fit together for this domain&lt;/b&gt;&lt;br&gt;&lt;b&gt;Customer journey:&lt;/b&gt; CloudFront (frontend_edge) serves a micro-frontend shell whose master manifests come from the manifest deployer (micro_frontend). Each user activity is its own micro-app backed by its own BFF (bff_service) - and because every bff_service instance creates its own api_http API Gateway, there are five separate API Gateways here. CloudFront unifies them behind one public domain via frontend_edge.api_origins, which mounts an ordered cache behaviour per path_pattern (/catalogue/*, /cart/*, /checkout/*, /orders/*, /me/*) routed to that BFF's execute-api domain. Each BFF team can deploy its routes, throttling and authoriser settings independently.&lt;br&gt;&lt;b&gt;Event backbone:&lt;/b&gt; Tables publish business facts (CartCheckedOut, OrderPlaced, AddressUpdated) onto a single subsystem-scoped EventBridge bus (event_hub). Every consumer below the hub - Inventory Allocator, Order Fulfilment Saga and both ESG services - subscribes to the events it cares about and emits its own results back to the hub, so all collaboration stays asynchronous and there are no direct service-to-service calls.&lt;br&gt;&lt;b&gt;Order Tracking BFF&lt;/b&gt; is read-only: its Order View Table is materialised from hub events (CQRS) rather than written by the BFF itself.&lt;br&gt;&lt;b&gt;External integration:&lt;/b&gt; Payments Gateway and Shipping Gateway (esg_service) are anti-corruption boundaries around Stripe and DHL. Outbound API calls and inbound webhooks both go through the gateway.&lt;br&gt;&lt;b&gt;Operations:&lt;/b&gt; Event Lake (event_lake) archives every fact for analytics and replay. Fault Monitor (fault_monitor) catches any fault-typed event for resubmission. Observability Baseline (observability_baseline) owns the alarms, SNS topic and dashboard; Regional Health Check (regional_health_check) decides whether Route 53 routes traffic to this region." vertex="1">
           <mxGeometry height="150" width="1280" x="60" y="770" as="geometry" />
         </mxCell>
       </root>

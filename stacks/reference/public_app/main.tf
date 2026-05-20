@@ -16,7 +16,11 @@ locals {
     Owner       = var.owner
   })
 
-  api_enabled = var.api_origin_domain_name != null
+  # The BFF is always present in this stack, so CloudFront always mounts it.
+  # `api_origin_domain_name` is an optional override - set it when a custom
+  # domain (e.g. api.app.example.com) fronts the API Gateway, otherwise the
+  # raw execute-api domain is used.
+  bff_api_domain = coalesce(var.api_origin_domain_name, module.bff.api_domain_name)
 
   adot_baseline = {
     AWS_LAMBDA_EXEC_WRAPPER             = "/opt/otel-handler"
@@ -75,10 +79,16 @@ module "frontend_edge" {
   name                       = "${local.name_prefix}-edge"
   primary_origin_bucket_name = "${local.name_prefix}-edge-primary"
 
-  api_origin = local.api_enabled ? {
-    domain_name  = var.api_origin_domain_name
-    path_pattern = var.api_origin_path_pattern
-  } : null
+  # Every BFF instance creates its own api_http; api_origins is how
+  # CloudFront fans the single public domain out to per-BFF API Gateways.
+  # This stack ships one BFF, so the map has one entry; multi-BFF stacks
+  # add one entry per service (e.g. catalogue, cart, checkout).
+  api_origins = {
+    bff = {
+      domain_name  = local.bff_api_domain
+      path_pattern = var.api_origin_path_pattern
+    }
+  }
 
   domain_aliases      = var.domain_aliases
   acm_certificate_arn = var.acm_certificate_arn

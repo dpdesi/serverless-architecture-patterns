@@ -63,13 +63,13 @@ variable "acm_certificate_arn" {
 }
 
 variable "api_origin_domain_name" {
-  description = "Domain name of the BFF API Gateway custom domain (e.g. api.app.example.com). When null, the CloudFront distribution serves only the SPA without an API origin."
+  description = "Optional override domain for the BFF API origin (e.g. api.app.example.com when a custom domain fronts API Gateway). When null, CloudFront uses the BFF's raw execute-api domain - useful for dev, but you usually want a custom domain in production so callers do not see AWS infrastructure URLs."
   type        = string
   default     = null
 }
 
 variable "api_origin_path_pattern" {
-  description = "Path pattern for the API origin behaviour."
+  description = "Path pattern routed from CloudFront to the BFF origin."
   type        = string
   default     = "/api/*"
 }

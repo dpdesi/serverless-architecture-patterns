@@ -4,8 +4,13 @@ output "api_id" {
 }
 
 output "api_endpoint" {
-  description = "HTTP API endpoint."
+  description = "HTTP API endpoint (full URL including scheme)."
   value       = aws_apigatewayv2_api.this.api_endpoint
+}
+
+output "api_domain_name" {
+  description = "Host-only portion of the HTTP API endpoint (no scheme). Suitable for use as a CloudFront origin domain_name."
+  value       = trimprefix(aws_apigatewayv2_api.this.api_endpoint, "https://")
 }
 
 output "execution_arn" {

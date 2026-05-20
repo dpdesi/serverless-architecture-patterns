@@ -2,7 +2,7 @@ locals {
   effective_kms_key_arn = var.create_kms_key ? aws_kms_key.this[0].arn : var.kms_key_arn
   primary_bucket_name   = coalesce(var.primary_origin_bucket_name, "${var.name}-primary")
   default_target_origin = var.secondary_origin == null ? "primary" : "primary-secondary"
-  api_enabled           = var.api_origin != null
+  api_enabled           = length(var.api_origins) > 0
   acm_enabled           = var.acm_certificate_arn != null
 }
 
@@ -136,11 +136,12 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   dynamic "origin" {
-    for_each = local.api_enabled ? [var.api_origin] : []
+    for_each = var.api_origins
 
     content {
       domain_name = origin.value.domain_name
-      origin_id   = "api"
+      origin_id   = "api-${origin.key}"
+      origin_path = origin.value.origin_path
 
       custom_origin_config {
         http_port              = 80
@@ -182,11 +183,11 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   dynamic "ordered_cache_behavior" {
-    for_each = local.api_enabled ? [var.api_origin] : []
+    for_each = var.api_origins
 
     content {
       path_pattern               = ordered_cache_behavior.value.path_pattern
-      target_origin_id           = "api"
+      target_origin_id           = "api-${ordered_cache_behavior.key}"
       viewer_protocol_policy     = "https-only"
       allowed_methods            = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
       cached_methods             = ["GET", "HEAD"]

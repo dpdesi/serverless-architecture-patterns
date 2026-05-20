@@ -62,9 +62,11 @@ run "valid_dual_origin_contract" {
       domain_name              = "contract-edge-secondary.s3.us-west-2.amazonaws.com"
       origin_access_control_id = "OAC123456"
     }
-    api_origin = {
-      domain_name  = "api.example.com"
-      path_pattern = "/api/*"
+    api_origins = {
+      api = {
+        domain_name  = "api.example.com"
+        path_pattern = "/api/*"
+      }
     }
     tags = {
       Environment = "test"
@@ -80,8 +82,70 @@ run "valid_dual_origin_contract" {
 
   assert {
     condition     = local.api_enabled
-    error_message = "api_origin must enable an ordered cache behaviour for the API path pattern."
+    error_message = "api_origins must enable an ordered cache behaviour for the API path pattern."
   }
+}
+
+run "valid_multi_bff_contract" {
+  command = plan
+
+  variables {
+    name = "contract-edge"
+    api_origins = {
+      catalogue = {
+        domain_name  = "abc.execute-api.eu-west-2.amazonaws.com"
+        path_pattern = "/catalogue/*"
+      }
+      cart = {
+        domain_name  = "def.execute-api.eu-west-2.amazonaws.com"
+        path_pattern = "/cart/*"
+      }
+      checkout = {
+        domain_name  = "ghi.execute-api.eu-west-2.amazonaws.com"
+        path_pattern = "/checkout/*"
+      }
+    }
+    tags = {
+      Environment = "test"
+      System      = "contract"
+      Owner       = "platform"
+    }
+  }
+
+  assert {
+    condition     = length(output.api_origin_ids) == 3
+    error_message = "Each api_origins entry must produce one CloudFront origin id."
+  }
+
+  assert {
+    condition     = output.api_origin_ids["catalogue"] == "api-catalogue"
+    error_message = "Origin ids must follow the api-<key> convention so callers can attach additional behaviours by key."
+  }
+}
+
+run "rejects_duplicate_path_patterns" {
+  command = plan
+
+  variables {
+    name = "contract-edge"
+    api_origins = {
+      catalogue = {
+        domain_name  = "abc.execute-api.eu-west-2.amazonaws.com"
+        path_pattern = "/api/*"
+      }
+      cart = {
+        domain_name  = "def.execute-api.eu-west-2.amazonaws.com"
+        path_pattern = "/api/*"
+      }
+    }
+    tags = {
+      Environment = "test"
+      System      = "contract"
+      Owner       = "platform"
+    }
+  }
+
+  expect_failures = [var.api_origins]
 }
 
 run "rejects_aliases_without_certificate" {
