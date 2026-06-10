@@ -8,3 +8,10 @@
 
 # Shell scripts must stay LF or they break when executed.
 *.sh text eol=lf
+
+# Images are binary - never apply line-ending normalisation.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary

@@ -14,6 +14,10 @@ The shared idea throughout: **services never call each other** — they exchange
 
 The architecture is documented visually in [docs/architecture/patterns-clean.drawio](docs/architecture/patterns-clean.drawio) — a **Pattern Icons** key (each pattern as one glyph), one detail tab per pattern, and two worked application examples (an online-order system and a payments payout process) drawn from those glyphs.
 
+![Online order subsystem composed from the pattern glyphs](docs/architecture/online-order-subsystem.png)
+
+*An online-order subsystem built entirely from the library's patterns. Each box is one pattern glyph (grey tab = pattern, touching tiles = the AWS resources, blue = the role); numbered labels trace the execution path. Every service collaborates through the central event hub — no direct service-to-service calls. See the [.drawio file](docs/architecture/patterns-clean.drawio) for the full Pattern Icons key and per-pattern detail tabs.*
+
 Ways to use it: compose the pattern modules directly, write a manifest and let the composer wire it, start from a worked example, scaffold a new repo from the Backstage/CLI templates, or open a PR from a manifest through the `subsystem-pr` GitHub workflow.
 
 ## Architecture Overview
