@@ -71,7 +71,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Pattern Icons" id="pattern-icons">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1450" pageHeight="920" math="0" shadow="0">
+    <mxGraphModel dx="1197" dy="812" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1450" pageHeight="920" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -474,7 +474,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="BFF Service" id="bff-service">
-    <mxGraphModel dx="1213" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -995,7 +995,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Observability Baseline" id="observability-baseline">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
+    <mxGraphModel dx="2597" dy="812" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1592,7 +1592,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Example: Online Order Subsystem" id="example-online-order">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1740" pageHeight="1360" math="0" shadow="0">
+    <mxGraphModel dx="1197" dy="812" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1740" pageHeight="1360" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1663,31 +1663,31 @@
           <mxGeometry height="14" width="35" x="290" y="316" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_body" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#F2F3F4;strokeColor=#C9CDD1;" value="" vertex="1">
-          <mxGeometry height="85" width="160" x="520" y="125" as="geometry" />
+          <mxGeometry height="85" width="160" x="563" y="125" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_tab" parent="1" style="rounded=0;fillColor=#7F868E;strokeColor=none;fontColor=#FFFFFF;fontStyle=1;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;" value="Catalogue BFF" vertex="1">
-          <mxGeometry height="18" width="87" x="520" y="125" as="geometry" />
+          <mxGeometry height="18" width="87" x="563" y="125" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_t0" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#BC1356;gradientColor=#FF4F8B;gradientDirection=north;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" value="" vertex="1">
-          <mxGeometry height="35" width="35" x="530" y="149" as="geometry" />
+          <mxGeometry height="35" width="35" x="573" y="149" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_s0" parent="1" style="text;html=1;align=center;verticalAlign=top;fontColor=#1E6FBF;fontStyle=1;whiteSpace=wrap;fontSize=8;" value="command" vertex="1">
-          <mxGeometry height="14" width="35" x="530" y="186" as="geometry" />
+          <mxGeometry height="14" width="35" x="573" y="186" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_t1" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D05C17;gradientColor=#F78E04;gradientDirection=north;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
-          <mxGeometry height="35" width="35" x="565" y="149" as="geometry" />
+          <mxGeometry height="35" width="35" x="608" y="149" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_t2" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#3334B9;gradientColor=#4D72F3;gradientDirection=north;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" value="" vertex="1">
-          <mxGeometry height="35" width="35" x="600" y="149" as="geometry" />
+          <mxGeometry height="35" width="35" x="643" y="149" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_s2" parent="1" style="text;html=1;align=center;verticalAlign=top;fontColor=#1E6FBF;fontStyle=1;whiteSpace=wrap;fontSize=8;" value="db" vertex="1">
-          <mxGeometry height="14" width="35" x="600" y="186" as="geometry" />
+          <mxGeometry height="14" width="35" x="643" y="186" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_t3" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D05C17;gradientColor=#F78E04;gradientDirection=north;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
-          <mxGeometry height="35" width="35" x="635" y="149" as="geometry" />
+          <mxGeometry height="35" width="35" x="678" y="149" as="geometry" />
         </mxCell>
         <mxCell id="ob_cat_s3" parent="1" style="text;html=1;align=center;verticalAlign=top;fontColor=#1E6FBF;fontStyle=1;whiteSpace=wrap;fontSize=8;" value="trigger" vertex="1">
-          <mxGeometry height="14" width="35" x="635" y="186" as="geometry" />
+          <mxGeometry height="14" width="35" x="678" y="186" as="geometry" />
         </mxCell>
         <mxCell id="ob_cart_body" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#F2F3F4;strokeColor=#C9CDD1;" value="" vertex="1">
           <mxGeometry height="85" width="160" x="755" y="125" as="geometry" />
@@ -1998,7 +1998,7 @@
         <mxCell id="ob_e2" edge="1" parent="1" source="ob_deployer_body" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontStyle=1;jettySize=auto;fontColor=#232F3E;strokeColor=#545B64;dashed=1;" target="ob_cdn_body" value="publish manifests">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ob_e3" edge="1" parent="1" source="ob_cdn_body" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontStyle=1;jettySize=auto;fontColor=#232F3E;strokeColor=#545B64;" target="ob_cat_body" value="2. api_origins: /catalogue/* /cart/* /checkout/* /orders/* /me/*">
+        <mxCell id="ob_e3" edge="1" parent="1" source="ob_cdn_body" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontStyle=1;jettySize=auto;fontColor=#232F3E;strokeColor=#545B64;" target="ob_cat_body" value="2. api_origins: /catalogue/* /cart/*&lt;br&gt;&amp;nbsp;/checkout/* /orders/* /me/*">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="490" y="165" />
@@ -2075,7 +2075,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Example: Payments Payout Process" id="example-payouts">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1740" pageHeight="1500" math="0" shadow="0">
+    <mxGraphModel dx="2937" dy="812" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1740" pageHeight="1500" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
