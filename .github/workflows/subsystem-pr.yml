@@ -1,0 +1,146 @@
+name: subsystem-pr
+
+# The GitOps front door for the manifest abstraction: paste a subsystem.yaml,
+# get a reviewable PR containing the manifest plus a Terraform root that
+# renders it through modules/composition/subsystem. Nothing is applied -
+# a human merges, and your normal deployment pipeline takes it from there.
+#
+# An agentic interface (e.g. an internal task builder) can call this with
+# `gh workflow run subsystem-pr.yml -f manifest="$(cat subsystem.yaml)"`.
+
+on:
+  workflow_dispatch:
+    inputs:
+      manifest:
+        description: Contents of subsystem.yaml
+        required: true
+        type: string
+      region:
+        description: Primary AWS region for the subsystem root
+        required: false
+        default: eu-west-2
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write manifest
+        env:
+          MANIFEST: ${{ inputs.manifest }}
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp-subsystem
+          printf '%s\n' "$MANIFEST" > .tmp-subsystem/subsystem.yaml
+
+      - name: Validate manifest against schema
+        uses: ./.github/actions/validate-manifest
+        with:
+          manifests: .tmp-subsystem/subsystem.yaml
+
+      - name: Render subsystem root
+        id: render
+        run: |
+          set -euo pipefail
+          NAME=$(python -c "import yaml; print(yaml.safe_load(open('.tmp-subsystem/subsystem.yaml'))['subsystem'])")
+          TARGET="subsystems/${NAME}"
+          mkdir -p "$TARGET"
+          mv .tmp-subsystem/subsystem.yaml "$TARGET/subsystem.yaml"
+          rmdir .tmp-subsystem
+
+          cat > "$TARGET/versions.tf" <<'EOF'
+          terraform {
+            required_version = ">= 1.7, < 2.0"
+
+            required_providers {
+              aws = {
+                source  = "hashicorp/aws"
+                version = "~> 6.0"
+              }
+            }
+          }
+          EOF
+
+          cat > "$TARGET/variables.tf" <<EOF
+          variable "region" {
+            description = "Primary region for the ${NAME} subsystem."
+            type        = string
+            default     = "${{ inputs.region }}"
+          }
+          EOF
+
+          cat > "$TARGET/main.tf" <<'EOF'
+          provider "aws" {
+            region = var.region
+          }
+
+          # The entire subsystem comes from one manifest. Edit subsystem.yaml,
+          # not this file - the composition derives all the wiring from it.
+          module "subsystem" {
+            source = "../../modules/composition/subsystem"
+
+            manifest = yamldecode(file("${path.module}/subsystem.yaml"))
+          }
+          EOF
+
+          cat > "$TARGET/outputs.tf" <<'EOF'
+          output "bus_name" {
+            value = module.subsystem.bus_name
+          }
+
+          output "api_endpoints" {
+            value = module.subsystem.api_endpoints
+          }
+
+          output "api_origins" {
+            description = "Feed to frontend_edge in a us-east-1 edge root."
+            value       = module.subsystem.api_origins
+          }
+
+          output "hub_route_keys" {
+            value = module.subsystem.hub_route_keys
+          }
+
+          output "monitored_functions" {
+            value = module.subsystem.monitored_functions
+          }
+          EOF
+
+          echo "name=${NAME}" >> "$GITHUB_OUTPUT"
+          echo "target=${TARGET}" >> "$GITHUB_OUTPUT"
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.1
+
+      - name: Validate rendered root
+        working-directory: ${{ steps.render.outputs.target }}
+        run: |
+          terraform fmt -recursive
+          terraform init -backend=false -input=false
+          terraform validate -no-color | tee validate.txt
+
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NAME: ${{ steps.render.outputs.name }}
+          TARGET: ${{ steps.render.outputs.target }}
+        run: |
+          set -euo pipefail
+          BRANCH="subsystem/${NAME}-$(date +%Y%m%d%H%M%S)"
+          git config user.name "subsystem-pr[bot]"
+          git config user.email "subsystem-pr[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "$TARGET"
+          git commit -m "Add ${NAME} subsystem from manifest"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "Add ${NAME} subsystem (manifest-composed)" \
+            --body "$(printf 'Rendered from `subsystem.yaml` by the subsystem-pr workflow.\n\n- Schema validation: passed\n- `terraform validate`: passed (init without backend)\n\nReview the manifest first - everything else is derived by `modules/composition/subsystem`. Run `terraform plan` with real credentials before applying; artefact references must point at CI/CD-published Lambda packages.')" \
+            --head "$BRANCH"

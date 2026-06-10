@@ -1,0 +1,30 @@
+name: Validate subsystem manifest
+description: >-
+  Validates one or more subsystem.yaml manifests against
+  schema/subsystem.schema.json. Reusable from other repositories:
+  uses: <org>/serverless-architecture-patterns/.github/actions/validate-manifest@<ref>
+
+inputs:
+  manifests:
+    description: Space-separated manifest paths (globs allowed).
+    required: true
+  schema:
+    description: Path to the manifest schema.
+    required: false
+    default: schema/subsystem.schema.json
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - shell: bash
+      run: pip install --quiet check-jsonschema
+
+    - shell: bash
+      run: |
+        set -euo pipefail
+        # shellcheck disable=SC2086 -- globs are intentional
+        check-jsonschema --schemafile "${{ inputs.schema }}" ${{ inputs.manifests }}

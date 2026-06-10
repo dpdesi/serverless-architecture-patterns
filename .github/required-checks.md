@@ -5,6 +5,7 @@ Configure repository branch protection or rulesets so pull requests cannot merge
 - `terraform fmt`
 - `terraform validate`
 - `terraform test`
+- `manifest schema`
 - `tflint`
 - `conftest`
 - `trivy config`

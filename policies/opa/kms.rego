@@ -7,6 +7,8 @@ encrypted_types := {
   "aws_dynamodb_table",
   "aws_sqs_queue",
   "aws_cloudwatch_log_group",
+  "aws_kinesis_firehose_delivery_stream",
+  "aws_sns_topic",
 }
 
 deny[msg] if {
@@ -14,7 +16,7 @@ deny[msg] if {
   resource.type in encrypted_types
   resource.mode == "managed"
   not has_encryption(resource)
-  msg := sprintf("%s must use encryption", [resource.address])
+  msg := sprintf("%s must use customer managed KMS encryption", [resource.address])
 }
 
 has_encryption(resource) if {
@@ -24,15 +26,20 @@ has_encryption(resource) if {
 
 has_encryption(resource) if {
   resource.type == "aws_sqs_queue"
-  resource.change.after.sqs_managed_sse_enabled
-}
-
-has_encryption(resource) if {
-  resource.type == "aws_sqs_queue"
   resource.change.after.kms_master_key_id
 }
 
 has_encryption(resource) if {
   resource.type == "aws_cloudwatch_log_group"
-  resource.change.after.retention_in_days > 0
+  resource.change.after.kms_key_id
+}
+
+has_encryption(resource) if {
+  resource.type == "aws_kinesis_firehose_delivery_stream"
+  resource.change.after.server_side_encryption[0].enabled
+}
+
+has_encryption(resource) if {
+  resource.type == "aws_sns_topic"
+  resource.change.after.kms_master_key_id
 }

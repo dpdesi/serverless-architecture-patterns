@@ -28,6 +28,16 @@ output "listener_queue_arn" {
   value       = aws_sqs_queue.listener.arn
 }
 
+output "listener_queue_url" {
+  description = "Listener queue URL. Needed by compositions that attach an SQS queue policy for EventBridge delivery."
+  value       = aws_sqs_queue.listener.url
+}
+
+output "listener_queue_name" {
+  description = "Listener queue name."
+  value       = aws_sqs_queue.listener.name
+}
+
 output "listener_dlq_arn" {
   description = "Listener queue dead-letter queue ARN."
   value       = aws_sqs_queue.listener_dlq.arn
@@ -55,4 +65,9 @@ output "lambda_function_names" {
     listener = module.listener.function_name
     trigger  = module.trigger.function_name
   }
+}
+
+output "timeout_seconds" {
+  description = "Effective Lambda timeout. Feed this to observability_baseline so the duration alarm threshold tracks the real timeout."
+  value       = var.timeout
 }

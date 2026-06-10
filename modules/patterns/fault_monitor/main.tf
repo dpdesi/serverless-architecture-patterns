@@ -1,3 +1,7 @@
+data "aws_caller_identity" "current" {}
+data "aws_partition" "current" {}
+data "aws_region" "current" {}
+
 locals {
   effective_kms_key_arn = var.create_kms_key ? aws_kms_key.this[0].arn : var.kms_key_arn
   bucket_name           = coalesce(var.bucket_name, var.name)
@@ -306,6 +310,32 @@ data "aws_iam_policy_document" "sns_topic" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values   = [aws_cloudwatch_event_rule.faults.arn]
+    }
+  }
+
+  # Attaching a topic policy replaces the SNS default policy, which is what
+  # normally lets same-account CloudWatch alarms publish - so the module's
+  # own alarms must be granted explicitly.
+  statement {
+    sid       = "AllowCloudWatchAlarmsPublish"
+    actions   = ["sns:Publish"]
+    resources = [aws_sns_topic.faults.arn]
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudwatch.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = ["arn:${data.aws_partition.current.partition}:cloudwatch:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:alarm:*"]
     }
   }
 }

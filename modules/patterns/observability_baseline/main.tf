@@ -1,5 +1,5 @@
 locals {
-  effective_kms_key_arn = var.kms_key_arn != null ? var.kms_key_arn : aws_kms_key.this[0].arn
+  effective_kms_key_arn = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
   alarm_actions         = concat([aws_sns_topic.alarms.arn], var.alarm_actions)
   adot_environment_variables = {
     AWS_LAMBDA_EXEC_WRAPPER             = "/opt/otel-handler"
@@ -16,7 +16,7 @@ locals {
 }
 
 resource "aws_kms_key" "this" {
-  count = var.kms_key_arn == null ? 1 : 0
+  count = var.create_kms_key && var.kms_key_arn == null ? 1 : 0
 
   description         = "KMS key for ${var.name} observability resources"
   enable_key_rotation = true
@@ -121,6 +121,27 @@ resource "aws_cloudwatch_metric_alarm" "dlq_depth" {
   }
 }
 
+resource "aws_cloudwatch_metric_alarm" "queue_depth" {
+  for_each = var.monitored_queues
+
+  alarm_name          = "${var.name}-${each.key}-visible-messages"
+  alarm_description   = "Messages are accumulating in ${each.key} - deliveries are failing and need investigation."
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "ApproximateNumberOfMessagesVisible"
+  namespace           = "AWS/SQS"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 0
+  alarm_actions       = local.alarm_actions
+  treat_missing_data  = "notBreaching"
+  tags                = var.tags
+
+  dimensions = {
+    QueueName = each.value
+  }
+}
+
 resource "aws_cloudwatch_dashboard" "this" {
   count = var.create_dashboard ? 1 : 0
 
@@ -145,4 +166,13 @@ resource "aws_cloudwatch_dashboard" "this" {
       }
     ]
   })
+}
+
+resource "terraform_data" "validate_kms_inputs" {
+  lifecycle {
+    precondition {
+      condition     = var.create_kms_key || var.kms_key_arn != null
+      error_message = "Provide a kms_key_arn when create_kms_key is false - otherwise resources would be created without customer-managed encryption."
+    }
+  }
 }

@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=../../../schema/subsystem.schema.json
+#
+# Autonomous payouts subsystem - the worked example from
+# docs/architecture/patterns-clean.drawio ("Example: Payments Payout Process"),
+# expressed as a manifest and rendered by modules/composition/subsystem.
+
+subsystem: payouts
+description: >-
+  Pays out funds to partners through a banking rails provider, with
+  compliance screening, saga-orchestrated execution and a regulatory
+  audit trail.
+
+tags:
+  Environment: dev
+  System: payments
+  Owner: payouts-team
+
+artefact_defaults:
+  bucket: payouts-artefacts-dev
+  prefix: lambda/
+
+hub:
+  archive: true
+  archive_retention_days: 30
+
+bffs:
+  - name: initiation
+    activity: task
+    path: /payouts/*
+    publishes: [PayoutRequested]
+
+  - name: tracking
+    activity: dashboard
+    path: /tracking/*
+    read_only: true
+    subscribes:
+      - PayoutApproved
+      - PayoutRejected
+      - TransferInstructed
+      - TransferSettled
+      - TransferReturned
+
+controls:
+  - name: compliance-screening
+    mode: event_reactor
+    subscribes: [PayoutRequested]
+    emits: [PayoutApproved, PayoutRejected]
+
+  - name: execution-saga
+    mode: step_functions
+    subscribes: [PayoutApproved, TransferSettled, TransferReturned]
+    emits: [TransferInstructed, PayoutCompleted, PayoutFailed]
+
+esgs:
+  - name: banking-rails
+    external: partner-bank
+    egress: [TransferInstructed]
+    webhook: true
+
+operations:
+  event_lake:
+    enabled: true
+  fault_monitor:
+    enabled: true
+    emails: [payouts-oncall@example.com]
+  observability:
+    enabled: true
+    emails: [payouts-oncall@example.com]
+  regional_health:
+    enabled: false

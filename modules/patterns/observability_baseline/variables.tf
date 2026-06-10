@@ -51,3 +51,15 @@ variable "tags" {
     error_message = "tags must include Environment, System, and Owner."
   }
 }
+
+variable "create_kms_key" {
+  description = "Whether the module creates its own KMS key when kms_key_arn is null. Set to false (and pass kms_key_arn) when the key comes from a parent composition - Terraform cannot evaluate `kms_key_arn == null` in a count when the ARN is a computed reference that is not known until apply."
+  type        = bool
+  default     = true
+}
+
+variable "monitored_queues" {
+  description = "Queue names to alarm on depth (ApproximateNumberOfMessagesVisible > 0), keyed by a stable identifier. Use for DLQs that do not belong to a monitored Lambda, such as EventBridge rule-target DLQs."
+  type        = map(string)
+  default     = {}
+}

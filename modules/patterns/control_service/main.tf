@@ -1,7 +1,7 @@
 locals {
   event_reactor_enabled  = var.mode == "event_reactor"
   step_functions_enabled = var.mode == "step_functions"
-  effective_kms_key_arn  = var.kms_key_arn != null ? var.kms_key_arn : aws_kms_key.this[0].arn
+  effective_kms_key_arn  = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
   table_name             = coalesce(var.table_name, "${var.name}-events")
   listener_artefact      = var.artefacts.listener == null ? { s3_bucket = "", s3_key = "" } : var.artefacts.listener
   trigger_artefact       = var.artefacts.trigger == null ? { s3_bucket = "", s3_key = "" } : var.artefacts.trigger
@@ -21,7 +21,7 @@ locals {
 }
 
 resource "aws_kms_key" "this" {
-  count = var.kms_key_arn == null ? 1 : 0
+  count = var.create_kms_key && var.kms_key_arn == null ? 1 : 0
 
   description         = "KMS key for ${var.name} Control Service resources"
   enable_key_rotation = true
@@ -86,16 +86,19 @@ module "listener" {
   count  = local.event_reactor_enabled ? 1 : 0
   source = "../../primitives/lambda_function"
 
-  name               = "${var.name}-listener"
-  s3_bucket          = local.listener_artefact.s3_bucket
-  s3_key             = local.listener_artefact.s3_key
-  runtime            = var.runtime
-  handler            = var.handler
-  memory_size        = var.memory_size
-  timeout            = var.timeout
-  create_kms_key     = false
-  kms_key_arn        = local.effective_kms_key_arn
-  log_retention_days = var.log_retention_days
+  name = "${var.name}-listener"
+  # ESM-invoked (synchronous): the primitive's async DLQ never receives
+  # messages and its default name collides with the pattern-level DLQ.
+  create_dead_letter_queue = false
+  s3_bucket                = local.listener_artefact.s3_bucket
+  s3_key                   = local.listener_artefact.s3_key
+  runtime                  = var.runtime
+  handler                  = var.handler
+  memory_size              = var.memory_size
+  timeout                  = var.timeout
+  create_kms_key           = false
+  kms_key_arn              = local.effective_kms_key_arn
+  log_retention_days       = var.log_retention_days
   environment_variables = merge(local.common_environment, {
     COMPONENT  = "listener"
     TABLE_NAME = module.table[0].name
@@ -126,16 +129,19 @@ module "trigger" {
   count  = local.event_reactor_enabled ? 1 : 0
   source = "../../primitives/lambda_function"
 
-  name               = "${var.name}-trigger"
-  s3_bucket          = local.trigger_artefact.s3_bucket
-  s3_key             = local.trigger_artefact.s3_key
-  runtime            = var.runtime
-  handler            = var.handler
-  memory_size        = var.memory_size
-  timeout            = var.timeout
-  create_kms_key     = false
-  kms_key_arn        = local.effective_kms_key_arn
-  log_retention_days = var.log_retention_days
+  name = "${var.name}-trigger"
+  # ESM-invoked (synchronous): the primitive's async DLQ never receives
+  # messages and its default name collides with the pattern-level DLQ.
+  create_dead_letter_queue = false
+  s3_bucket                = local.trigger_artefact.s3_bucket
+  s3_key                   = local.trigger_artefact.s3_key
+  runtime                  = var.runtime
+  handler                  = var.handler
+  memory_size              = var.memory_size
+  timeout                  = var.timeout
+  create_kms_key           = false
+  kms_key_arn              = local.effective_kms_key_arn
+  log_retention_days       = var.log_retention_days
   environment_variables = merge(local.common_environment, {
     COMPONENT  = "trigger"
     TABLE_NAME = module.table[0].name
@@ -171,6 +177,15 @@ resource "aws_cloudwatch_event_rule" "listener" {
   tags           = var.tags
 }
 
+resource "aws_sqs_queue" "listener_rule_dlq" {
+  count = local.event_reactor_enabled ? 1 : 0
+
+  name                      = "${var.name}-listener-rule-dlq"
+  kms_master_key_id         = local.effective_kms_key_arn
+  message_retention_seconds = var.dlq_message_retention_seconds
+  tags                      = var.tags
+}
+
 resource "aws_cloudwatch_event_target" "listener" {
   count = local.event_reactor_enabled ? 1 : 0
 
@@ -178,6 +193,38 @@ resource "aws_cloudwatch_event_target" "listener" {
   event_bus_name = var.event_bus_name
   target_id      = "listener-queue"
   arn            = aws_sqs_queue.listener[0].arn
+
+  dead_letter_config {
+    arn = aws_sqs_queue.listener_rule_dlq[0].arn
+  }
+}
+
+data "aws_iam_policy_document" "listener_rule_dlq" {
+  count = local.event_reactor_enabled ? 1 : 0
+
+  statement {
+    sid       = "AllowEventBridgeDeadLetter"
+    actions   = ["sqs:SendMessage"]
+    resources = [aws_sqs_queue.listener_rule_dlq[0].arn]
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [aws_cloudwatch_event_rule.listener[0].arn]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "listener_rule_dlq" {
+  count = local.event_reactor_enabled ? 1 : 0
+
+  queue_url = aws_sqs_queue.listener_rule_dlq[0].url
+  policy    = data.aws_iam_policy_document.listener_rule_dlq[0].json
 }
 
 data "aws_iam_policy_document" "listener_queue" {
@@ -366,6 +413,15 @@ resource "aws_cloudwatch_event_rule" "workflow" {
   tags           = var.tags
 }
 
+resource "aws_sqs_queue" "workflow_rule_dlq" {
+  count = local.step_functions_enabled ? 1 : 0
+
+  name                      = "${var.name}-workflow-rule-dlq"
+  kms_master_key_id         = local.effective_kms_key_arn
+  message_retention_seconds = var.dlq_message_retention_seconds
+  tags                      = var.tags
+}
+
 resource "aws_cloudwatch_event_target" "workflow" {
   count = local.step_functions_enabled ? 1 : 0
 
@@ -374,4 +430,87 @@ resource "aws_cloudwatch_event_target" "workflow" {
   target_id      = "state-machine"
   arn            = aws_sfn_state_machine.this[0].arn
   role_arn       = aws_iam_role.events_start_execution[0].arn
+
+  dead_letter_config {
+    arn = aws_sqs_queue.workflow_rule_dlq[0].arn
+  }
+}
+
+data "aws_iam_policy_document" "workflow_rule_dlq" {
+  count = local.step_functions_enabled ? 1 : 0
+
+  statement {
+    sid       = "AllowEventBridgeDeadLetter"
+    actions   = ["sqs:SendMessage"]
+    resources = [aws_sqs_queue.workflow_rule_dlq[0].arn]
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [aws_cloudwatch_event_rule.workflow[0].arn]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "workflow_rule_dlq" {
+  count = local.step_functions_enabled ? 1 : 0
+
+  queue_url = aws_sqs_queue.workflow_rule_dlq[0].url
+  policy    = data.aws_iam_policy_document.workflow_rule_dlq[0].json
+}
+
+resource "aws_cloudwatch_metric_alarm" "executions_failed" {
+  count = local.step_functions_enabled ? 1 : 0
+
+  alarm_name          = "${var.name}-executions-failed"
+  alarm_description   = "The ${var.name} workflow has failed executions."
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "ExecutionsFailed"
+  namespace           = "AWS/States"
+  period              = 60
+  statistic           = "Sum"
+  threshold           = 0
+  alarm_actions       = var.alarm_actions
+  treat_missing_data  = "notBreaching"
+  tags                = var.tags
+
+  dimensions = {
+    StateMachineArn = aws_sfn_state_machine.this[0].arn
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "executions_timed_out" {
+  count = local.step_functions_enabled ? 1 : 0
+
+  alarm_name          = "${var.name}-executions-timed-out"
+  alarm_description   = "The ${var.name} workflow has timed-out executions."
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "ExecutionsTimedOut"
+  namespace           = "AWS/States"
+  period              = 60
+  statistic           = "Sum"
+  threshold           = 0
+  alarm_actions       = var.alarm_actions
+  treat_missing_data  = "notBreaching"
+  tags                = var.tags
+
+  dimensions = {
+    StateMachineArn = aws_sfn_state_machine.this[0].arn
+  }
+}
+
+resource "terraform_data" "validate_kms_inputs" {
+  lifecycle {
+    precondition {
+      condition     = var.create_kms_key || var.kms_key_arn != null
+      error_message = "Provide a kms_key_arn when create_kms_key is false - otherwise resources would be created without customer-managed encryption."
+    }
+  }
 }

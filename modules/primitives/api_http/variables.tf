@@ -58,9 +58,14 @@ variable "auto_deploy" {
 }
 
 variable "access_log_retention_days" {
-  description = "Access log retention in days."
+  description = "Access log retention in days. Must be a finite retention period - unlimited retention (0) is not permitted."
   type        = number
   default     = 30
+
+  validation {
+    condition     = contains([1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653], var.access_log_retention_days)
+    error_message = "access_log_retention_days must be one of the finite retention periods CloudWatch Logs supports (1 to 3653 days); unlimited retention (0) is not permitted."
+  }
 }
 
 variable "kms_key_arn" {

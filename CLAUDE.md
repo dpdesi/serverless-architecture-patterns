@@ -17,11 +17,12 @@ A Terraform pattern library providing production-ready, reusable implementations
 terraform fmt -check -recursive     # Check formatting
 ./scripts/validate.sh               # Validate all example/stack roots (Linux/macOS)
 .\scripts\validate.ps1              # Windows equivalent
+tflint --init && tflint --recursive # Lint (config in .tflint.hcl)
 ```
 
 ### Testing
 ```bash
-make test                                               # Run all module contract tests
+make test   # Runs all 15 module contract tests
 
 # Run a single module's tests
 terraform test ./modules/primitives/lambda_function
@@ -38,6 +39,7 @@ terraform test ./modules/patterns/frontend_edge
 terraform test ./modules/patterns/regional_health_check
 terraform test ./modules/patterns/fault_monitor
 terraform test ./modules/patterns/micro_frontend
+terraform test ./modules/composition/subsystem
 ```
 
 ### Policy & Security Gates
@@ -45,6 +47,7 @@ terraform test ./modules/patterns/micro_frontend
 make policy     # OPA/conftest policy checks
 make security   # Trivy HIGH/CRITICAL scan
 ```
+The policy gate asserts both directions: fixtures in `tests/fixtures/pass` must pass and fixtures in `tests/fixtures/fail` must fail. When adding an OPA rule in `policies/opa/`, add fixtures to both directories.
 
 ### Smoke Tests (LocalStack)
 ```bash
@@ -77,6 +80,9 @@ cd examples/subsystem-core/customer-subsystem && terraform init && terraform app
 - `fault_monitor` — Dedicated Firehose-to-S3 archive for `fault` events with SNS alerting and rule DLQ; pairs with the resubmission workflow described in Chapter 4
 - `micro_frontend` — Manifest bucket + deployer Lambda that aggregates per-app `mfe.json` fragments into master `importmap/apps/mount-points` manifests; optional CloudFront invalidation
 
+**Composition** (`modules/composition/`) — the abstraction on top of the patterns:
+- `subsystem` — Renders a whole autonomous subsystem from a declarative `subsystem.yaml` manifest (schema in `schema/subsystem.schema.json`); derives hub routes, SQS queue policies for EventBridge delivery, per-route DLQs, the events→Firehose glue role, KMS service grants, and observability inputs. Example: `examples/systems/payouts-subsystem`
+
 ### Topology
 ```
 Event Hub (EventBridge) ← central routing layer
@@ -91,21 +97,30 @@ Event Hub (EventBridge) ← central routing layer
 - `stacks/reference/` — Four reference stack templates: `subsystem_core`, `integration`, `records_analytics`, `public_app`
 - `stacks/envs/` — Environment roots (dev/staging/prod via workspace aliases)
 - `examples/` — Runnable minimal examples per pattern/primitive + LocalStack smoke path
+- `examples/systems/customer-engagement-system/` — Complete system composition wiring event hub, BFF, Control Service, ESG, event lake, and observability baseline together
 - `templates/backstage/` — Backstage templates for scaffolding new subsystems and services
 
 ### Testing Strategy
 Each module contains `.tftest.hcl` files running contract-level tests via `terraform test`. Policy gates use OPA Rego rules in `policies/opa/` (IAM, KMS, S3, tags). Security scanning via Trivy. LocalStack 3 provides the smoke-test environment.
 
 ### Security & Compliance Defaults (enforced across all modules)
-- Customer-managed KMS encryption everywhere (DynamoDB, logs, EventBridge, SQS)
+- Customer-managed KMS encryption everywhere (DynamoDB, logs, EventBridge, SQS, SNS, Firehose)
 - One IAM execution role per Lambda (never shared)
-- Finite CloudWatch log retention (never unlimited)
-- Dead-letter queues on all async/event paths
+- Finite CloudWatch log retention — enforced by variable validation, 0 (unlimited) is rejected
+- Dead-letter queues on all async/event paths, including a dead_letter_config on every EventBridge rule target
 - Secrets via SSM/Secrets Manager ARNs — never inlined in config
-- DynamoDB: deletion protection + PITR always on
-- S3: versioning + public-access block + lifecycle policies
+- DynamoDB: deletion protection + PITR enabled by default (explicitly overridable per table)
+- S3: versioning + public-access block + lifecycle policies; the event lake bucket also has Object Lock (GOVERNANCE) for immutability
 - Child modules declare only `required_providers` — provider config lives in roots only
 - Tags (Environment, System, Owner) are required and propagated
 
+### Conventions
+- Modules are source-code free: they accept artefact references (S3 locations, image URIs, ARNs) and configuration — never bundle application code
+- British English in documentation and comments (standardised, catalogue, artefact)
+- Modules follow semantic versioning: breaking input/output changes = major, additive inputs/outputs = minor, internal fixes = patch; `CHANGELOG.md` is curated by humans before each release tag
+
 ### CI Pipeline (`.github/workflows/ci.yml`)
-Seven jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (parallel across 10 modules) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
+Eight jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (matrix across all 15 modules) → `manifest schema` (subsystem.yaml files against `schema/subsystem.schema.json`) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
+
+### Subsystem PR workflow (`.github/workflows/subsystem-pr.yml`)
+`workflow_dispatch` GitOps front door for the manifest abstraction: takes a pasted `subsystem.yaml`, validates it against the schema, renders a Terraform root under `subsystems/<name>/` via `modules/composition/subsystem`, runs `terraform validate`, and opens a PR. Nothing is applied — a human merges. Callable from automation with `gh workflow run subsystem-pr.yml -f manifest="$(cat subsystem.yaml)"`. The schema-validation step is a reusable composite action at `.github/actions/validate-manifest`.

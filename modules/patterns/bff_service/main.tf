@@ -1,5 +1,5 @@
 locals {
-  effective_kms_key_arn = var.kms_key_arn != null ? var.kms_key_arn : aws_kms_key.this[0].arn
+  effective_kms_key_arn = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
 
   common_environment = merge(var.environment_variables, {
     EVENT_BUS_NAME = var.event_bus_name
@@ -19,7 +19,7 @@ locals {
 }
 
 resource "aws_kms_key" "this" {
-  count = var.kms_key_arn == null ? 1 : 0
+  count = var.create_kms_key && var.kms_key_arn == null ? 1 : 0
 
   description         = "KMS key for ${var.name} BFF resources"
   enable_key_rotation = true
@@ -96,16 +96,19 @@ module "rest" {
 module "listener" {
   source = "../../primitives/lambda_function"
 
-  name               = "${var.name}-listener"
-  s3_bucket          = var.artefacts.listener.s3_bucket
-  s3_key             = var.artefacts.listener.s3_key
-  runtime            = var.runtime
-  handler            = var.handler
-  memory_size        = var.memory_size
-  timeout            = var.timeout
-  create_kms_key     = false
-  kms_key_arn        = local.effective_kms_key_arn
-  log_retention_days = var.log_retention_days
+  name = "${var.name}-listener"
+  # ESM-invoked (synchronous): the primitive's async DLQ never receives
+  # messages and its default name collides with the pattern-level DLQ.
+  create_dead_letter_queue = false
+  s3_bucket                = var.artefacts.listener.s3_bucket
+  s3_key                   = var.artefacts.listener.s3_key
+  runtime                  = var.runtime
+  handler                  = var.handler
+  memory_size              = var.memory_size
+  timeout                  = var.timeout
+  create_kms_key           = false
+  kms_key_arn              = local.effective_kms_key_arn
+  log_retention_days       = var.log_retention_days
   environment_variables = merge(local.common_environment, {
     COMPONENT = "listener"
   })
@@ -130,16 +133,19 @@ module "listener" {
 module "trigger" {
   source = "../../primitives/lambda_function"
 
-  name               = "${var.name}-trigger"
-  s3_bucket          = var.artefacts.trigger.s3_bucket
-  s3_key             = var.artefacts.trigger.s3_key
-  runtime            = var.runtime
-  handler            = var.handler
-  memory_size        = var.memory_size
-  timeout            = var.timeout
-  create_kms_key     = false
-  kms_key_arn        = local.effective_kms_key_arn
-  log_retention_days = var.log_retention_days
+  name = "${var.name}-trigger"
+  # ESM-invoked (synchronous): the primitive's async DLQ never receives
+  # messages and its default name collides with the pattern-level DLQ.
+  create_dead_letter_queue = false
+  s3_bucket                = var.artefacts.trigger.s3_bucket
+  s3_key                   = var.artefacts.trigger.s3_key
+  runtime                  = var.runtime
+  handler                  = var.handler
+  memory_size              = var.memory_size
+  timeout                  = var.timeout
+  create_kms_key           = false
+  kms_key_arn              = local.effective_kms_key_arn
+  log_retention_days       = var.log_retention_days
   environment_variables = merge(local.common_environment, {
     COMPONENT = "trigger"
   })
@@ -209,6 +215,15 @@ resource "aws_lambda_event_source_mapping" "trigger" {
   destination_config {
     on_failure {
       destination_arn = aws_sqs_queue.trigger_dlq.arn
+    }
+  }
+}
+
+resource "terraform_data" "validate_kms_inputs" {
+  lifecycle {
+    precondition {
+      condition     = var.create_kms_key || var.kms_key_arn != null
+      error_message = "Provide a kms_key_arn when create_kms_key is false - otherwise resources would be created without customer-managed encryption."
     }
   }
 }

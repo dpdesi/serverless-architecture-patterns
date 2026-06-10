@@ -1,16 +1,17 @@
 locals {
-  effective_kms_key_arn = var.kms_key_arn != null ? var.kms_key_arn : aws_kms_key.this[0].arn
+  effective_kms_key_arn = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
 
   targets = flatten([
     for route_key, route in var.routes : [
       for target in route.targets : {
-        key                   = "${route_key}/${target.id}"
-        route_key             = route_key
-        target_id             = target.id
-        target_arn            = target.arn
-        role_arn              = target.role_arn
-        input_path            = target.input_path
-        dead_letter_queue_arn = target.dead_letter_queue_arn
+        key                      = "${route_key}/${target.id}"
+        route_key                = route_key
+        target_id                = target.id
+        target_arn               = target.arn
+        role_arn                 = target.role_arn
+        input_path               = target.input_path
+        dead_letter_queue_arn    = target.dead_letter_queue_arn
+        create_dead_letter_queue = target.create_dead_letter_queue
       }
     ]
   ])
@@ -21,7 +22,7 @@ locals {
 }
 
 resource "aws_kms_key" "this" {
-  count = var.kms_key_arn == null ? 1 : 0
+  count = var.create_kms_key && var.kms_key_arn == null ? 1 : 0
 
   description         = "KMS key for ${var.name} event hub target queues"
   enable_key_rotation = true
@@ -44,7 +45,7 @@ module "bus" {
 resource "aws_sqs_queue" "target_dlq" {
   for_each = {
     for key, target in local.targets_by_key : key => target
-    if target.dead_letter_queue_arn == null
+    if target.create_dead_letter_queue && target.dead_letter_queue_arn == null
   }
 
   name              = "${var.name}-${replace(replace(each.key, "/", "-"), "_", "-")}-dlq"
@@ -74,7 +75,7 @@ resource "aws_cloudwatch_event_target" "route" {
   input_path     = each.value.input_path
 
   dead_letter_config {
-    arn = each.value.dead_letter_queue_arn != null ? each.value.dead_letter_queue_arn : aws_sqs_queue.target_dlq[each.key].arn
+    arn = each.value.create_dead_letter_queue && each.value.dead_letter_queue_arn == null ? aws_sqs_queue.target_dlq[each.key].arn : each.value.dead_letter_queue_arn
   }
 }
 
@@ -97,6 +98,15 @@ resource "aws_pipes_pipe" "this" {
           pattern = source_parameters.value
         }
       }
+    }
+  }
+}
+
+resource "terraform_data" "validate_kms_inputs" {
+  lifecycle {
+    precondition {
+      condition     = var.create_kms_key || var.kms_key_arn != null
+      error_message = "Provide a kms_key_arn when create_kms_key is false - otherwise resources would be created without customer-managed encryption."
     }
   }
 }

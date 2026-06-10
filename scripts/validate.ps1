@@ -8,7 +8,8 @@ $env:TEMP = $tmp
 $env:TMP = $tmp
 $env:TF_PLUGIN_CACHE_DIR = $cache
 
-$roots = Get-ChildItem -Path examples,stacks/reference -Recurse -Filter versions.tf |
+$scanDirs = @("examples", "stacks/reference") + @(if (Test-Path "subsystems") { "subsystems" })
+$roots = Get-ChildItem -Path $scanDirs -Recurse -Filter versions.tf |
   ForEach-Object { $_.Directory.FullName } |
   Sort-Object -Unique
 

@@ -39,6 +39,29 @@ variable "noncurrent_retention_days" {
   default     = 90
 }
 
+variable "object_lock_retention_days" {
+  description = "S3 Object Lock default retention in days (GOVERNANCE mode). Objects cannot be deleted or overwritten within this window without bypass permission."
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.object_lock_retention_days >= 1
+    error_message = "object_lock_retention_days must be at least 1."
+  }
+}
+
+variable "delivery_alarm_evaluation_periods" {
+  description = "Evaluation periods for the Firehose delivery-failure alarm."
+  type        = number
+  default     = 3
+}
+
+variable "alarm_actions" {
+  description = "Actions (e.g. SNS topic ARNs) for the Firehose delivery-failure alarm."
+  type        = list(string)
+  default     = []
+}
+
 variable "buffering_size" {
   description = "Firehose buffering size in MB."
   type        = number
@@ -69,4 +92,10 @@ variable "tags" {
     ])
     error_message = "tags must include Environment, System, and Owner."
   }
+}
+
+variable "create_kms_key" {
+  description = "Whether the module creates its own KMS key when kms_key_arn is null. Set to false (and pass kms_key_arn) when the key comes from a parent composition - Terraform cannot evaluate `kms_key_arn == null` in a count when the ARN is a computed reference that is not known until apply."
+  type        = bool
+  default     = true
 }

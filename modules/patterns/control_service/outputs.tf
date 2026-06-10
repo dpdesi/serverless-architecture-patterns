@@ -41,7 +41,32 @@ output "lambda_function_names" {
   }
 }
 
+output "listener_rule_dlq_arn" {
+  description = "DLQ ARN for failed EventBridge deliveries to the listener queue in event_reactor mode."
+  value       = try(aws_sqs_queue.listener_rule_dlq[0].arn, null)
+}
+
+output "listener_rule_dlq_name" {
+  description = "DLQ name for failed EventBridge deliveries to the listener queue in event_reactor mode."
+  value       = try(aws_sqs_queue.listener_rule_dlq[0].name, null)
+}
+
 output "state_machine_arn" {
   description = "State machine ARN in step_functions mode."
   value       = try(aws_sfn_state_machine.this[0].arn, null)
+}
+
+output "workflow_rule_dlq_arn" {
+  description = "DLQ ARN for failed EventBridge starts of the state machine in step_functions mode."
+  value       = try(aws_sqs_queue.workflow_rule_dlq[0].arn, null)
+}
+
+output "workflow_rule_dlq_name" {
+  description = "DLQ name for failed EventBridge starts of the state machine in step_functions mode."
+  value       = try(aws_sqs_queue.workflow_rule_dlq[0].name, null)
+}
+
+output "timeout_seconds" {
+  description = "Effective Lambda timeout. Feed this to observability_baseline so the duration alarm threshold tracks the real timeout."
+  value       = var.timeout
 }

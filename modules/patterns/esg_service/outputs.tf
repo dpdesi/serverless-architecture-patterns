@@ -32,3 +32,18 @@ output "egress_rule_name" {
   description = "EventBridge egress rule name."
   value       = aws_cloudwatch_event_rule.egress.name
 }
+
+output "egress_rule_dlq_arn" {
+  description = "DLQ ARN for failed EventBridge deliveries to the egress queue."
+  value       = aws_sqs_queue.egress_rule_dlq.arn
+}
+
+output "egress_rule_dlq_name" {
+  description = "DLQ name for failed EventBridge deliveries. Useful for observability_baseline depth alarms."
+  value       = aws_sqs_queue.egress_rule_dlq.name
+}
+
+output "timeout_seconds" {
+  description = "Effective Lambda timeout. Feed this to observability_baseline so the duration alarm threshold tracks the real timeout."
+  value       = var.timeout
+}

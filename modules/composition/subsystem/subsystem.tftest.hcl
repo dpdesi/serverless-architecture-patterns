@@ -1,0 +1,198 @@
+mock_provider "aws" {
+  mock_data "aws_iam_policy_document" {
+    defaults = {
+      json = "{\"Version\":\"2012-10-17\",\"Statement\":[]}"
+    }
+  }
+}
+
+variables {
+  manifest = {
+    subsystem = "payouts"
+    tags = {
+      Environment = "test"
+      System      = "payments"
+      Owner       = "payouts-team"
+    }
+    artefact_defaults = {
+      bucket = "payouts-artefacts-test"
+      prefix = "lambda/"
+    }
+    bffs = [
+      {
+        name      = "initiation"
+        path      = "/payouts/*"
+        publishes = ["PayoutRequested"]
+      },
+      {
+        name       = "tracking"
+        path       = "/tracking/*"
+        read_only  = true
+        subscribes = ["PayoutApproved", "TransferSettled"]
+      },
+    ]
+    controls = [
+      {
+        name       = "screening"
+        mode       = "event_reactor"
+        subscribes = ["PayoutRequested"]
+      },
+      {
+        name       = "execution-saga"
+        mode       = "step_functions"
+        subscribes = ["PayoutApproved"]
+      },
+    ]
+    esgs = [
+      {
+        name    = "banking-rails"
+        egress  = ["TransferInstructed"]
+        webhook = true
+      },
+    ]
+    operations = {
+      fault_monitor = { enabled = true }
+      observability = { enabled = true }
+    }
+  }
+}
+
+run "composes_manifest_into_subsystem" {
+  command = plan
+
+  assert {
+    condition     = output.subsystem == "payouts"
+    error_message = "The subsystem name must come from the manifest."
+  }
+
+  assert {
+    condition     = output.hub_route_keys == tolist(["event-lake", "tracking-inbound"])
+    error_message = "The hub must get one inbound route per subscribing BFF plus the event-lake archive route - and nothing for BFFs without subscriptions."
+  }
+
+  assert {
+    condition     = sort(keys(output.api_origins)) == sort(["initiation", "tracking"]) && output.api_origins["initiation"].path_pattern == "/payouts/*"
+    error_message = "api_origins must contain every BFF that declares a path, keyed by BFF name with its path_pattern."
+  }
+
+  assert {
+    condition = output.monitored_functions == tolist(sort([
+      "initiation-rest", "initiation-listener", "initiation-trigger",
+      "tracking-rest", "tracking-listener", "tracking-trigger",
+      "screening-listener", "screening-trigger",
+      "banking-rails-ingress", "banking-rails-egress",
+    ]))
+    error_message = "Observability must cover all BFF and ESG functions and reactor-mode control functions, but not step_functions sagas."
+  }
+
+  assert {
+    condition     = aws_sqs_queue.route_dlq["tracking-inbound"].name == "payouts-hub-tracking-inbound-dlq"
+    error_message = "Every composer-generated hub route must get a named, KMS-encrypted DLQ."
+  }
+
+  assert {
+    condition     = length(aws_sqs_queue_policy.bff_listener) == 1
+    error_message = "Each subscribing BFF listener queue must receive exactly one queue policy granting EventBridge delivery."
+  }
+
+  # The composer predicts hub rule ARNs to break a dependency cycle. If
+  # event_hub ever renames its rules, this assertion fails here instead of
+  # silently breaking EventBridge delivery in production.
+  assert {
+    condition     = alltrue([for k, name in output.hub_rule_names : name == "payouts-hub-${k}"])
+    error_message = "Predicted hub rule names (used in the listener/DLQ queue policies) must match the names event_hub actually creates."
+  }
+
+  assert {
+    condition     = length(local.monitored_queues) == 5
+    error_message = "The composer must hand every off-Lambda DLQ (2 hub route DLQs + screening listener-rule DLQ + saga workflow-rule DLQ + banking-rails egress-rule DLQ) to observability for depth alarms."
+  }
+
+  assert {
+    condition     = length(aws_iam_role.events_to_firehose) == 1
+    error_message = "The EventBridge-to-Firehose glue role must exist when the event lake is enabled."
+  }
+
+  assert {
+    condition     = aws_kms_key.this.enable_key_rotation == true
+    error_message = "The subsystem key must have rotation enabled."
+  }
+}
+
+run "disabling_lake_removes_route_and_glue" {
+  command = plan
+
+  variables {
+    manifest = {
+      subsystem = "payouts"
+      tags = {
+        Environment = "test"
+        System      = "payments"
+        Owner       = "payouts-team"
+      }
+      artefact_defaults = { bucket = "payouts-artefacts-test" }
+      bffs = [
+        { name = "tracking", subscribes = ["PayoutApproved"] },
+      ]
+      operations = {
+        event_lake = { enabled = false }
+      }
+    }
+  }
+
+  assert {
+    condition     = output.hub_route_keys == tolist(["tracking-inbound"])
+    error_message = "Disabling the event lake must remove the archive route."
+  }
+
+  assert {
+    condition     = length(aws_iam_role.events_to_firehose) == 0
+    error_message = "Disabling the event lake must remove the glue role."
+  }
+
+  assert {
+    condition     = output.event_lake_bucket_name == null
+    error_message = "event_lake_bucket_name must be null when the lake is disabled."
+  }
+}
+
+run "rejects_invalid_control_mode" {
+  command = plan
+
+  variables {
+    manifest = {
+      subsystem = "payouts"
+      tags = {
+        Environment = "test"
+        System      = "payments"
+        Owner       = "payouts-team"
+      }
+      artefact_defaults = { bucket = "payouts-artefacts-test" }
+      controls = [
+        { name = "bad", mode = "lambda", subscribes = ["X"] },
+      ]
+    }
+  }
+
+  expect_failures = [var.manifest]
+}
+
+run "rejects_missing_artefact_sources" {
+  command = plan
+
+  variables {
+    manifest = {
+      subsystem = "payouts"
+      tags = {
+        Environment = "test"
+        System      = "payments"
+        Owner       = "payouts-team"
+      }
+      bffs = [
+        { name = "initiation" },
+      ]
+    }
+  }
+
+  expect_failures = [var.manifest]
+}

@@ -63,3 +63,21 @@ run "requires_tags" {
 
   expect_failures = [var.tags]
 }
+
+run "rejects_unlimited_log_retention" {
+  command = plan
+
+  variables {
+    name               = "contract-handler"
+    s3_bucket          = "artefacts"
+    s3_key             = "handler.zip"
+    log_retention_days = 0
+    tags = {
+      Environment = "test"
+      System      = "contract"
+      Owner       = "platform"
+    }
+  }
+
+  expect_failures = [var.log_retention_days]
+}

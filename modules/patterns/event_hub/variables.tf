@@ -28,11 +28,12 @@ variable "routes" {
     event_pattern = string
     enabled       = optional(bool, true)
     targets = list(object({
-      id                    = string
-      arn                   = string
-      role_arn              = optional(string)
-      input_path            = optional(string)
-      dead_letter_queue_arn = optional(string)
+      id                       = string
+      arn                      = string
+      role_arn                 = optional(string)
+      input_path               = optional(string)
+      dead_letter_queue_arn    = optional(string)
+      create_dead_letter_queue = optional(bool, true)
     }))
   }))
   default = {}
@@ -62,4 +63,10 @@ variable "tags" {
     ])
     error_message = "tags must include Environment, System, and Owner."
   }
+}
+
+variable "create_kms_key" {
+  description = "Whether the module creates its own KMS key when kms_key_arn is null. Set to false (and pass kms_key_arn) when the key comes from a parent composition - Terraform cannot evaluate `kms_key_arn == null` in a count when the ARN is a computed reference that is not known until apply."
+  type        = bool
+  default     = true
 }

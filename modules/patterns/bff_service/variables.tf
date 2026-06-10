@@ -167,3 +167,9 @@ variable "tags" {
     error_message = "tags must include Environment, System, and Owner."
   }
 }
+
+variable "create_kms_key" {
+  description = "Whether the module creates its own KMS key when kms_key_arn is null. Set to false (and pass kms_key_arn) when the key comes from a parent composition - Terraform cannot evaluate `kms_key_arn == null` in a count when the ARN is a computed reference that is not known until apply."
+  type        = bool
+  default     = true
+}

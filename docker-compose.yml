@@ -4,5 +4,5 @@ services:
     ports:
       - "4566:4566"
     environment:
-      - SERVICES=apigateway,apigatewayv2,cloudwatch,dynamodb,events,iam,kms,lambda,logs,s3,sqs,sts
+      - SERVICES=apigateway,apigatewayv2,cloudwatch,dynamodb,events,firehose,iam,kinesis,kms,lambda,logs,s3,sns,sqs,sts
       - AWS_DEFAULT_REGION=eu-west-2

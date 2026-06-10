@@ -65,3 +65,26 @@ run "scopes_proxy_route_source_arn" {
     error_message = "Path parameters such as {proxy+} must be rewritten to '*' so the lambda_permission source_arn is a valid API Gateway scope."
   }
 }
+
+run "rejects_unlimited_access_log_retention" {
+  command = plan
+
+  variables {
+    name                      = "contract-api"
+    access_log_retention_days = 0
+    routes = {
+      smoke = {
+        route_key            = "GET /smoke"
+        lambda_function_arn  = "arn:aws:lambda:eu-west-2:123456789012:function:smoke"
+        lambda_function_name = "smoke"
+      }
+    }
+    tags = {
+      Environment = "test"
+      System      = "contract"
+      Owner       = "platform"
+    }
+  }
+
+  expect_failures = [var.access_log_retention_days]
+}

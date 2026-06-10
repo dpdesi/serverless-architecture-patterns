@@ -1,14 +1,38 @@
 import "tfplan/v2" as tfplan
 
-encrypted_types = ["aws_dynamodb_table", "aws_sqs_queue", "aws_cloudwatch_log_group"]
+encrypted_types = ["aws_dynamodb_table", "aws_sqs_queue", "aws_cloudwatch_log_group", "aws_kinesis_firehose_delivery_stream", "aws_sns_topic"]
 
-violations = filter tfplan.resource_changes as _, rc {
+candidates = filter tfplan.resource_changes as _, rc {
   rc.type in encrypted_types and
   rc.mode is "managed" and
   rc.change.actions contains "create" and
   rc.change.after is not null
 }
 
+has_encryption = func(rc) {
+  after = rc.change.after
+  if rc.type is "aws_dynamodb_table" {
+    return "server_side_encryption" in keys(after) and length(after.server_side_encryption) > 0 and after.server_side_encryption[0].enabled is true
+  }
+  if rc.type is "aws_sqs_queue" {
+    return "kms_master_key_id" in keys(after) and after.kms_master_key_id is not null
+  }
+  if rc.type is "aws_cloudwatch_log_group" {
+    return "kms_key_id" in keys(after) and after.kms_key_id is not null
+  }
+  if rc.type is "aws_kinesis_firehose_delivery_stream" {
+    return "server_side_encryption" in keys(after) and length(after.server_side_encryption) > 0 and after.server_side_encryption[0].enabled is true
+  }
+  if rc.type is "aws_sns_topic" {
+    return "kms_master_key_id" in keys(after) and after.kms_master_key_id is not null
+  }
+  return false
+}
+
+violations = filter candidates as _, rc {
+  not has_encryption(rc)
+}
+
 main = rule {
-  length(violations) >= 0
+  length(violations) is 0
 }

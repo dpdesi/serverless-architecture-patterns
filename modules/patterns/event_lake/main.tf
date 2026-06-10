@@ -1,11 +1,11 @@
 locals {
   bucket_name           = coalesce(var.bucket_name, var.name)
   firehose_name         = coalesce(var.firehose_name, "${var.name}-delivery")
-  effective_kms_key_arn = var.kms_key_arn != null ? var.kms_key_arn : aws_kms_key.this[0].arn
+  effective_kms_key_arn = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
 }
 
 resource "aws_kms_key" "this" {
-  count = var.kms_key_arn == null ? 1 : 0
+  count = var.create_kms_key && var.kms_key_arn == null ? 1 : 0
 
   description         = "KMS key for ${var.name} event lake"
   enable_key_rotation = true
@@ -13,8 +13,22 @@ resource "aws_kms_key" "this" {
 }
 
 resource "aws_s3_bucket" "this" {
-  bucket = local.bucket_name
-  tags   = var.tags
+  bucket              = local.bucket_name
+  object_lock_enabled = true
+  tags                = var.tags
+}
+
+resource "aws_s3_bucket_object_lock_configuration" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  rule {
+    default_retention {
+      mode = "GOVERNANCE"
+      days = var.object_lock_retention_days
+    }
+  }
+
+  depends_on = [aws_s3_bucket_versioning.this]
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -164,6 +178,36 @@ resource "aws_kinesis_firehose_delivery_stream" "this" {
       enabled         = true
       log_group_name  = aws_cloudwatch_log_group.firehose.name
       log_stream_name = aws_cloudwatch_log_stream.firehose.name
+    }
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "delivery_failure" {
+  alarm_name          = "${var.name}-delivery-failure"
+  alarm_description   = "Firehose deliveries to the ${var.name} event lake are failing or stalled."
+  namespace           = "AWS/Firehose"
+  metric_name         = "DeliveryToS3.Success"
+  statistic           = "Average"
+  comparison_operator = "LessThanThreshold"
+  threshold           = 1
+  evaluation_periods  = var.delivery_alarm_evaluation_periods
+  period              = 300
+  treat_missing_data  = "notBreaching"
+  alarm_actions       = var.alarm_actions
+  ok_actions          = var.alarm_actions
+
+  dimensions = {
+    DeliveryStreamName = aws_kinesis_firehose_delivery_stream.this.name
+  }
+
+  tags = var.tags
+}
+
+resource "terraform_data" "validate_kms_inputs" {
+  lifecycle {
+    precondition {
+      condition     = var.create_kms_key || var.kms_key_arn != null
+      error_message = "Provide a kms_key_arn when create_kms_key is false - otherwise resources would be created without customer-managed encryption."
     }
   }
 }
