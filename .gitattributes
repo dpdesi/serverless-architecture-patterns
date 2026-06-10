@@ -1,0 +1,10 @@
+# Normalise line endings to LF in the repository and on checkout, so the
+# CRLF warnings on Windows (core.autocrlf=true) go away and the team shares
+# one line ending regardless of platform.
+* text=auto eol=lf
+
+# draw.io files are XML text - keep them LF and diffable.
+*.drawio text eol=lf
+
+# Shell scripts must stay LF or they break when executed.
+*.sh text eol=lf
