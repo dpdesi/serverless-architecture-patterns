@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dpdesi/serverless-architecture-patterns/v0.2.0/schema/subsystem.schema.json
+#
+# This is the one file you edit. It describes WHAT your subsystem needs; the
+# composer derives the HOW (~200 AWS resources) from it.
+#
+# The starter below is a single BFF plus the standard operations set - enough
+# to deploy end to end. Add controls, esgs, more bffs, or an edge by following
+# the schema (autocomplete works if your editor honours the line above) and the
+# fully worked payouts example in the library.
+
+subsystem: example
+description: A starter subsystem - rename me and make me yours.
+
+tags:
+  Environment: dev
+  System: example
+  Owner: platform-team
+
+# Lambda artefacts. With co-located code (the default), the deploy workflow
+# builds services/<bff>/<component>/ and publishes to <bucket>/<prefix><subsystem>-<bff>-<component>.zip.
+# To use an externally-published artefact instead, give that component an
+# explicit `artefacts:` block pointing at its bucket/key - the build skips it.
+artefact_defaults:
+  bucket: REPLACE-WITH-YOUR-ARTEFACT-BUCKET
+  prefix: lambda/
+
+bffs:
+  - name: example
+    activity: crud
+    path: /example/*
+
+operations:
+  event_lake:
+    enabled: true
+  fault_monitor:
+    enabled: true
+  observability:
+    enabled: true

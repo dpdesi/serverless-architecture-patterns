@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  manifest:
+    name: manifest schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet check-jsonschema
+      - name: Fetch the pinned schema
+        run: curl -fsSL "https://raw.githubusercontent.com/dpdesi/serverless-architecture-patterns/v0.2.0/schema/subsystem.schema.json" -o subsystem.schema.json
+      - run: check-jsonschema --schemafile subsystem.schema.json infra/terraform/subsystem.yaml
+
+  terraform:
+    name: terraform validate
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.14.1
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false
+      - run: terraform validate

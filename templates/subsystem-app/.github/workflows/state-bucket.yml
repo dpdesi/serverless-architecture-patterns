@@ -1,0 +1,60 @@
+name: Provision state bucket
+
+# Run once per AWS account before the first "Manage infrastructure" run.
+# Creates the S3 bucket that holds remote Terraform state, with versioning,
+# encryption and public access blocked. Locking uses S3's native lockfile, so
+# no DynamoDB table is needed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment whose AWS account to target
+        type: environment
+        required: true
+        default: dev
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  create-state-bucket:
+    name: Create state bucket
+    runs-on: ubuntu-24.04
+    environment: ${{ inputs.environment }}
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION || 'eu-west-2' }}
+    steps:
+      - name: Validate environment config
+        run: |
+          if [ -z "$AWS_ACCOUNT_ID" ]; then
+            echo "::error::AWS_ACCOUNT_ID is not set for environment '${{ inputs.environment }}'."
+            exit 1
+          fi
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/${{ vars.IAC_ROLE_NAME || 'atriumIaC' }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create and harden the bucket (idempotent)
+        run: |
+          set -euo pipefail
+          BUCKET="atrium-tfstate-${AWS_ACCOUNT_ID}"
+          if aws s3api head-bucket --bucket "$BUCKET" 2>/dev/null; then
+            echo "Bucket $BUCKET already exists; ensuring settings."
+          elif [ "$AWS_REGION" = "us-east-1" ]; then
+            aws s3api create-bucket --bucket "$BUCKET" --region "$AWS_REGION"
+          else
+            aws s3api create-bucket --bucket "$BUCKET" --region "$AWS_REGION" \
+              --create-bucket-configuration LocationConstraint="$AWS_REGION"
+          fi
+          aws s3api put-bucket-versioning --bucket "$BUCKET" \
+            --versioning-configuration Status=Enabled
+          aws s3api put-bucket-encryption --bucket "$BUCKET" \
+            --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"aws:kms"},"BucketKeyEnabled":true}]}'
+          aws s3api put-public-access-block --bucket "$BUCKET" \
+            --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+          echo "State bucket ready: $BUCKET"
