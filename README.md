@@ -11,7 +11,7 @@
 
 </div>
 
-A Terraform pattern library that implements the architecture from *Software Architecture Patterns for Serverless Systems* (Packt). It gives you hardened building blocks (Lambda, API Gateway, DynamoDB, EventBridge and the patterns built from them), a declarative way to compose them into a whole subsystem, and a paved road to deploy one. You assemble systems from proven parts instead of wiring (and re-securing) infrastructure by hand.
+A Terraform pattern library that implements Software Architecture Patterns for Serverless Systems. It gives you hardened building blocks (Lambda, API Gateway, DynamoDB, EventBridge and the patterns built from them), a declarative way to compose them into a whole subsystem, and a paved road to deploy one. You assemble systems from proven parts instead of wiring (and re-securing) infrastructure by hand.
 
 ![An online-order subsystem composed from the pattern glyphs](docs/architecture/online-order-subsystem.png)
 
