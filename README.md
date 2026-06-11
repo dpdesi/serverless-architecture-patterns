@@ -7,7 +7,6 @@
 [![Terraform](https://img.shields.io/badge/Terraform-%E2%89%A5%201.7-7B42BC?logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
 [![AWS Provider](https://img.shields.io/badge/AWS%20Provider-~%3E%206.0-FF9900?logo=amazonwebservices&logoColor=white)](https://registry.terraform.io/providers/hashicorp/aws/latest)
 [![Contract tests](https://img.shields.io/badge/contract%20tests-15%20modules-2EA44F)](#testing-and-quality-gates)
-[![Based on](https://img.shields.io/badge/based%20on-Packt%20book-EB8C00)](https://www.packtpub.com/)
 
 </div>
 
