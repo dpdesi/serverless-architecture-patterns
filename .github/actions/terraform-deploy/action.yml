@@ -1,0 +1,75 @@
+name: Terraform deploy
+description: >-
+  OIDC-authenticated Terraform plan / apply / destroy against an S3 backend
+  with native lockfile state locking. Generic and app-agnostic: the calling
+  workflow checks out the repo, builds any artefacts first, and owns the
+  trigger, `permissions: id-token: write`, and the GitHub Environment approval
+  gate (none of which a composite action can declare).
+
+inputs:
+  command:
+    description: One of plan | apply | destroy-plan | destroy.
+    required: true
+  working-directory:
+    description: Directory containing the Terraform root.
+    required: false
+    default: infra/terraform
+  aws-region:
+    description: AWS region for credentials and the state backend.
+    required: true
+  aws-role-arn:
+    description: IAM role ARN to assume via GitHub OIDC.
+    required: true
+  state-bucket:
+    description: S3 bucket holding remote state.
+    required: true
+  state-key:
+    description: State object key, e.g. payouts/dev.tfstate.
+    required: true
+  terraform-version:
+    description: Terraform version to install.
+    required: false
+    default: "1.14.1"
+  plan-args:
+    description: Extra args appended to plan/apply/destroy, e.g. -var=region=eu-west-2.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: aws-actions/configure-aws-credentials@v6
+      with:
+        role-to-assume: ${{ inputs.aws-role-arn }}
+        aws-region: ${{ inputs.aws-region }}
+
+    - uses: hashicorp/setup-terraform@v4
+      with:
+        terraform_version: ${{ inputs.terraform-version }}
+
+    - name: Terraform init
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        terraform init \
+          -backend-config="bucket=${{ inputs.state-bucket }}" \
+          -backend-config="key=${{ inputs.state-key }}" \
+          -backend-config="region=${{ inputs.aws-region }}" \
+          -backend-config="use_lockfile=true" \
+          -backend-config="encrypt=true"
+
+    - name: Terraform ${{ inputs.command }}
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_COMMAND: ${{ inputs.command }}
+        TF_ARGS: ${{ inputs.plan-args }}
+      run: |
+        set -euo pipefail
+        case "$TF_COMMAND" in
+          plan)         terraform plan $TF_ARGS ;;
+          apply)        terraform plan $TF_ARGS -out=tfplan && terraform apply -auto-approve tfplan ;;
+          destroy-plan) terraform plan -destroy $TF_ARGS ;;
+          destroy)      terraform destroy -auto-approve $TF_ARGS ;;
+          *) echo "::error::Unknown command '$TF_COMMAND' (expected plan | apply | destroy-plan | destroy)"; exit 1 ;;
+        esac
