@@ -1,0 +1,80 @@
+Author Serverless Subsystem:
+  tasks:
+    - display_text: Describe the subsystem
+      llm_prompt: |-
+        Help the user describe an event-driven serverless backend (a subsystem) for the
+        serverless-architecture-patterns library, and collect:
+        - target_repo (required): GitHub repository for the app, as org/name
+        - subsystem (required): short kebab-case name, e.g. payouts
+        - environment (required, default: dev), system (required), owner (required): tag values
+        - artefact_bucket (required): S3 bucket where Lambda zips are published
+        - bffs: the user activities. For each: name, URL path (e.g. /cart/*), events it
+          publishes, events it subscribes to, read_only true/false
+        - controls: decisions and processes. For each: name, mode (event_reactor to derive
+          a new event from observed ones, step_functions for a multi-step saga with waits,
+          retries and compensation), events it subscribes to
+        - esgs: external systems. For each: name, the external system, events it sends out
+          (egress), webhook true/false
+        - notification_emails: where the fault monitor alerts go
+
+        Services connect only through events: a control subscribes to what a BFF publishes.
+        Keep event names consistent (PascalCase facts, e.g. OrderPlaced). The operations
+        block (event_lake, fault_monitor, observability) defaults to enabled.
+
+        Write everything collected to /request.txt as key=value lines and simple lists.
+      subagent: user_input
+    - display_text: Fetch manifest schema and example
+      llm_prompt: |-
+        From the pattern library repo ${PATTERN_LIBRARY_REPO} use get_file_contents to read:
+        - schema/subsystem.schema.json and write it to /schema.json
+        - examples/systems/payouts-subsystem/subsystem.yaml and write it to /example.yaml
+      subagent: github
+    - display_text: Compose subsystem.yaml
+      llm_prompt: |-
+        Read /request.txt, /schema.json and /example.yaml.
+        Compose a subsystem manifest (subsystem.yaml) that implements the user's description,
+        using /example.yaml as a structural anchor and /schema.json as the contract.
+        Map: each user activity to an entry under bffs; each decision/process to controls
+        (mode event_reactor or step_functions); each external system to esgs; enable
+        operations (event_lake, fault_monitor with the notification emails, observability).
+        Set tags Environment, System, Owner and artefact_defaults.bucket from /request.txt.
+        Never write Terraform. Do not invent event names, buckets or fields the user did
+        not provide; leave genuine unknowns as placeholders with a YAML comment.
+        Write the manifest to /subsystem.yaml.
+      subagent: github
+    - display_text: Validate manifest against schema
+      llm_prompt: |-
+        Read /subsystem.yaml and /schema.json.
+        Check the manifest against the JSON Schema: required fields, types, enums, name
+        patterns, and that every subscribes/egress event is published somewhere or
+        explicitly external. If invalid, fix /subsystem.yaml and re-check until it
+        validates. Write a short validation report to /validation.txt ending with the
+        line VALID or INVALID. Do not continue past this step if INVALID.
+      subagent: github
+    - display_text: Ensure app repo exists
+      llm_prompt: |-
+        Read /request.txt for target_repo.
+        Check whether the repository exists. If it does, note brownfield.
+        If it does not exist, create it from the template ${APP_TEMPLATE_REPO} using the
+        gh CLI (gh repo create <target_repo> --private --template ${APP_TEMPLATE_REPO}),
+        and note greenfield.
+        Write target_repo and brownfield/greenfield to /repo_result.txt.
+      subagent: github
+    - display_text: Commit manifest on a branch
+      llm_prompt: |-
+        Read /repo_result.txt, /request.txt and /subsystem.yaml.
+        In the target repo, create a branch named subsystem/<subsystem>-update from the
+        default branch and commit /subsystem.yaml to infra/terraform/subsystem.yaml
+        (create or update). Commit message: "Set <subsystem> subsystem manifest".
+        Write the branch name to /branch_result.txt.
+      subagent: github
+    - display_text: Create pull request
+      llm_prompt: |-
+        Read /repo_result.txt, /branch_result.txt and /validation.txt.
+        Open a pull request in the target repo from the branch to the default branch.
+        Title: "Set <subsystem> subsystem manifest". Body: a summary of the subsystem
+        (services, events, external systems), the validation result, and a note that
+        merging does not deploy anything: the repo's manage-infra workflow plans and
+        applies behind the environment approval gate.
+        Write the PR URL to /pr_result.txt.
+      subagent: github
