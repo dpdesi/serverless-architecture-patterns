@@ -24,10 +24,13 @@ All notable changes to this repository are documented here.
   `ExecutionsFailed`/`ExecutionsTimedOut` alarms in step_functions mode; `observability_baseline`
   gains a `monitored_queues` input for off-Lambda DLQ depth alarms; six pattern modules gain a
   `create_kms_key` flag (default true) so a parent composition can supply one shared key.
-- Add the manifest GitOps rail: a reusable `validate-manifest` composite action, a `manifest schema`
-  CI job, and the `subsystem-pr` workflow_dispatch workflow (paste a manifest, get a reviewable PR
-  with a rendered, validated Terraform root under `subsystems/<name>/`). Validate scripts now also
-  scan `subsystems/`.
+- Add the deployment topology around the manifest abstraction: the `subsystem-app` paved-road
+  template (`templates/subsystem-app` — a tiny Terraform root pinning the library + co-located
+  Lambda services + a gated `manage-infra` workflow), a reusable `terraform-deploy` composite
+  action (OIDC plan/apply/destroy), a reusable `validate-manifest` action + `manifest schema` CI
+  job, and the `author-subsystem` workflow_dispatch front door (scaffolds a new app repo from the
+  template or PRs the manifest into an existing one). The library is consumed as a pinned
+  dependency; app repos own state and apply.
 - (fix) `fault_monitor` SNS topic policy now also grants its own CloudWatch alarms `sns:Publish`
   (the replacement topic policy previously locked them out); `bff_service`/`control_service`/`esg_service`
   no longer create a redundant per-Lambda async DLQ on their SQS-invoked functions (it collided in

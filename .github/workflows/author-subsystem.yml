@@ -1,0 +1,113 @@
+name: Author subsystem
+
+# The front door to the manifest abstraction, for self-service and agentic
+# callers. Given a manifest and a target app repo, it:
+#   - validates the manifest against the schema,
+#   - creates the app repo from the paved-road template if it does not exist
+#     (greenfield: scaffolds templates/subsystem-app into a first commit),
+#   - or opens a PR adding/updating infra/terraform/subsystem.yaml in an
+#     existing app repo (brownfield).
+#
+# It writes into ANOTHER repo, so the default GITHUB_TOKEN (scoped to this
+# repo) is not enough: set the secret SUBSYSTEM_AUTHOR_TOKEN to a GitHub App
+# installation token or fine-grained PAT with, on the target org's repos,
+# Administration + Contents + Pull requests = read/write.
+#
+# Nothing is ever applied. A human reviews the PR (brownfield) or the scaffold
+# (greenfield) and the app repo's own manage-infra workflow deploys.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: Target app repo, as org/name.
+        type: string
+        required: true
+      manifest:
+        description: Contents of subsystem.yaml.
+        type: string
+        required: true
+      create_if_missing:
+        description: Create the app repo from the template when it does not exist.
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.SUBSYSTEM_AUTHOR_TOKEN }}
+      TARGET: ${{ inputs.target_repo }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check token
+        run: |
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::SUBSYSTEM_AUTHOR_TOKEN is not set. It needs a GitHub App/PAT with Administration + Contents + Pull requests (read/write) on the target org."
+            exit 1
+          fi
+
+      - name: Write manifest
+        env:
+          MANIFEST: ${{ inputs.manifest }}
+        run: printf '%s\n' "$MANIFEST" > "${RUNNER_TEMP}/subsystem.yaml"
+
+      - name: Validate manifest against schema
+        uses: ./.github/actions/validate-manifest
+        with:
+          manifests: ${{ runner.temp }}/subsystem.yaml
+
+      - name: Ensure target repo exists
+        id: ensure
+        run: |
+          set -euo pipefail
+          if gh repo view "$TARGET" >/dev/null 2>&1; then
+            echo "Target $TARGET exists - brownfield."
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          elif [ "${{ inputs.create_if_missing }}" = "true" ]; then
+            echo "Creating $TARGET - greenfield."
+            gh repo create "$TARGET" --private
+            echo "new=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::$TARGET does not exist and create_if_missing=false."
+            exit 1
+          fi
+
+      - name: Scaffold or PR the manifest
+        run: |
+          set -euo pipefail
+          SUB="$(python3 -c "import yaml,sys;print(yaml.safe_load(open(sys.argv[1]))['subsystem'])" "${RUNNER_TEMP}/subsystem.yaml")"
+          WORK="$(mktemp -d)"
+          gh repo clone "$TARGET" "$WORK" -- -q || true
+          cd "$WORK"
+          git config user.name "subsystem-author[bot]"
+          git config user.email "subsystem-author[bot]@users.noreply.github.com"
+
+          if [ "${{ steps.ensure.outputs.new }}" = "true" ]; then
+            # Greenfield: lay down the whole paved-road template + manifest as the
+            # repo's first commit on main. No PR - there is nothing to diff against.
+            git checkout -b main
+            cp -r "${GITHUB_WORKSPACE}/templates/subsystem-app/." .
+            mkdir -p infra/terraform
+            cp "${RUNNER_TEMP}/subsystem.yaml" infra/terraform/subsystem.yaml
+            git add -A
+            git commit -q -m "Scaffold ${SUB} subsystem from template"
+            git push -u origin main
+            echo "::notice::Scaffolded ${TARGET} from the template. Review it, then run its manage-infra workflow."
+          else
+            # Brownfield: only touch the manifest, on a branch, via a PR.
+            BRANCH="subsystem/${SUB}-update"
+            git checkout -b "$BRANCH"
+            mkdir -p infra/terraform
+            cp "${RUNNER_TEMP}/subsystem.yaml" infra/terraform/subsystem.yaml
+            git add infra/terraform/subsystem.yaml
+            git commit -q -m "Update ${SUB} subsystem manifest"
+            git push -u origin "$BRANCH"
+            gh pr create --repo "$TARGET" --head "$BRANCH" \
+              --title "Update ${SUB} subsystem manifest" \
+              --body "Authored manifest update. Review, then the app repo's manage-infra workflow plans and applies behind the environment gate."
+          fi

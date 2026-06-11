@@ -1,0 +1,86 @@
+<svg viewBox="0 0 720 812" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, system-ui, -apple-system, Roboto, sans-serif" font-size="13">
+  <title>How a subsystem goes from an agent-authored manifest to a running AWS deployment</title>
+  <desc>Four bands: an agent authors a subsystem.yaml manifest; a per-subsystem app repo is created from a template and pins the patterns library as a module dependency; the app repo's GitOps workflow plans, a human approves the environment gate, then applies; the subsystem runs in the AWS account.</desc>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5F5E5A"/></marker>
+  </defs>
+
+  <rect x="0" y="0" width="720" height="812" fill="#ffffff"/>
+
+  <rect x="16" y="44" width="688" height="118" rx="12" fill="#EEEDFE"/>
+  <text x="30" y="66" font-size="12" font-weight="600" fill="#26215C">1 · author (new — agentic)</text>
+  <rect x="36" y="86" width="150" height="56" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="111" y="118" text-anchor="middle" fill="#26215C">engineer / ops</text>
+  <rect x="262" y="86" width="170" height="56" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="347" y="110" text-anchor="middle" fill="#26215C">agent</text>
+  <text x="347" y="128" text-anchor="middle" font-size="11.5" fill="#534AB7">task builder · elicits</text>
+  <rect x="508" y="86" width="170" height="56" rx="8" fill="#ffffff" stroke="#534AB7"/>
+  <text x="593" y="110" text-anchor="middle" fill="#26215C">subsystem.yaml</text>
+  <text x="593" y="128" text-anchor="middle" font-size="11.5" fill="#534AB7">the manifest</text>
+  <line x1="186" y1="114" x2="258" y2="114" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="222" y="106" text-anchor="middle" font-size="11" fill="#5F5E5A">1 describe</text>
+  <line x1="432" y1="114" x2="504" y2="114" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="468" y="106" text-anchor="middle" font-size="11" fill="#5F5E5A">2 emit</text>
+
+  <rect x="16" y="178" width="688" height="180" rx="12" fill="#F1EFE8"/>
+  <text x="30" y="200" font-size="12" font-weight="600" fill="#2C2C2A">2 · source repos</text>
+  <rect x="36" y="216" width="156" height="52" rx="8" fill="#ffffff" stroke="#0F6E56"/>
+  <text x="114" y="238" text-anchor="middle" fill="#04342C">subsystem-template</text>
+  <text x="114" y="256" text-anchor="middle" font-size="11.5" fill="#0F6E56">GitHub template</text>
+  <rect x="36" y="292" width="156" height="52" rx="8" fill="#ffffff" stroke="#5F5E5A"/>
+  <text x="114" y="314" text-anchor="middle" fill="#2C2C2A">patterns library</text>
+  <text x="114" y="332" text-anchor="middle" font-size="11.5" fill="#5F5E5A">pinned module ref</text>
+  <rect x="360" y="210" width="320" height="140" rx="8" fill="#ffffff" stroke="#0F6E56"/>
+  <text x="520" y="234" text-anchor="middle" font-weight="600" fill="#04342C">app repo — one per subsystem</text>
+  <text x="378" y="262" font-size="11.5" fill="#2C2C2A">subsystem.yaml  (the manifest)</text>
+  <text x="378" y="286" font-size="11.5" fill="#2C2C2A">infra/terraform  →  module call</text>
+  <text x="378" y="310" font-size="11.5" fill="#2C2C2A">services/  →  Lambda handlers</text>
+  <text x="378" y="334" font-size="11.5" fill="#2C2C2A">.github/  →  deploy workflows</text>
+  <line x1="192" y1="240" x2="356" y2="252" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="270" y="234" text-anchor="middle" font-size="11" fill="#5F5E5A">3 from template</text>
+  <line x1="192" y1="318" x2="356" y2="300" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="274" y="332" text-anchor="middle" font-size="11" fill="#5F5E5A">pinned dependency</text>
+  <path d="M593,142 L593,180 L560,180 L560,208" fill="none" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="620" y="176" text-anchor="middle" font-size="11" fill="#5F5E5A">writes manifest</text>
+
+  <line x1="20" y1="370" x2="700" y2="370" stroke="#888780" stroke-dasharray="5 4"/>
+  <rect x="196" y="360" width="328" height="20" rx="10" fill="#ffffff" stroke="#888780"/>
+  <text x="360" y="374" text-anchor="middle" font-size="11" fill="#5F5E5A">handoff — agent authors above · humans deploy below</text>
+
+  <rect x="16" y="386" width="688" height="150" rx="12" fill="#E1F5EE"/>
+  <text x="30" y="408" font-size="12" font-weight="600" fill="#04342C">3 · deliver (your existing GitOps — project-atrium pattern)</text>
+  <rect x="36" y="424" width="150" height="64" rx="8" fill="#ffffff" stroke="#0F6E56"/>
+  <text x="111" y="452" text-anchor="middle" fill="#04342C">pull request</text>
+  <text x="111" y="470" text-anchor="middle" font-size="11.5" fill="#0F6E56">validate + review</text>
+  <rect x="262" y="424" width="180" height="64" rx="8" fill="#ffffff" stroke="#0F6E56"/>
+  <text x="352" y="452" text-anchor="middle" fill="#04342C">manage-infra</text>
+  <text x="352" y="470" text-anchor="middle" font-size="11.5" fill="#0F6E56">build zips → plan</text>
+  <rect x="518" y="424" width="160" height="64" rx="8" fill="#FAEEDA" stroke="#854F0B"/>
+  <text x="598" y="452" text-anchor="middle" fill="#412402">environment approval</text>
+  <text x="598" y="470" text-anchor="middle" font-size="11.5" fill="#854F0B">human gate</text>
+  <path d="M440,350 L440,406 L111,406 L111,420" fill="none" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="250" y="399" text-anchor="middle" font-size="11" fill="#5F5E5A">open PR</text>
+  <line x1="186" y1="456" x2="258" y2="456" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="222" y="448" text-anchor="middle" font-size="11" fill="#5F5E5A">4 merge</text>
+  <line x1="442" y1="456" x2="514" y2="456" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="478" y="448" text-anchor="middle" font-size="11" fill="#5F5E5A">5 plan</text>
+
+  <rect x="16" y="552" width="688" height="170" rx="12" fill="#F1EFE8"/>
+  <text x="30" y="574" font-size="12" font-weight="600" fill="#2C2C2A">4 · run (the subsystem's own AWS account)</text>
+  <rect x="36" y="590" width="642" height="116" rx="8" fill="#ffffff" stroke="#5F5E5A"/>
+  <text x="357" y="618" text-anchor="middle" font-weight="600" fill="#2C2C2A">subsystem running in AWS</text>
+  <text x="357" y="640" text-anchor="middle" font-size="11.5" fill="#5F5E5A">≈211 resources composed from the manifest</text>
+  <text x="357" y="666" text-anchor="middle" font-size="11.5" fill="#2C2C2A">event hub · BFFs · control services · ESGs</text>
+  <text x="357" y="686" text-anchor="middle" font-size="11.5" fill="#2C2C2A">event lake · fault monitor · observability</text>
+  <path d="M598,488 L598,520 L357,520 L357,588" fill="none" stroke="#5F5E5A" marker-end="url(#arr)"/>
+  <text x="357" y="512" text-anchor="middle" font-size="11" fill="#5F5E5A">6 apply (only after approval)</text>
+
+  <rect x="16" y="736" width="14" height="14" rx="3" fill="#EEEDFE" stroke="#534AB7"/>
+  <text x="36" y="747" font-size="11" fill="#2C2C2A">agentic authoring</text>
+  <rect x="172" y="736" width="14" height="14" rx="3" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="192" y="747" font-size="11" fill="#2C2C2A">deploy machinery</text>
+  <rect x="330" y="736" width="14" height="14" rx="3" fill="#FAEEDA" stroke="#854F0B"/>
+  <text x="350" y="747" font-size="11" fill="#2C2C2A">human gate</text>
+  <rect x="446" y="736" width="14" height="14" rx="3" fill="#ffffff" stroke="#5F5E5A"/>
+  <text x="466" y="747" font-size="11" fill="#2C2C2A">repos &amp; runtime</text>
+</svg>

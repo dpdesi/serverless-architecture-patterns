@@ -15,24 +15,26 @@ The platform's template already has the right shape (collect input → fetch tem
 | Collect infrastructure parameters (flat form fields) | **Describe the subsystem** — conversational elicitation; the agent emits `subsystem.yaml` |
 | Fetch Terraform template | *(removed — the template is the composer, already in the repo)* |
 | Process template variables | **Validate manifest** against the schema |
-| Create branch / commit / PR | unchanged — commit `subsystems/<name>/subsystem.yaml` + a tiny generated root |
+| Create branch / commit / PR | **Get the manifest into the app repo** — scaffold a new app repo from the template, or PR `infra/terraform/subsystem.yaml` into an existing one |
 | Create Jira ticket / Send Webex | unchanged |
 
-The branch/PR/Jira/Webex tail is exactly today's GitOps flow. The two new pieces are elicitation and schema validation.
+The Jira/Webex tail is exactly today's GitOps flow. The new pieces are elicitation, schema validation, and landing the manifest in the *app* repo (never in this library — the library is only ever a pinned dependency).
 
-## Two ways to wire it
+## Two ways to land the manifest
 
-**Option A — call the repo workflow (least code).** The platform's GitHub connector runs:
+**Option A — call the `author-subsystem` workflow (least platform code).**
 
 ```
-gh workflow run subsystem-pr.yml -f manifest="$(cat subsystem.yaml)" -f region=eu-west-2
+gh workflow run author-subsystem.yml \
+  -f target_repo=<org>/<app> -f create_if_missing=true \
+  -f manifest="$(cat subsystem.yaml)"
 ```
 
-The [`subsystem-pr`](../.github/workflows/subsystem-pr.yml) workflow validates, renders the root, runs `terraform validate`, and opens the PR. The platform then attaches Jira/Webex as it does now. This reuses the repo's own validation and rendering — nothing to maintain on the platform side.
+The [`author-subsystem`](../.github/workflows/author-subsystem.yml) workflow validates the manifest, then either scaffolds a new app repo from `templates/subsystem-app` (greenfield) or opens a PR adding/updating the manifest in an existing app repo (brownfield). Because it writes into another repo it needs the `SUBSYSTEM_AUTHOR_TOKEN` secret (a GitHub App/PAT with repo admin on the target org). The platform attaches Jira/Webex afterwards.
 
-**Option B — render in the platform.** If you want the PR authored by your existing connector, replicate the three render steps the workflow does (validate with `check-jsonschema`, write `subsystems/<name>/{versions,variables,main,outputs}.tf`, `terraform validate`) and commit through your connector. More control, more to maintain.
+**Option B — the platform's own GitHub connector.** Your Task Builder already does "create branch / commit / PR." Point it at the app repo: write `infra/terraform/subsystem.yaml` to a branch via the Contents API and open a PR, creating the repo from the template first if greenfield. Same result, authored by your connector, no shared token needed. This is the transport to prefer if you want the PR to look identical to today's.
 
-Prefer Option A unless you need the PR to look identical to today's.
+Either way the contract is fixed: **`infra/terraform/subsystem.yaml` in the app repo, PR-gated, human-merged.**
 
 ## The elicitation step
 

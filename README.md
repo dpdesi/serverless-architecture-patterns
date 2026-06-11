@@ -18,7 +18,7 @@ The architecture is documented visually in [docs/architecture/patterns-clean.dra
 
 *An online-order subsystem built entirely from the library's patterns. Each box is one pattern glyph (grey tab = pattern, touching tiles = the AWS resources, blue = the role); numbered labels trace the execution path. Every service collaborates through the central event hub — no direct service-to-service calls. See the [.drawio file](docs/architecture/patterns-clean.drawio) for the full Pattern Icons key and per-pattern detail tabs.*
 
-Ways to use it: compose the pattern modules directly, write a manifest and let the composer wire it, start from a worked example, scaffold a new repo from the Backstage/CLI templates, or open a PR from a manifest through the `subsystem-pr` GitHub workflow.
+Ways to use it: compose the pattern modules directly, write a manifest and let the composer wire it, start from a worked example, scaffold an app repo from the [`subsystem-app` template](templates/subsystem-app), or have the `author-subsystem` workflow create/update an app repo from a manifest.
 
 ## Architecture Overview
 
@@ -57,7 +57,7 @@ module "payouts" {
 }
 ```
 
-See [examples/systems/payouts-subsystem](examples/systems/payouts-subsystem) for a complete worked example. The `subsystem-pr` GitHub workflow turns a pasted manifest into a reviewable PR (validate → render → `terraform validate` → PR); it is the intended target for self-service and agentic interfaces.
+See [examples/systems/payouts-subsystem](examples/systems/payouts-subsystem) for a complete worked example. To run a subsystem, an **app repo** owns the Terraform: scaffold one from the [`subsystem-app` template](templates/subsystem-app) (a tiny root pinning this library + co-located Lambda services + a gated `manage-infra` workflow), or have the `author-subsystem` workflow create/update it from a manifest. The app repo owns state and apply; the library is only ever a pinned dependency. See [docs/self-service-integration.md](docs/self-service-integration.md) and the [deployment flow](docs/architecture/deployment-flow.svg).
 
 ## Quickstart
 

@@ -122,5 +122,12 @@ Each module contains `.tftest.hcl` files running contract-level tests via `terra
 ### CI Pipeline (`.github/workflows/ci.yml`)
 Eight jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (matrix across all 15 modules) → `manifest schema` (subsystem.yaml files against `schema/subsystem.schema.json`) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
 
-### Subsystem PR workflow (`.github/workflows/subsystem-pr.yml`)
-`workflow_dispatch` GitOps front door for the manifest abstraction: takes a pasted `subsystem.yaml`, validates it against the schema, renders a Terraform root under `subsystems/<name>/` via `modules/composition/subsystem`, runs `terraform validate`, and opens a PR. Nothing is applied — a human merges. Callable from automation with `gh workflow run subsystem-pr.yml -f manifest="$(cat subsystem.yaml)"`. The schema-validation step is a reusable composite action at `.github/actions/validate-manifest`.
+### Manifest abstraction and delivery topology
+The library is consumed, not deployed. The deployment topology lives outside it:
+- **`modules/composition/subsystem`** renders a whole subsystem from a `subsystem.yaml` manifest (schema: `schema/subsystem.schema.json`).
+- **`templates/subsystem-app/`** is the paved-road *app repo* template: a tiny Terraform root pinning the library + co-located Lambda services + a `manage-infra` workflow. App repos own state and apply; the library never does.
+- **`.github/actions/terraform-deploy`** is the reusable OIDC plan/apply/destroy action the app repo's `manage-infra` calls behind a GitHub Environment approval gate.
+- **`.github/workflows/author-subsystem.yml`** is the front door for self-service/agentic callers: given a manifest + target repo, it scaffolds a new app repo from the template (greenfield) or PRs the manifest into an existing one (brownfield). Writes cross-repo, so it needs the `SUBSYSTEM_AUTHOR_TOKEN` secret (App/PAT with repo admin on the target org). Nothing is applied — a human reviews and the app repo deploys.
+- **`.github/actions/validate-manifest`** validates manifests against the schema (used by CI's `manifest schema` job and by `author-subsystem`).
+
+See `docs/self-service-integration.md` for the full flow and `docs/architecture/deployment-flow.svg` for the diagram.
