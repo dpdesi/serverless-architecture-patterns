@@ -31,6 +31,10 @@ on:
         description: Create the app repo from the template when it does not exist.
         type: boolean
         default: true
+      template_repo:
+        description: The template repository to scaffold greenfield repos from.
+        type: string
+        default: avaloridp/subsystem-app-template
 
 permissions:
   contents: read
@@ -69,8 +73,8 @@ jobs:
             echo "Target $TARGET exists - brownfield."
             echo "new=false" >> "$GITHUB_OUTPUT"
           elif [ "${{ inputs.create_if_missing }}" = "true" ]; then
-            echo "Creating $TARGET - greenfield."
-            gh repo create "$TARGET" --private
+            echo "Creating $TARGET from ${{ inputs.template_repo }} - greenfield."
+            gh repo create "$TARGET" --private --template "${{ inputs.template_repo }}"
             echo "new=true" >> "$GITHUB_OUTPUT"
           else
             echo "::error::$TARGET does not exist and create_if_missing=false."
@@ -88,16 +92,13 @@ jobs:
           git config user.email "subsystem-author[bot]@users.noreply.github.com"
 
           if [ "${{ steps.ensure.outputs.new }}" = "true" ]; then
-            # Greenfield: lay down the whole paved-road template + manifest as the
-            # repo's first commit on main. No PR - there is nothing to diff against.
-            git checkout -b main
-            cp -r "${GITHUB_WORKSPACE}/templates/subsystem-app/." .
-            mkdir -p infra/terraform
+            # Greenfield: the repo was already scaffolded from the template at
+            # creation. Just set the manifest on main as a second commit.
             cp "${RUNNER_TEMP}/subsystem.yaml" infra/terraform/subsystem.yaml
-            git add -A
-            git commit -q -m "Scaffold ${SUB} subsystem from template"
-            git push -u origin main
-            echo "::notice::Scaffolded ${TARGET} from the template. Review it, then run its manage-infra workflow."
+            git add infra/terraform/subsystem.yaml
+            git commit -q -m "Set ${SUB} subsystem manifest"
+            git push origin HEAD:main
+            echo "::notice::Scaffolded ${TARGET} from ${{ inputs.template_repo }}. Review it, then run its manage-infra workflow."
           else
             # Brownfield: only touch the manifest, on a branch, via a PR.
             BRANCH="subsystem/${SUB}-update"
