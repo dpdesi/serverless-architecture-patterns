@@ -1,54 +1,94 @@
+<div align="center">
+
 # Serverless Architecture Patterns
 
-Production-oriented Terraform for building **autonomous, event-driven serverless subsystems on AWS** — a pattern catalogue that implements the architecture in *Software Architecture Patterns for Serverless Systems* (Packt).
+**Production-grade Terraform for building autonomous, event-driven serverless subsystems on AWS.**
 
-## What this repo is
+[![Terraform](https://img.shields.io/badge/Terraform-%E2%89%A5%201.7-7B42BC?logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
+[![AWS Provider](https://img.shields.io/badge/AWS%20Provider-~%3E%206.0-FF9900?logo=amazonwebservices&logoColor=white)](https://registry.terraform.io/providers/hashicorp/aws/latest)
+[![Contract tests](https://img.shields.io/badge/contract%20tests-15%20modules-2EA44F)](#testing-and-quality-gates)
+[![Based on](https://img.shields.io/badge/based%20on-Packt%20book-EB8C00)](https://www.packtpub.com/)
 
-It is a library you build *with*, organised in three layers, each usable on its own:
+</div>
 
-1. **Primitives** (`modules/primitives/`) — single AWS resources hardened with the library's security defaults (customer-managed KMS everywhere, finite log retention, dedicated least-privilege roles, DLQs on every async path, required tags).
-2. **Patterns** (`modules/patterns/`) — the named building blocks from the book: the **event hub** that every service collaborates through, **BFF** services for user activities, **control** services (event reactors and Step Functions sagas), **ESG** gateways that isolate external systems, plus the operational set (event lake, fault monitor, observability baseline, regional health check, frontend edge, micro-frontend).
-3. **Composition** (`modules/composition/subsystem`) — the abstraction on top: describe a whole subsystem in one declarative `subsystem.yaml` manifest and the composer instantiates and *wires* the patterns together (hub routes, the queue policies EventBridge needs, DLQs, glue IAM, KMS service grants, observability inputs).
+A Terraform pattern library that implements the architecture from *Software Architecture Patterns for Serverless Systems* (Packt). It gives you hardened building blocks (Lambda, API Gateway, DynamoDB, EventBridge and the patterns built from them), a declarative way to compose them into a whole subsystem, and a paved road to deploy one. You assemble systems from proven parts instead of wiring (and re-securing) infrastructure by hand.
 
-The shared idea throughout: **services never call each other** — they exchange events through the hub, each owns its own data, and the resulting bulkheads keep one service's failure from cascading. Producers publish facts; consumers cache what they need. This is what makes the subsystems *autonomous*.
+![An online-order subsystem composed from the pattern glyphs](docs/architecture/online-order-subsystem.png)
 
-The architecture is documented visually in [docs/architecture/patterns-clean.drawio](docs/architecture/patterns-clean.drawio) — a **Pattern Icons** key (each pattern as one glyph), one detail tab per pattern, and two worked application examples (an online-order system and a payments payout process) drawn from those glyphs.
+> *An online-order subsystem built entirely from the library. Each box is one pattern; every service collaborates through the central event hub, with no direct service-to-service calls. The numbered labels trace the execution path. See [`docs/architecture/patterns-clean.drawio`](docs/architecture/patterns-clean.drawio) for the full Pattern Icons key and a detail tab per pattern.*
 
-![Online order subsystem composed from the pattern glyphs](docs/architecture/online-order-subsystem.png)
+> [!NOTE]
+> This is a library you build *with*, not an application you deploy. The modules are consumed by reference; an application repository owns the Terraform state and the deploy. See [Deploy a subsystem](#deploy-a-subsystem).
 
-*An online-order subsystem built entirely from the library's patterns. Each box is one pattern glyph (grey tab = pattern, touching tiles = the AWS resources, blue = the role); numbered labels trace the execution path. Every service collaborates through the central event hub — no direct service-to-service calls. See the [.drawio file](docs/architecture/patterns-clean.drawio) for the full Pattern Icons key and per-pattern detail tabs.*
+## Overview
 
-Ways to use it: compose the pattern modules directly, write a manifest and let the composer wire it, start from a worked example, scaffold an app repo from the [`subsystem-app` template](templates/subsystem-app), or have the `author-subsystem` workflow create/update an app repo from a manifest.
+The library is organised in three layers, each usable on its own:
 
-## Architecture Overview
+1. **Primitives** (`modules/primitives/`) wrap a single AWS resource with the library's security defaults: customer-managed KMS encryption everywhere, finite log retention, one least-privilege role per function, dead-letter queues on every async path, required tags.
+2. **Patterns** (`modules/patterns/`) are the named building blocks from the book: the **event hub** every service collaborates through, **BFF** services for user activities, **control** services (event reactors and Step Functions sagas), **ESG** gateways that isolate external systems, and the operational set (event lake, fault monitor, observability baseline, regional health check, frontend edge, micro-frontend).
+3. **Composition** (`modules/composition/subsystem`) is the abstraction on top: describe a whole subsystem in one declarative `subsystem.yaml` and the composer instantiates and *wires* the patterns together (hub routes, the SQS policies EventBridge needs, DLQs, glue IAM, KMS service grants, observability inputs).
 
-The Phase 1 implementation covers:
+The idea running through all of it: **services never call each other.** They exchange events through the hub, each owns its own data, and the resulting bulkheads stop one service's failure from cascading. Producers publish facts; consumers cache what they need. That is what makes the subsystems *autonomous*.
 
-| Pattern | Status | Terraform entry point |
+> [!TIP]
+> Open the **Pattern Icons** page of [`patterns-clean.drawio`](docs/architecture/patterns-clean.drawio) first. It is a one-glance key to every building block referenced below, and the two worked examples (online order, payments payout) are drawn from those same glyphs.
+
+## Features
+
+- **Hardened building blocks**: 4 primitives and 10 patterns, each with secure, opinionated defaults baked in rather than bolted on.
+- **Event-first by construction**: a central EventBridge hub, database-first event publication, and per-service data stores that keep services decoupled and resilient.
+- **One manifest, a whole subsystem**: a declarative `subsystem.yaml` plus a composer that derives roughly 150-200 wired AWS resources, so you stop hand-wiring queue policies and IAM glue.
+- **A paved road to production**: an app-repo template, a reusable OIDC deploy action, and a GitOps flow with a human-gated apply.
+- **Quality enforced in CI**: 15 module contract tests, OPA and Sentinel policy gates, a Trivy scan, and a LocalStack smoke test.
+- **Documented visually**: a 16-tab architecture diagram, every pattern as a glyph, plus end-to-end worked examples.
+
+## The pattern catalogue
+
+Every pattern is a composition of the primitives. Each links to its module, and to a detail tab in the [architecture diagram](docs/architecture/patterns-clean.drawio).
+
+| Pattern | What it is | Module |
 | --- | --- | --- |
-| Lambda function primitive | Implemented | `modules/primitives/lambda_function` |
-| HTTP API primitive | Implemented | `modules/primitives/api_http` |
-| DynamoDB table primitive | Implemented | `modules/primitives/dynamodb_table` |
-| EventBridge bus primitive | Implemented | `modules/primitives/eventbridge_bus` |
-| Event hub | Implemented | `modules/patterns/event_hub` |
-| BFF service | Implemented | `modules/patterns/bff_service` |
-| Observability baseline | Implemented | `modules/patterns/observability_baseline` |
-| ESG service | Implemented | `modules/patterns/esg_service` |
-| Control Service | Implemented | `modules/patterns/control_service` |
-| Event lake | Implemented | `modules/patterns/event_lake` |
-| Frontend edge | Implemented | `modules/patterns/frontend_edge` |
-| Regional health check | Implemented | `modules/patterns/regional_health_check` |
-| Fault monitor | Implemented | `modules/patterns/fault_monitor` |
-| Micro-frontend manifest deployer | Implemented | `modules/patterns/micro_frontend` |
-| Subsystem core | Implemented | `stacks/reference/subsystem_core` |
-| Public app | Implemented | `stacks/reference/public_app` |
-| Subsystem composition (manifest) | Implemented | `modules/composition/subsystem` |
+| **Event hub** | The central bus services publish facts to and subscribe from | [`event_hub`](modules/patterns/event_hub) |
+| **BFF service** | Backend for one user activity: HTTP API + functions + owned table | [`bff_service`](modules/patterns/bff_service) |
+| **Control service** | Reacts to events: an event-reactor or a Step Functions saga | [`control_service`](modules/patterns/control_service) |
+| **ESG service** | Anti-corruption boundary around an external system | [`esg_service`](modules/patterns/esg_service) |
+| **Event lake** | Immutable, replayable S3 archive of subsystem facts | [`event_lake`](modules/patterns/event_lake) |
+| **Observability baseline** | Alarms, dashboards, tracing and the SNS topic | [`observability_baseline`](modules/patterns/observability_baseline) |
+| **Fault monitor** | Catches fault events for archival and resubmission | [`fault_monitor`](modules/patterns/fault_monitor) |
+| **Regional health check** | Route 53 health aggregation for failover decisions | [`regional_health_check`](modules/patterns/regional_health_check) |
+| **Frontend edge** | CloudFront + private S3 origin (OAC) with API routing | [`frontend_edge`](modules/patterns/frontend_edge) |
+| **Micro-frontend** | Manifest deployer that aggregates per-app fragments | [`micro_frontend`](modules/patterns/micro_frontend) |
 
-For a worked end-to-end domain example showing how the building blocks compose, see the **Online order subsystem** tab in [docs/architecture/patterns-clean.drawio](docs/architecture/patterns-clean.drawio) — it labels every component with both its business name (Catalogue BFF, Inventory Allocator, Payments Gateway, etc.) and the bracketed module it is built from (`[bff_service]`, `[control_service] - event_reactor`, `[esg_service]`, ...).
+Built on four primitives: [`lambda_function`](modules/primitives/lambda_function), [`api_http`](modules/primitives/api_http), [`dynamodb_table`](modules/primitives/dynamodb_table), [`eventbridge_bus`](modules/primitives/eventbridge_bus).
 
-## Composing a subsystem from a manifest
+## Compose a subsystem from a manifest
 
-Instead of hand-wiring the pattern modules, describe the subsystem in a single `subsystem.yaml` (schema: [schema/subsystem.schema.json](schema/subsystem.schema.json), vocabulary matching the pattern glyphs in the architecture diagram) and let `modules/composition/subsystem` derive the wiring — hub routes, queue policies, DLQs, glue IAM, KMS service grants and observability inputs:
+Rather than hand-wiring the pattern modules, describe the subsystem once. The schema ([`schema/subsystem.schema.json`](schema/subsystem.schema.json)) uses the same vocabulary as the diagram, so an editor with a YAML language server gives you autocomplete and validation.
+
+```yaml
+# subsystem.yaml
+subsystem: payouts
+tags: { Environment: dev, System: payments, Owner: payouts-team }
+artefact_defaults: { bucket: payouts-artefacts }
+
+bffs:
+  - { name: initiation, path: /payouts/*, publishes: [PayoutRequested] }
+  - { name: tracking, path: /tracking/*, read_only: true, subscribes: [PayoutApproved] }
+
+controls:
+  - { name: compliance-screening, mode: event_reactor, subscribes: [PayoutRequested] }
+  - { name: execution-saga, mode: step_functions, subscribes: [PayoutApproved] }
+
+esgs:
+  - { name: banking-rails, external: partner-bank, egress: [TransferInstructed], webhook: true }
+
+operations:
+  event_lake: { enabled: true }
+  fault_monitor: { enabled: true }
+  observability: { enabled: true }
+```
+
+The composer turns that into the hub routes, queue policies, DLQs, glue IAM, the KMS key with its service grants, and the observability wiring:
 
 ```hcl
 module "payouts" {
@@ -57,70 +97,94 @@ module "payouts" {
 }
 ```
 
-See [examples/systems/payouts-subsystem](examples/systems/payouts-subsystem) for a complete worked example. To run a subsystem, an **app repo** owns the Terraform: scaffold one from the [`subsystem-app` template](templates/subsystem-app) (a tiny root pinning this library + co-located Lambda services + a gated `manage-infra` workflow), or have the `author-subsystem` workflow create/update it from a manifest. The app repo owns state and apply; the library is only ever a pinned dependency. See [docs/self-service-integration.md](docs/self-service-integration.md) and the [deployment flow](docs/architecture/deployment-flow.svg).
+See [`examples/systems/payouts-subsystem`](examples/systems/payouts-subsystem) for the complete worked example.
 
-## Quickstart
+## Getting started
+
+### Prerequisites
+
+- [Terraform](https://developer.hashicorp.com/terraform/install) `>= 1.7, < 2.0`
+- Optional, for the full local gate set: [TFLint](https://github.com/terraform-linters/tflint), [Conftest](https://www.conftest.dev/), [Trivy](https://trivy.dev/), and [Docker](https://www.docker.com/) (for the LocalStack smoke test)
+
+### Validate the library
 
 ```sh
-cd serverless-architecture-patterns
 terraform fmt -check -recursive
-./scripts/validate.sh
+./scripts/validate.sh          # Windows: .\scripts\validate.ps1
 ```
 
-On Windows PowerShell:
+This initialises every example and reference stack with `-backend=false` and runs `terraform validate`.
 
-```powershell
-cd serverless-architecture-patterns
-terraform fmt -check -recursive
-.\scripts\validate.ps1
-```
-
-For the LocalStack smoke path:
+### Run a module's contract tests
 
 ```sh
-docker compose up -d localstack
-cd examples/subsystem-core/customer-subsystem
-terraform init
-terraform apply -auto-approve
-terraform output
+terraform test ./modules/patterns/event_hub
 ```
 
-For a complete system composition:
+Each module ships `.tftest.hcl` tests that assert its behaviour against a mock provider, so no AWS account is needed.
+
+### Try a worked example
 
 ```sh
-cd examples/systems/customer-engagement-system
+cd examples/systems/payouts-subsystem
 terraform init -backend=false
 terraform validate
 ```
 
-The complete system example wires the event hub, BFF, Control Service, ESG, event lake, and observability baseline together around a customer engagement subsystem. To plan or apply it, copy `terraform.tfvars.example`, replace the placeholder application artefact references with real CI/CD-published S3 locations, and run `terraform plan -var-file=dev.tfvars`.
+For a runnable end-to-end path, [`examples/subsystem-core/customer-subsystem`](examples/subsystem-core/customer-subsystem) applies against LocalStack (`docker compose up -d localstack`).
 
-## Repository Layout
+## Deploy a subsystem
+
+The library is consumed, not deployed. To run a subsystem, an **application repository** owns the Terraform state and the apply, with the library as a pinned dependency.
+
+```
+subsystem.yaml  ->  app repo (pins the library)  ->  plan  ->  human approval  ->  apply
+```
+
+- Scaffold an app repo from the [`subsystem-app` template](templates/subsystem-app): a tiny root that pins this library, co-located Lambda services, and a gated `manage-infra` workflow.
+- Or have the [`author-subsystem`](.github/workflows/author-subsystem.yml) workflow create a new app repo from a manifest, or open a PR updating one.
+- The reusable [`terraform-deploy`](.github/actions/terraform-deploy) action handles OIDC plan/apply/destroy behind a GitHub Environment approval gate.
+
+> [!IMPORTANT]
+> State and applies live in the app repo, never in this library. The full flow, including how a self-service or agentic front door fits in, is in [`docs/self-service-integration.md`](docs/self-service-integration.md) and the [deployment flow diagram](docs/architecture/deployment-flow.svg).
+
+## Testing and quality gates
+
+CI runs eight jobs on every pull request, and you can run them all locally:
+
+| Gate | Command | Checks |
+| --- | --- | --- |
+| Format | `terraform fmt -check -recursive` | Canonical formatting |
+| Validate | `./scripts/validate.sh` | Every example and stack root |
+| Contract tests | `terraform test ./modules/...` | 15 modules, behaviour asserted on a mock provider |
+| Manifest schema | `check-jsonschema --schemafile schema/subsystem.schema.json ...` | Manifests match the contract |
+| Lint | `tflint --recursive` | Provider and Terraform rules |
+| Policy | `conftest test tests/fixtures/pass --policy policies/opa` | KMS, IAM, S3, tags (OPA, both directions) |
+| Security | `trivy config .` | HIGH/CRITICAL misconfigurations |
+| Smoke | `./tests/smoke/localstack-smoke.sh` | Apply and assert against LocalStack |
+
+## Repository structure
 
 ```text
-modules/      Reusable primitives and pattern modules
-stacks/       Reference compositions and environment roots
-templates/    Backstage and CLI scaffolds
-examples/     Runnable examples and the LocalStack smoke path
-policies/     OPA and Sentinel policy packs
-tests/        Fixtures, smoke tests, and integration helpers
-docs/         Architecture, ADRs, and contributor guides
+modules/
+  primitives/    four hardened single-resource wrappers
+  patterns/      the named building blocks (event hub, BFF, ESG, control, ...)
+  composition/   the manifest composer
+schema/          subsystem.schema.json, the manifest contract
+templates/       the subsystem-app paved road (+ Backstage and CLI scaffolds)
+examples/        runnable examples, incl. a manifest-composed payouts subsystem
+stacks/          reference compositions and environment roots
+policies/        OPA and Sentinel policy packs
+tests/           fixtures, smoke tests, integration helpers
+docs/            architecture diagrams, ADRs, integration guides
+.github/         CI, the author-subsystem workflow, reusable actions
 ```
 
-## Local Validation
+## Documentation
 
-Use the same gates as CI:
-
-```sh
-terraform fmt -check -recursive
-tflint --init && tflint --recursive
-terraform test modules/primitives/eventbridge_bus
-conftest test tests/fixtures/pass --policy policies/opa
-trivy config .
-```
-
-Some tools may not be installed locally. CI installs Terraform, TFLint, Conftest, and Trivy before running the full gate set.
-
-## Release And Versioning
-
-Modules follow semantic versioning. Breaking input/output changes require a major version, additive inputs and outputs require a minor version, and internal fixes require a patch version. `CHANGELOG.md` is curated by humans before each release tag.
+- [Architecture diagram](docs/architecture/patterns-clean.drawio): Pattern Icons key, a tab per pattern, two worked examples
+- [Manifest schema](schema/subsystem.schema.json): every field, fully described
+- [Self-service and agentic integration](docs/self-service-integration.md): the deployment topology and front doors
+- [Architecture overview](docs/architecture/overview.md) and [Developer guide](docs/developer-guide.md)
+- [Architecture Decision Records](docs/adr/): e.g. [DynamoDB Streams vs Kinesis](docs/adr/0001-dynamodb-streams-versus-kinesis.md)
+- *Software Architecture Patterns for Serverless Systems* (Packt): the book this library implements
