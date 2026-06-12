@@ -51,16 +51,22 @@ locals {
     }
   } }
 
-  esg_artefacts = { for k, e in local.esgs : k => {
-    ingress = {
-      s3_bucket = try(e.artefacts.ingress.bucket, local.artefact_defaults.bucket)
-      s3_key    = try(e.artefacts.ingress.key, "${local.artefact_prefix}${local.name}-${k}-ingress.zip")
-    }
-    egress = {
-      s3_bucket = try(e.artefacts.egress.bucket, local.artefact_defaults.bucket)
-      s3_key    = try(e.artefacts.egress.key, "${local.artefact_prefix}${local.name}-${k}-egress.zip")
-    }
-  } }
+  esg_egress_enabled = { for k, e in local.esgs : k => length(try(e.egress, [])) > 0 }
+
+  esg_artefacts = { for k, e in local.esgs : k => merge(
+    {
+      ingress = {
+        s3_bucket = try(e.artefacts.ingress.bucket, local.artefact_defaults.bucket)
+        s3_key    = try(e.artefacts.ingress.key, "${local.artefact_prefix}${local.name}-${k}-ingress.zip")
+      }
+    },
+    local.esg_egress_enabled[k] ? {
+      egress = {
+        s3_bucket = try(e.artefacts.egress.bucket, local.artefact_defaults.bucket)
+        s3_key    = try(e.artefacts.egress.key, "${local.artefact_prefix}${local.name}-${k}-egress.zip")
+      }
+    } : {}
+  ) }
 }
 
 # ---------------------------------------------------------------------------
@@ -404,7 +410,7 @@ module "esg" {
   event_bus_arn  = module.hub.bus_arn
   artefacts      = local.esg_artefacts[each.key]
 
-  external_event_pattern = jsonencode({ "detail-type" = each.value.egress })
+  external_event_pattern = local.esg_egress_enabled[each.key] ? jsonencode({ "detail-type" = each.value.egress }) : null
   create_webhook_api     = try(each.value.webhook, false)
   jwt_authorizer         = try({ issuer = each.value.jwt.issuer, audience = each.value.jwt.audiences }, null)
   secret_arns            = try(each.value.secret_arns, [])
@@ -525,17 +531,21 @@ locals {
     }
   }]...)
 
-  observed_esgs = merge([for k, e in local.esgs : {
-    "${k}-ingress" = {
-      function_name   = module.esg[k].ingress_function_name
-      timeout_seconds = module.esg[k].timeout_seconds
-    }
-    "${k}-egress" = {
-      function_name   = module.esg[k].egress_function_name
-      timeout_seconds = module.esg[k].timeout_seconds
-      dlq_queue_name  = module.esg[k].egress_dlq_name
-    }
-  }]...)
+  observed_esgs = merge([for k, e in local.esgs : merge(
+    {
+      "${k}-ingress" = {
+        function_name   = module.esg[k].ingress_function_name
+        timeout_seconds = module.esg[k].timeout_seconds
+      }
+    },
+    local.esg_egress_enabled[k] ? {
+      "${k}-egress" = {
+        function_name   = module.esg[k].egress_function_name
+        timeout_seconds = module.esg[k].timeout_seconds
+        dlq_queue_name  = module.esg[k].egress_dlq_name
+      }
+    } : {}
+  )]...)
 
   observed_functions = merge(local.observed_bffs, local.observed_controls, local.observed_esgs)
 
@@ -546,7 +556,7 @@ locals {
     { for k, _ in local.hub_route_keys : "hub-${k}-dlq" => aws_sqs_queue.route_dlq[k].name },
     { for k, c in local.reactor_controls : "${k}-listener-rule-dlq" => module.control[k].listener_rule_dlq_name },
     { for k, c in local.saga_controls : "${k}-workflow-rule-dlq" => module.control[k].workflow_rule_dlq_name },
-    { for k, e in local.esgs : "${k}-egress-rule-dlq" => module.esg[k].egress_rule_dlq_name },
+    { for k, e in local.esgs : "${k}-egress-rule-dlq" => module.esg[k].egress_rule_dlq_name if local.esg_egress_enabled[k] },
   )
 }
 

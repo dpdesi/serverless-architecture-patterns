@@ -32,9 +32,9 @@ variable "manifest" {
 
   validation {
     condition = alltrue([
-      for e in try(var.manifest.esgs, []) : can(regex("^[a-z][a-z0-9-]{1,23}$", e.name)) && length(try(e.egress, [])) > 0
+      for e in try(var.manifest.esgs, []) : can(regex("^[a-z][a-z0-9-]{1,23}$", e.name)) && (length(try(e.egress, [])) > 0 || try(e.webhook, false))
     ])
-    error_message = "Every manifest.esgs[*] needs a valid name and a non-empty egress list."
+    error_message = "Every manifest.esgs[*] needs a valid name and either a non-empty egress list or webhook: true (an ingress-only gateway)."
   }
 
   validation {
@@ -59,8 +59,8 @@ variable "manifest" {
     condition = can(var.manifest.artefact_defaults.bucket) || alltrue(concat(
       [for b in try(var.manifest.bffs, []) : can(b.artefacts.rest.bucket) && can(b.artefacts.listener.bucket) && can(b.artefacts.trigger.bucket)],
       [for c in try(var.manifest.controls, []) : c.mode != "event_reactor" || (can(c.artefacts.listener.bucket) && can(c.artefacts.trigger.bucket))],
-      [for e in try(var.manifest.esgs, []) : can(e.artefacts.ingress.bucket) && can(e.artefacts.egress.bucket)],
+      [for e in try(var.manifest.esgs, []) : can(e.artefacts.ingress.bucket) && (length(try(e.egress, [])) == 0 || can(e.artefacts.egress.bucket))],
     ))
-    error_message = "Provide manifest.artefact_defaults.bucket, or explicit artefacts for every BFF (rest/listener/trigger), every event_reactor control (listener/trigger) and every ESG (ingress/egress)."
+    error_message = "Provide manifest.artefact_defaults.bucket, or explicit artefacts for every BFF (rest/listener/trigger), every event_reactor control (listener/trigger) and every ESG (ingress, plus egress when it has egress events)."
   }
 }

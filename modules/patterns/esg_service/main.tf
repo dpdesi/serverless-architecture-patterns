@@ -1,5 +1,6 @@
 locals {
   effective_kms_key_arn = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
+  egress_enabled        = var.external_event_pattern != null
   common_environment = merge(var.environment_variables, {
     EVENT_BUS_NAME = var.event_bus_name
     SERVICE_NAME   = var.name
@@ -15,6 +16,8 @@ resource "aws_kms_key" "this" {
 }
 
 resource "aws_sqs_queue" "egress_dlq" {
+  count = local.egress_enabled ? 1 : 0
+
   name                      = "${var.name}-egress-dlq"
   kms_master_key_id         = local.effective_kms_key_arn
   message_retention_seconds = var.dlq_message_retention_seconds
@@ -22,12 +25,14 @@ resource "aws_sqs_queue" "egress_dlq" {
 }
 
 resource "aws_sqs_queue" "egress" {
+  count = local.egress_enabled ? 1 : 0
+
   name                       = "${var.name}-egress"
   kms_master_key_id          = local.effective_kms_key_arn
   visibility_timeout_seconds = var.timeout * 6
   message_retention_seconds  = var.message_retention_seconds
   redrive_policy = jsonencode({
-    deadLetterTargetArn = aws_sqs_queue.egress_dlq.arn
+    deadLetterTargetArn = aws_sqs_queue.egress_dlq[0].arn
     maxReceiveCount     = var.max_receive_count
   })
   tags = var.tags
@@ -62,6 +67,7 @@ module "ingress" {
 
 module "egress" {
   source = "../../primitives/lambda_function"
+  count  = local.egress_enabled ? 1 : 0
 
   name = "${var.name}-egress"
   # ESM-invoked (synchronous): the primitive's async DLQ never receives
@@ -80,7 +86,7 @@ module "egress" {
   parameter_arns           = var.parameter_arns
   environment_variables = merge(local.common_environment, {
     COMPONENT        = "egress"
-    EGRESS_QUEUE_URL = aws_sqs_queue.egress.url
+    EGRESS_QUEUE_URL = aws_sqs_queue.egress[0].url
   })
   policy_statements = [
     {
@@ -90,7 +96,7 @@ module "egress" {
         "sqs:GetQueueAttributes",
         "sqs:ReceiveMessage"
       ]
-      resources = [aws_sqs_queue.egress.arn]
+      resources = [aws_sqs_queue.egress[0].arn]
     }
   ]
   tags = var.tags
@@ -116,6 +122,8 @@ module "webhook_api" {
 }
 
 resource "aws_cloudwatch_event_rule" "egress" {
+  count = local.egress_enabled ? 1 : 0
+
   name           = "${var.name}-egress"
   description    = "Routes subsystem events to the ESG egress queue."
   event_bus_name = var.event_bus_name
@@ -124,6 +132,8 @@ resource "aws_cloudwatch_event_rule" "egress" {
 }
 
 resource "aws_sqs_queue" "egress_rule_dlq" {
+  count = local.egress_enabled ? 1 : 0
+
   name                      = "${var.name}-egress-rule-dlq"
   kms_master_key_id         = local.effective_kms_key_arn
   message_retention_seconds = var.dlq_message_retention_seconds
@@ -131,21 +141,25 @@ resource "aws_sqs_queue" "egress_rule_dlq" {
 }
 
 resource "aws_cloudwatch_event_target" "egress" {
-  rule           = aws_cloudwatch_event_rule.egress.name
+  count = local.egress_enabled ? 1 : 0
+
+  rule           = aws_cloudwatch_event_rule.egress[0].name
   event_bus_name = var.event_bus_name
   target_id      = "egress-queue"
-  arn            = aws_sqs_queue.egress.arn
+  arn            = aws_sqs_queue.egress[0].arn
 
   dead_letter_config {
-    arn = aws_sqs_queue.egress_rule_dlq.arn
+    arn = aws_sqs_queue.egress_rule_dlq[0].arn
   }
 }
 
 data "aws_iam_policy_document" "egress_rule_dlq" {
+  count = local.egress_enabled ? 1 : 0
+
   statement {
     sid       = "AllowEventBridgeDeadLetter"
     actions   = ["sqs:SendMessage"]
-    resources = [aws_sqs_queue.egress_rule_dlq.arn]
+    resources = [aws_sqs_queue.egress_rule_dlq[0].arn]
 
     principals {
       type        = "Service"
@@ -155,22 +169,26 @@ data "aws_iam_policy_document" "egress_rule_dlq" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = [aws_cloudwatch_event_rule.egress.arn]
+      values   = [aws_cloudwatch_event_rule.egress[0].arn]
     }
   }
 }
 
 resource "aws_sqs_queue_policy" "egress_rule_dlq" {
-  queue_url = aws_sqs_queue.egress_rule_dlq.url
-  policy    = data.aws_iam_policy_document.egress_rule_dlq.json
+  count = local.egress_enabled ? 1 : 0
+
+  queue_url = aws_sqs_queue.egress_rule_dlq[0].url
+  policy    = data.aws_iam_policy_document.egress_rule_dlq[0].json
 }
 
 data "aws_iam_policy_document" "egress_queue" {
+  count = local.egress_enabled ? 1 : 0
+
   statement {
     sid     = "AllowEventBridgeSendMessage"
     actions = ["sqs:SendMessage"]
     resources = [
-      aws_sqs_queue.egress.arn
+      aws_sqs_queue.egress[0].arn
     ]
 
     principals {
@@ -181,19 +199,23 @@ data "aws_iam_policy_document" "egress_queue" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = [aws_cloudwatch_event_rule.egress.arn]
+      values   = [aws_cloudwatch_event_rule.egress[0].arn]
     }
   }
 }
 
 resource "aws_sqs_queue_policy" "egress" {
-  queue_url = aws_sqs_queue.egress.url
-  policy    = data.aws_iam_policy_document.egress_queue.json
+  count = local.egress_enabled ? 1 : 0
+
+  queue_url = aws_sqs_queue.egress[0].url
+  policy    = data.aws_iam_policy_document.egress_queue[0].json
 }
 
 resource "aws_lambda_event_source_mapping" "egress" {
-  event_source_arn        = aws_sqs_queue.egress.arn
-  function_name           = module.egress.function_arn
+  count = local.egress_enabled ? 1 : 0
+
+  event_source_arn        = aws_sqs_queue.egress[0].arn
+  function_name           = module.egress[0].function_arn
   batch_size              = 10
   function_response_types = ["ReportBatchItemFailures"]
 }
@@ -203,6 +225,16 @@ resource "terraform_data" "validate_kms_inputs" {
     precondition {
       condition     = var.create_kms_key || var.kms_key_arn != null
       error_message = "Provide a kms_key_arn when create_kms_key is false - otherwise resources would be created without customer-managed encryption."
+    }
+
+    precondition {
+      condition     = !local.egress_enabled || var.artefacts.egress != null
+      error_message = "Provide artefacts.egress when external_event_pattern is set - the egress handler needs code."
+    }
+
+    precondition {
+      condition     = local.egress_enabled || var.create_webhook_api
+      error_message = "An ESG with no egress path (external_event_pattern = null) must expose the webhook API - otherwise the gateway has no way to interact with the external system at all."
     }
   }
 }

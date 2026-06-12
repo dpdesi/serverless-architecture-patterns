@@ -14,7 +14,8 @@ Author Serverless Subsystem:
           a new event from observed ones, step_functions for a multi-step saga with waits,
           retries and compensation), events it subscribes to
         - esgs: external systems. For each: name, the external system, events it sends out
-          (egress), webhook true/false
+          (egress, omit if the external system only calls us), webhook true/false (true
+          when the external system sends callbacks/webhooks in)
         - notification_emails: where the fault monitor alerts go
 
         Services connect only through events: a control subscribes to what a BFF publishes.
@@ -40,6 +41,10 @@ Author Serverless Subsystem:
         Set tags Environment, System, Owner and artefact_defaults.bucket from /request.txt.
         Never write Terraform. Do not invent event names, buckets or fields the user did
         not provide; leave genuine unknowns as placeholders with a YAML comment.
+        An ESG that only receives from the external system (webhook: true) takes no
+        egress list - never put an inbound event in egress. A BFF is only for activities
+        where a person uses the system; provider callbacks enter through the ESG webhook,
+        not a BFF.
         Write the manifest to /subsystem.yaml.
       subagent: github
     - display_text: Validate manifest against schema
@@ -58,6 +63,11 @@ Author Serverless Subsystem:
         If it does not exist, create it from the template ${APP_TEMPLATE_REPO} using the
         gh CLI (gh repo create <target_repo> --private --template ${APP_TEMPLATE_REPO}),
         and note greenfield.
+        Then VERIFY the scaffold: the file infra/terraform/main.tf must exist in the
+        target repo (template generation is asynchronous; retry the check a few times).
+        If it does not appear, do NOT fall back to creating a bare repository and do NOT
+        continue - stop and report that the template scaffold failed (most likely the
+        token cannot access the template repository).
         Write target_repo and brownfield/greenfield to /repo_result.txt.
       subagent: github
     - display_text: Commit manifest on a branch

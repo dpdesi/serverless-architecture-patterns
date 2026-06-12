@@ -31,6 +31,11 @@ All notable changes to this repository are documented here.
   job, and the `author-subsystem` workflow_dispatch front door (scaffolds a new app repo from the
   template or PRs the manifest into an existing one). The library is consumed as a pinned
   dependency; app repos own state and apply.
+- (additive) ingress-only ESGs: `esg_service.external_event_pattern` is now nullable (null skips the
+  entire egress path - queue, handler, rule, DLQs - and requires the webhook API instead), the
+  manifest schema makes `esgs[*].egress` optional when `webhook: true`, and the composer wires the
+  conditional artefacts/observability accordingly. Models gateways that only receive provider
+  callbacks (e.g. payment status webhooks) without a fake egress event.
 - (fix) `fault_monitor` SNS topic policy now also grants its own CloudWatch alarms `sns:Publish`
   (the replacement topic policy previously locked them out); `bff_service`/`control_service`/`esg_service`
   no longer create a redundant per-Lambda async DLQ on their SQS-invoked functions (it collided in

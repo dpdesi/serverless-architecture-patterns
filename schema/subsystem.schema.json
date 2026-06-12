@@ -5,33 +5,57 @@
   "description": "Declarative description of an autonomous serverless subsystem composed from the pattern library. One manifest renders to one Terraform root via modules/composition/subsystem. The vocabulary matches the pattern glyphs in docs/architecture/patterns-clean.drawio.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["subsystem", "tags"],
+  "required": [
+    "subsystem",
+    "tags"
+  ],
   "properties": {
     "subsystem": {
       "type": "string",
       "description": "Subsystem name. Used as the prefix for every resource name, so keep it short.",
       "pattern": "^[a-z][a-z0-9-]{1,23}$"
     },
-    "description": { "type": "string" },
+    "description": {
+      "type": "string"
+    },
     "tags": {
       "type": "object",
       "description": "Propagated to every resource. Environment, System and Owner are mandatory across the library.",
-      "required": ["Environment", "System", "Owner"],
+      "required": [
+        "Environment",
+        "System",
+        "Owner"
+      ],
       "properties": {
-        "Environment": { "type": "string" },
-        "System": { "type": "string" },
-        "Owner": { "type": "string" }
+        "Environment": {
+          "type": "string"
+        },
+        "System": {
+          "type": "string"
+        },
+        "Owner": {
+          "type": "string"
+        }
       },
-      "additionalProperties": { "type": "string" }
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "artefact_defaults": {
       "type": "object",
       "description": "Default S3 location for Lambda artefacts. Per-component keys default to <prefix><subsystem>-<service>-<component>.zip; any component can override with an explicit artefact.",
       "additionalProperties": false,
-      "required": ["bucket"],
+      "required": [
+        "bucket"
+      ],
       "properties": {
-        "bucket": { "type": "string" },
-        "prefix": { "type": "string", "default": "" }
+        "bucket": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string",
+          "default": ""
+        }
       }
     },
     "hub": {
@@ -39,8 +63,15 @@
       "description": "Event hub settings [event_hub]. The hub itself is always created.",
       "additionalProperties": false,
       "properties": {
-        "archive": { "type": "boolean", "default": true },
-        "archive_retention_days": { "type": "integer", "minimum": 1, "default": 30 }
+        "archive": {
+          "type": "boolean",
+          "default": true
+        },
+        "archive_retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 30
+        }
       }
     },
     "bffs": {
@@ -49,13 +80,27 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
-          "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,23}$" },
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,23}$"
+          },
           "activity": {
             "type": "string",
             "description": "The kind of user activity, from the book's BFF taxonomy. Documentation only.",
-            "enum": ["crud", "lov", "task", "search", "action", "dashboard", "reporting", "archive"]
+            "enum": [
+              "crud",
+              "lov",
+              "task",
+              "search",
+              "action",
+              "dashboard",
+              "reporting",
+              "archive"
+            ]
           },
           "path": {
             "type": "string",
@@ -70,45 +115,85 @@
           "subscribes": {
             "type": "array",
             "description": "Event detail-types routed from the hub into this BFF's listener queue.",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "default": []
           },
           "publishes": {
             "type": "array",
             "description": "Event detail-types this BFF emits. Documentation only - publication is database-first via the stream trigger.",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "jwt": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["issuer", "audiences"],
+            "required": [
+              "issuer",
+              "audiences"
+            ],
             "properties": {
-              "issuer": { "type": "string" },
-              "audiences": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+              "issuer": {
+                "type": "string"
+              },
+              "audiences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
             }
           },
-          "cors_allow_origins": { "type": "array", "items": { "type": "string" } },
+          "cors_allow_origins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "table": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "hash_key": { "type": "string", "default": "pk" },
-              "range_key": { "type": "string", "default": "sk" },
+              "hash_key": {
+                "type": "string",
+                "default": "pk"
+              },
+              "range_key": {
+                "type": "string",
+                "default": "sk"
+              },
               "attributes": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["name", "type"],
+                  "required": [
+                    "name",
+                    "type"
+                  ],
                   "properties": {
-                    "name": { "type": "string" },
-                    "type": { "type": "string", "enum": ["S", "N", "B"] }
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "S",
+                        "N",
+                        "B"
+                      ]
+                    }
                   }
                 }
               }
             }
           },
-          "artefacts": { "$ref": "#/$defs/bffArtefacts" }
+          "artefacts": {
+            "$ref": "#/$defs/bffArtefacts"
+          }
         }
       }
     },
@@ -118,40 +203,74 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name", "mode", "subscribes"],
+        "required": [
+          "name",
+          "mode",
+          "subscribes"
+        ],
         "properties": {
-          "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,23}$" },
-          "mode": { "type": "string", "enum": ["event_reactor", "step_functions"] },
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,23}$"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "event_reactor",
+              "step_functions"
+            ]
+          },
           "subscribes": {
             "type": "array",
             "description": "Event detail-types that trigger this control service.",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "minItems": 1
           },
           "emits": {
             "type": "array",
             "description": "Event detail-types this service publishes back to the hub. Documentation only.",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "artefacts": {
             "type": "object",
             "description": "Required in event_reactor mode unless artefact_defaults is set.",
             "additionalProperties": false,
             "properties": {
-              "listener": { "$ref": "#/$defs/artefact" },
-              "trigger": { "$ref": "#/$defs/artefact" }
+              "listener": {
+                "$ref": "#/$defs/artefact"
+              },
+              "trigger": {
+                "$ref": "#/$defs/artefact"
+              }
             }
           },
           "state_machine_definition": {
             "type": "object",
             "description": "step_functions mode: the Amazon States Language definition, inline as YAML (jsonencoded by the composer). Without it the module's placeholder pass-through definition is used - not production-ready.",
-            "required": ["StartAt", "States"]
+            "required": [
+              "StartAt",
+              "States"
+            ]
           }
         },
         "allOf": [
           {
-            "if": { "properties": { "mode": { "const": "step_functions" } } },
-            "then": { "properties": { "artefacts": false } }
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "step_functions"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "artefacts": false
+              }
+            }
           }
         ]
       }
@@ -162,14 +281,24 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name", "egress"],
+        "required": [
+          "name"
+        ],
         "properties": {
-          "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,23}$" },
-          "external": { "type": "string", "description": "The external system this gateway isolates. Documentation only." },
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,23}$"
+          },
+          "external": {
+            "type": "string",
+            "description": "The external system this gateway isolates. Documentation only."
+          },
           "egress": {
             "type": "array",
-            "description": "Event detail-types matched by the egress rule and queued for delivery to the external system.",
-            "items": { "type": "string" },
+            "description": "Event detail-types matched by the egress rule and queued for delivery to the external system. Omit for an ingress-only gateway (webhook: true) that only receives from the external system.",
+            "items": {
+              "type": "string"
+            },
             "minItems": 1
           },
           "webhook": {
@@ -181,23 +310,65 @@
             "type": "object",
             "description": "Optional JWT authoriser for the webhook API. Without it the webhook is unauthenticated at the infrastructure layer (the ingress Lambda may still verify signatures itself).",
             "additionalProperties": false,
-            "required": ["issuer", "audiences"],
+            "required": [
+              "issuer",
+              "audiences"
+            ],
             "properties": {
-              "issuer": { "type": "string" },
-              "audiences": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+              "issuer": {
+                "type": "string"
+              },
+              "audiences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
             }
           },
-          "secret_arns": { "type": "array", "items": { "type": "string" } },
-          "parameter_arns": { "type": "array", "items": { "type": "string" } },
+          "secret_arns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parameter_arns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "artefacts": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "ingress": { "$ref": "#/$defs/artefact" },
-              "egress": { "$ref": "#/$defs/artefact" }
+              "ingress": {
+                "$ref": "#/$defs/artefact"
+              },
+              "egress": {
+                "$ref": "#/$defs/artefact"
+              }
             }
           }
-        }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "egress"
+            ]
+          },
+          {
+            "required": [
+              "webhook"
+            ],
+            "properties": {
+              "webhook": {
+                "const": true
+              }
+            }
+          }
+        ]
       }
     },
     "operations": {
@@ -209,41 +380,85 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "enabled": { "type": "boolean", "default": true },
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
             "detail_types": {
               "type": "array",
               "description": "Restrict archival to these detail-types. Omit to archive every fact on the hub.",
-              "items": { "type": "string" }
+              "items": {
+                "type": "string"
+              }
             },
-            "bucket_name": { "type": "string", "description": "Override the globally-unique S3 bucket name. Defaults to <subsystem>-event-lake." },
-            "retention_days": { "type": "integer", "minimum": 0 },
-            "object_lock_retention_days": { "type": "integer", "minimum": 1 }
+            "bucket_name": {
+              "type": "string",
+              "description": "Override the globally-unique S3 bucket name. Defaults to <subsystem>-event-lake."
+            },
+            "retention_days": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "object_lock_retention_days": {
+              "type": "integer",
+              "minimum": 1
+            }
           }
         },
         "fault_monitor": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "enabled": { "type": "boolean", "default": true },
-            "emails": { "type": "array", "items": { "type": "string", "format": "email" } },
-            "bucket_name": { "type": "string", "description": "Override the globally-unique S3 bucket name. Defaults to <subsystem>-faults." }
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "emails": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            "bucket_name": {
+              "type": "string",
+              "description": "Override the globally-unique S3 bucket name. Defaults to <subsystem>-faults."
+            }
           }
         },
         "observability": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "enabled": { "type": "boolean", "default": true },
-            "emails": { "type": "array", "items": { "type": "string", "format": "email" } },
-            "dashboard": { "type": "boolean", "default": true }
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "emails": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            "dashboard": {
+              "type": "boolean",
+              "default": true
+            }
           }
         },
         "regional_health": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "enabled": { "type": "boolean", "default": false },
-            "region": { "type": "string", "description": "Region the CloudWatch alarms live in, for the Route 53 health checks." }
+            "enabled": {
+              "type": "boolean",
+              "default": false
+            },
+            "region": {
+              "type": "string",
+              "description": "Region the CloudWatch alarms live in, for the Route 53 health checks."
+            }
           }
         }
       }
@@ -253,15 +468,30 @@
       "description": "Public edge [frontend_edge + micro_frontend]. NOT consumed by modules/composition/subsystem (CloudFront/ACM/Route 53 live in us-east-1 behind a provider alias). Read by a separate us-east-1 edge root that also consumes the composer's api_origins output - see the composer README. Documented here so one manifest fully describes the subsystem.",
       "additionalProperties": false,
       "properties": {
-        "enabled": { "type": "boolean", "default": false },
-        "aliases": { "type": "array", "items": { "type": "string" } },
-        "acm_certificate_arn": { "type": "string" },
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acm_certificate_arn": {
+          "type": "string"
+        },
         "micro_frontend": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "enabled": { "type": "boolean", "default": false },
-            "deployer_artefact": { "$ref": "#/$defs/artefact" }
+            "enabled": {
+              "type": "boolean",
+              "default": false
+            },
+            "deployer_artefact": {
+              "$ref": "#/$defs/artefact"
+            }
           }
         }
       }
@@ -272,19 +502,32 @@
       "type": "object",
       "description": "S3 reference to a Lambda deployment package. The library is source-code free - artefacts are published by your CI/CD.",
       "additionalProperties": false,
-      "required": ["bucket", "key"],
+      "required": [
+        "bucket",
+        "key"
+      ],
       "properties": {
-        "bucket": { "type": "string" },
-        "key": { "type": "string" }
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
       }
     },
     "bffArtefacts": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "rest": { "$ref": "#/$defs/artefact" },
-        "listener": { "$ref": "#/$defs/artefact" },
-        "trigger": { "$ref": "#/$defs/artefact" }
+        "rest": {
+          "$ref": "#/$defs/artefact"
+        },
+        "listener": {
+          "$ref": "#/$defs/artefact"
+        },
+        "trigger": {
+          "$ref": "#/$defs/artefact"
+        }
       }
     }
   }

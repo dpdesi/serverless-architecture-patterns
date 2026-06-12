@@ -156,6 +156,63 @@ run "disabling_lake_removes_route_and_glue" {
   }
 }
 
+run "ingress_only_esg_skips_egress_path" {
+  command = plan
+
+  variables {
+    manifest = {
+      subsystem = "callbacks"
+      tags = {
+        Environment = "test"
+        System      = "payments"
+        Owner       = "callbacks-team"
+      }
+      artefact_defaults = { bucket = "callbacks-artefacts-test" }
+      controls = [
+        { name = "processor", mode = "event_reactor", subscribes = ["PaymentStatusReceived"] },
+      ]
+      esgs = [
+        { name = "psp-webhook", webhook = true },
+      ]
+      operations = {
+        event_lake    = { enabled = false }
+        observability = { enabled = true }
+      }
+    }
+  }
+
+  assert {
+    condition     = output.monitored_functions == tolist(sort(["processor-listener", "processor-trigger", "psp-webhook-ingress"]))
+    error_message = "An ingress-only ESG must contribute its ingress function to observability, and no egress function."
+  }
+
+  assert {
+    condition     = !contains(keys(local.monitored_queues), "psp-webhook-egress-rule-dlq")
+    error_message = "An ingress-only ESG has no egress rule DLQ to monitor."
+  }
+}
+
+run "rejects_esg_with_neither_egress_nor_webhook" {
+  command = plan
+
+  variables {
+    manifest = {
+      subsystem = "callbacks"
+      tags = {
+        Environment = "test"
+        System      = "payments"
+        Owner       = "callbacks-team"
+      }
+      artefact_defaults = { bucket = "callbacks-artefacts-test" }
+      esgs = [
+        { name = "inert" },
+      ]
+    }
+  }
+
+  expect_failures = [var.manifest]
+}
+
 run "rejects_invalid_control_mode" {
   command = plan
 

@@ -14,22 +14,23 @@ variable "event_bus_arn" {
 }
 
 variable "artefacts" {
-  description = "External Lambda artefacts for ingress and egress handlers."
+  description = "External Lambda artefacts for the ingress handler, and for the egress handler when the gateway has an egress path."
   type = object({
     ingress = object({
       s3_bucket = string
       s3_key    = string
     })
-    egress = object({
+    egress = optional(object({
       s3_bucket = string
       s3_key    = string
-    })
+    }))
   })
 }
 
 variable "external_event_pattern" {
-  description = "EventBridge pattern for events that should be sent to the external system."
+  description = "EventBridge pattern for events that should be sent to the external system. Null disables the egress path entirely (ingress-only gateway, e.g. a webhook that only receives provider callbacks)."
   type        = string
+  default     = null
 }
 
 variable "create_webhook_api" {
