@@ -1,8 +1,8 @@
 # Pattern reference
 
-This section documents every building block in the library, one page per pattern, and then a guide to assembling them into a working subsystem. Each page is written against the module code: the resources listed are the resources the module creates.
+This library builds **autonomous subsystems**. A subsystem owns one business capability (ordering, payments, fulfilment) from end to end: its APIs, its functions, its data, its deployment, and its monitoring. It is *autonomous* because it talks to the rest of the system only through events, never by reaching into another subsystem's database or calling its API. Because nothing crosses that boundary synchronously, one subsystem being slow or down cannot stall the others, and a mistake stays contained to where it was made.
 
-Read it in two passes. First the building blocks (the pages below), so you know what each pattern is and what it provisions. Then [Building a subsystem](../building-a-subsystem.md), which shows how the composer wires the blocks together into the kind of system in the worked examples.
+This reference covers the building blocks those subsystems are made of, one page per pattern, each written against the module code. For how the patterns assemble into a whole subsystem, see [Building a subsystem](../building-a-subsystem.md).
 
 ![The pattern glyph alphabet: one labelled glyph per building block, showing the AWS services inside each and the role each component plays](../architecture/patterns/pattern-icons.png)
 
