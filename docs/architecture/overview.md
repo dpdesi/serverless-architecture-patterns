@@ -1,6 +1,6 @@
 # Architecture Overview
 
-This library builds **autonomous subsystems**: the architecture from *Software Architecture Patterns for Serverless Systems*, the book this repository implements. This overview explains what that means and how the pieces fit together. It stands on its own, so you do not need the book to use the library.
+This library builds **autonomous subsystems**: an event-driven architecture for serverless systems on AWS. This overview explains what that means and how the pieces fit together.
 
 A large system is hard to change because everything depends on everything else. The remedy is to split it into subsystems, where each subsystem owns one business capability (ordering, payments, fulfilment) from end to end: its APIs, its functions, its data, its deployment, and its monitoring. One team builds and runs it without waiting on anyone else.
 
