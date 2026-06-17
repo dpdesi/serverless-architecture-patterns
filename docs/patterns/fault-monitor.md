@@ -59,7 +59,9 @@ Enable it for any subsystem that runs unattended (most do); it is on by default.
 
 ## Diagram
 
-The **Fault Monitor** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the fault rule fanning out to the archive and the alert topic.
+![Fault monitor pattern: a fault rule on the hub fanning out to a Firehose archive bucket and an SNS alert topic, with a rule dead-letter queue and arrival and DLQ-depth alarms](../architecture/patterns/fault-monitor.png)
+
+This is the **Fault Monitor** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

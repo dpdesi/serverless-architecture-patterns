@@ -60,7 +60,9 @@ Enable it for any subsystem where history has value: anything with audit, compli
 
 ## Diagram
 
-The **Event Lake** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the hub route into Firehose and the locked bucket.
+![Event lake pattern: a hub route delivering facts to a Firehose stream that writes compressed, date-partitioned objects into an Object-Lock S3 bucket, with a delivery-failure alarm](../architecture/patterns/event-lake.png)
+
+This is the **Event Lake** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

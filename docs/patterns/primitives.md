@@ -110,4 +110,12 @@ A custom EventBridge bus, encrypted, with an optional archive for replay. This i
 
 ---
 
+## Diagram
+
+![The four primitives: the Lambda function with its role, log group and DLQ; the HTTP API; the DynamoDB table; and the EventBridge bus, plus the security defaults shared by all of them](../architecture/patterns/primitives.png)
+
+This is the **Primitives** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
+
+---
+
 [Back to the pattern reference](README.md)

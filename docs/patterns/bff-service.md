@@ -79,7 +79,9 @@ Use a BFF for any activity a user (or a frontend on a user's behalf) drives sync
 
 ## Diagram
 
-The **BFF** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the API, the three Lambdas, the table and its stream, and the listener queue.
+![BFF service pattern: the HTTP API, the REST, trigger, and listener Lambdas, the owned table and its stream, and the listener queue](../architecture/patterns/bff-service.png)
+
+This is the **BFF** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

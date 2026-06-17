@@ -66,7 +66,9 @@ Always. The event hub is the one mandatory pattern. A subsystem with a single se
 
 ## Diagram
 
-The **Event Hub** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the bus, a fan-out rule, target DLQs, and a point-to-point pipe.
+![Event hub pattern: the custom bus, a fan-out routing rule, per-target dead-letter queues, and an optional point-to-point pipe](../architecture/patterns/event-hub.png)
+
+This is the **Event Hub** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

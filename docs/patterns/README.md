@@ -4,6 +4,10 @@ This section documents every building block in the library, one page per pattern
 
 Read it in two passes. First the building blocks (the pages below), so you know what each pattern is and what it provisions. Then [Building a subsystem](../building-a-subsystem.md), which shows how the composer wires the blocks together into the kind of system in the worked examples.
 
+![The pattern glyph alphabet: one labelled glyph per building block, showing the AWS services inside each and the role each component plays](../architecture/patterns/pattern-icons.png)
+
+Every pattern has a glyph in that key, and each detailed page below embeds the matching tab from the architecture diagram.
+
 ## The three layers
 
 The library is organised in three layers. Each layer is usable on its own, and each higher layer is built from the one below it.

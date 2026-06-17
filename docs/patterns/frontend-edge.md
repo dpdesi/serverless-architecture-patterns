@@ -63,7 +63,9 @@ Use it for any subsystem with a web frontend that needs a secure public edge, an
 
 ## Diagram
 
-The **Frontend Edge** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the private origin, the API behaviours, and the failover group.
+![Frontend edge pattern: CloudFront over a private S3 origin via OAC, ordered behaviours routing API path patterns to BFF origins, and an optional secondary-origin failover group](../architecture/patterns/frontend-edge.png)
+
+This is the **Frontend Edge** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

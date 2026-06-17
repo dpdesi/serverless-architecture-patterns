@@ -58,7 +58,9 @@ Use it when a subsystem is deployed to more than one region and you want Route 5
 
 ## Diagram
 
-The **Regional Health Check** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the child alarms aggregating into the calculated check and the composite alarm.
+![Regional health check pattern: per-dependency metric alarms wrapped as Route 53 health checks aggregating into one calculated health check, and the same alarms ORed into a composite alarm](../architecture/patterns/regional-health-check.png)
+
+This is the **Regional Health Check** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

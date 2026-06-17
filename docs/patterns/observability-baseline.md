@@ -66,7 +66,9 @@ Enable it for every subsystem; it is on by default. The only reason to pass `ena
 
 ## Diagram
 
-The **Observability Baseline** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the alarm fan-in to the topic and the dashboard.
+![Observability baseline pattern: per-function error, throttle, and duration alarms plus DLQ and queue-depth alarms, all fanning in to one SNS topic with email subscribers, and a dashboard](../architecture/patterns/observability-baseline.png)
+
+This is the **Observability Baseline** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

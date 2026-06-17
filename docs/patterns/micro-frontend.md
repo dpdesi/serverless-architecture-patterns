@@ -54,7 +54,9 @@ Use it only when a single frontend is genuinely composed from independently rele
 
 ## Diagram
 
-The **Micro-frontend** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows fragments landing in the bucket, the deployer, and the master manifests.
+![Micro-frontend pattern: per-app fragments landing in the manifest bucket trigger the deployer Lambda, which writes the consolidated master manifests and optionally invalidates the edge cache](../architecture/patterns/micro-frontend.png)
+
+This is the **Micro Frontend** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

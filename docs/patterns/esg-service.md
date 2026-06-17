@@ -80,7 +80,9 @@ Use an ESG for every external system the subsystem integrates with: one gateway 
 
 ## Diagram
 
-The **External Service Gateway** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) shows the ingress webhook, the egress queue and rule, and both handlers.
+![ESG service pattern: the inbound webhook API and ingress Lambda publishing to the hub, and the egress rule, queue, and Lambda making outbound calls](../architecture/patterns/esg-service.png)
+
+This is the **ESG Service** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

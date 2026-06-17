@@ -474,7 +474,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="BFF Service" id="bff-service">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
+    <mxGraphModel dx="1198" dy="814" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -567,7 +567,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="p3desc" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#FAFBFC;strokeColor=#D5DBDB;fontColor=#2B3A42;align=left;verticalAlign=top;spacing=14;fontSize=13;fontStyle=0;fontFamily=Segoe UI;arcSize=4;gradientColor=#E6E6E6;gradientDirection=north;" value="&lt;b&gt;Intent&lt;/b&gt; - A frontend-specific backend that owns request composition and read-model materialisation.&lt;br&gt;&lt;b&gt;Flow&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;1&lt;/b&gt;&amp;nbsp; HTTPS requests reach the HTTP API.&lt;/li&gt;&lt;li&gt;&lt;b&gt;2&lt;/b&gt;&amp;nbsp; Each route invokes the REST handler under a per-route permission.&lt;/li&gt;&lt;li&gt;&lt;b&gt;3&lt;/b&gt;&amp;nbsp; The handler reads and writes the owned table.&lt;/li&gt;&lt;li&gt;&lt;b&gt;4&lt;/b&gt;&amp;nbsp; It may also publish task events directly to the hub.&lt;/li&gt;&lt;li&gt;&lt;b&gt;5&lt;/b&gt;&amp;nbsp; Committed table changes flow through the DynamoDB stream to an event source mapping (ESM) - the managed poller that connects a stream or queue to Lambda - which invokes the trigger.&lt;/li&gt;&lt;li&gt;&lt;b&gt;6&lt;/b&gt;&amp;nbsp; The trigger publishes database-first facts to the hub.&lt;/li&gt;&lt;li&gt;&lt;b&gt;7&lt;/b&gt;&amp;nbsp; A hub rule routes inbound events to the listener queue.&lt;/li&gt;&lt;li&gt;&lt;b&gt;8&lt;/b&gt;&amp;nbsp; An ESM invokes the listener in batches of 10 with ReportBatchItemFailures, so only failed messages are retried - not the whole batch.&lt;/li&gt;&lt;li&gt;&lt;b&gt;9&lt;/b&gt;&amp;nbsp; The listener materialises the view back into the table.&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Failure paths&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;F1&lt;/b&gt;&amp;nbsp; Stream records that exhaust their retries land in the trigger DLQ via the on_failure destination.&lt;/li&gt;&lt;li&gt;&lt;b&gt;F2&lt;/b&gt;&amp;nbsp; A poison message redrives to the listener DLQ after maxReceiveCount attempts.&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Boundary&lt;/b&gt; - The frontend talks to the BFF, never directly to subsystem data stores or downstream services. All queues, the table and logs are encrypted with the module&#39;s customer-managed KMS key." vertex="1">
-          <mxGeometry height="260" width="1320" x="40" y="745" as="geometry" />
+          <mxGeometry height="335" width="1320" x="40" y="745" as="geometry" />
         </mxCell>
         <mxCell id="XNj7c8B6EayXslOZjH3c-3" connectable="0" parent="1" style="group" value="" vertex="1">
           <mxGeometry height="94" width="200" x="1300" y="50" as="geometry" />

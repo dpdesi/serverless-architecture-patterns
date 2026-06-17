@@ -89,7 +89,15 @@ Use an event reactor when one fact (or a small combination) should produce anoth
 
 ## Diagram
 
-The **Control Service** tabs of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio) show both modes.
+Event reactor mode:
+
+![Control service, event reactor mode: a hub rule feeds the listener queue and Lambda, which records to the micro event store; the store's stream drives the trigger Lambda, which publishes derived facts](../architecture/patterns/control-event-reactor.png)
+
+Step Functions mode:
+
+![Control service, Step Functions mode: a hub rule starts the state machine, which orchestrates the process and publishes facts, with failure and timeout alarms](../architecture/patterns/control-step-functions.png)
+
+These are the two **Control Service** tabs of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
 
 ---
 

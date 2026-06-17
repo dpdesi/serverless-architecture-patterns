@@ -115,7 +115,11 @@ The [frontend edge](patterns/frontend-edge.md) and [micro-frontend](patterns/mic
 
 From those few dozen lines, the composer produces a couple of hundred AWS resources: the hub and its archive; three Lambdas, a table, two queues, and an API per BFF; the reactor's queues, table, and two Lambdas; the saga's state machine, roles, rule, and alarms; the gateway's ingress and egress paths; the locked event-lake bucket and its Firehose and route; the fault monitor's archive, topic, and rule; the full set of alarms and the dashboard; and the shared key, the route DLQs, the listener queue policy, and the glue role that connect them. Following the flow: a request to `initiation` publishes `PayoutRequested`; `compliance-screening` reacts; an approval flows to `tracking` (which updates its view) and to `execution-saga` (which orchestrates the transfer via `banking-rails`); every fact is archived in the lake; any fault is captured by the monitor; and every function and delivery DLQ is alarmed.
 
-The same shape, in a different domain, is the **Online order** worked example on its own tab in [`patterns-clean.drawio`](architecture/patterns-clean.drawio): cart and tracking BFFs, a fulfilment saga, a shipping gateway, the same operations. It is the picture this whole library is for.
+The same shape, in a different domain, is the **Online order** worked example: cart and tracking BFFs, a fulfilment saga, a shipping gateway, the same operations. It is the picture this whole library is for.
+
+![Online order subsystem: every component is one pattern glyph, collaborating only through the central Order Event Hub, with numbered labels tracing the execution path and cross-cutting operations watching every service](architecture/online-order-subsystem.png)
+
+That diagram, and a payments-payout variant, are tabs in [`patterns-clean.drawio`](architecture/patterns-clean.drawio).
 
 ## Doing it by hand, and why you usually should not
 
