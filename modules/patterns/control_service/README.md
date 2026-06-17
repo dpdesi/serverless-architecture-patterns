@@ -1,5 +1,7 @@
 # Control Service Pattern
 
+> **Full documentation:** [docs/patterns/control-service.md](../../../docs/patterns/control-service.md): both modes, what each builds, inputs and outputs, and when to use it.
+
 Creates a Control Service in one of two modes:
 
 - `event_reactor`: EventBridge rule, listener queue, listener Lambda, micro event store, and trigger Lambda.

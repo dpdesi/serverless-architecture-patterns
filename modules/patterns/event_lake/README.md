@@ -1,5 +1,7 @@
 # Event Lake Pattern
 
+> **Full documentation:** [docs/patterns/event-lake.md](../../../docs/patterns/event-lake.md): what it builds, how facts reach S3, inputs and outputs, and when to use it.
+
 Creates an encrypted event lake using S3 and Kinesis Data Firehose:
 
 - Private, versioned S3 bucket.

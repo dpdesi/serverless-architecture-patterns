@@ -6,6 +6,8 @@ An autonomous subsystem owns a business capability, its data, its deployment bou
 
 ## Pattern Catalogue
 
+This is the one-line summary. For a detailed page per pattern (what it builds, how it works, its inputs and outputs, and when to use it), see the [pattern reference](../patterns/README.md); for how the composer assembles them into a subsystem, see [Building a subsystem](../building-a-subsystem.md).
+
 | Pattern | Purpose | Use it when |
 | --- | --- | --- |
 | Primitives | Small reusable Terraform building blocks for Lambda, HTTP APIs, DynamoDB tables, and EventBridge buses. | You need consistent low-level AWS resources with tagging, encryption, logging, and least-privilege defaults. |
@@ -33,7 +35,7 @@ The patterns are intended to compose rather than compete:
 
 ## Subsystem Architecture
 
-Editable draw.io diagrams for the implemented patterns are available in [patterns-clean.drawio](patterns-clean.drawio). The file uses one tab per pattern with AWS-service-labelled shapes and short pattern description notes. Tabs cover the four primitives, every pattern module (event hub, BFF, ESG, control service in both modes, event lake, observability baseline, frontend edge, regional health check, fault monitor, micro-frontend manifest deployer), the two reference stacks (subsystem core and public app), and a worked example — *Online order subsystem* — that composes every module into a recognisable retail-checkout architecture so contributors can see how the building blocks fit together for a real domain.
+Editable draw.io diagrams for the implemented patterns are available in [patterns-clean.drawio](patterns-clean.drawio). The file uses one tab per pattern with AWS-service-labelled shapes and short pattern description notes. Tabs cover the four primitives, every pattern module (event hub, BFF, ESG, control service in both modes, event lake, observability baseline, frontend edge, regional health check, fault monitor, micro-frontend manifest deployer), the two reference stacks (subsystem core and public app), and a worked example: *Online order subsystem*: that composes every module into a recognisable retail-checkout architecture so contributors can see how the building blocks fit together for a real domain.
 
 ```mermaid
 flowchart LR

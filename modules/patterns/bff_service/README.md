@@ -1,5 +1,7 @@
 # BFF Service Pattern
 
+> **Full documentation:** [docs/patterns/bff-service.md](../../../docs/patterns/bff-service.md): what it builds, how it works, inputs and outputs, and when to use it.
+
 Creates a Backend for Frontend boundary service. The module accepts external Lambda artefact references and wires the infrastructure needed for a user-facing autonomous service:
 
 - HTTP API with optional JWT authorisation.

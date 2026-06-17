@@ -1,5 +1,7 @@
 # Frontend Edge Pattern
 
+> **Full documentation:** [docs/patterns/frontend-edge.md](../../../docs/patterns/frontend-edge.md): what it builds, API and failover routing, inputs and outputs, and when to use it.
+
 CloudFront distribution serving a single-page application from a private S3 origin, with optional
 secondary-origin failover and optional BFF API routing.
 
@@ -29,11 +31,11 @@ criteria) and Chapter 3 (CDN serving micro-frontend artefacts).
 
 ## Inputs you usually set
 
-- `primary_origin_bucket_name` — explicit bucket name (defaults to `${name}-primary`).
-- `domain_aliases` + `acm_certificate_arn` — to serve the SPA on a custom domain.
-- `secondary_origin` — `{ domain_name, origin_access_control_id }` of a peer bucket in another
+- `primary_origin_bucket_name`: explicit bucket name (defaults to `${name}-primary`).
+- `domain_aliases` + `acm_certificate_arn`: to serve the SPA on a custom domain.
+- `secondary_origin`: `{ domain_name, origin_access_control_id }` of a peer bucket in another
   region. The peer module instance exposes both via its outputs.
-- `api_origins` — map of `{ domain_name, path_pattern, origin_path }` entries. The map key
+- `api_origins`: map of `{ domain_name, path_pattern, origin_path }` entries. The map key
   becomes the CloudFront `origin_id` prefix (`api-<key>`). Example wiring for a multi-BFF
   storefront:
 
@@ -51,10 +53,10 @@ criteria) and Chapter 3 (CDN serving micro-frontend artefacts).
 
 ## What's intentionally out of scope
 
-- Route 53 alias records — composed at the stack level so they can mix in regional health checks.
-- The secondary origin bucket itself — created in a separate stack root for the secondary region so
+- Route 53 alias records: composed at the stack level so they can mix in regional health checks.
+- The secondary origin bucket itself: created in a separate stack root for the secondary region so
   it can live behind a different provider alias.
-- CloudFront access logs bucket — the legacy logging stack requires ACLs enabled, which conflicts
+- CloudFront access logs bucket: the legacy logging stack requires ACLs enabled, which conflicts
   with the bucket-encryption defaults this library enforces elsewhere. Pass a pre-existing log
   bucket via `access_log_bucket_domain_name` if you want logs delivered.
 

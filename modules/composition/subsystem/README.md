@@ -1,5 +1,7 @@
 # Subsystem composition
 
+> **Full documentation:** [docs/building-a-subsystem.md](../../../docs/building-a-subsystem.md): how the composer turns a manifest into a wired subsystem, walked through the examples.
+
 Renders a complete autonomous subsystem from a single declarative manifest. This is the abstraction that sits on top of the pattern library: instead of hand-wiring `event_hub`, `bff_service`, `control_service`, `esg_service` and the operational patterns together, you describe the subsystem in `subsystem.yaml` (vocabulary matching the pattern glyphs in `docs/architecture/patterns-clean.drawio`) and this module derives all the wiring.
 
 ## Usage

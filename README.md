@@ -43,22 +43,22 @@ The idea running through all of it: **services never call each other.** They exc
 
 ## The pattern catalogue
 
-Every pattern is a composition of the primitives. Each links to its module, and to a detail tab in the [architecture diagram](docs/architecture/patterns-clean.drawio).
+Every pattern is a composition of the primitives. Each row links to its detailed reference page (what it builds, how it works, when to use it) and to its module. The full set lives in the [pattern reference](docs/patterns/README.md).
 
-| Pattern | What it is | Module |
-| --- | --- | --- |
-| **Event hub** | The central bus services publish facts to and subscribe from | [`event_hub`](modules/patterns/event_hub) |
-| **BFF service** | Backend for one user activity: HTTP API + functions + owned table | [`bff_service`](modules/patterns/bff_service) |
-| **Control service** | Reacts to events: an event-reactor or a Step Functions saga | [`control_service`](modules/patterns/control_service) |
-| **ESG service** | Anti-corruption boundary around an external system | [`esg_service`](modules/patterns/esg_service) |
-| **Event lake** | Immutable, replayable S3 archive of subsystem facts | [`event_lake`](modules/patterns/event_lake) |
-| **Observability baseline** | Alarms, dashboards, tracing and the SNS topic | [`observability_baseline`](modules/patterns/observability_baseline) |
-| **Fault monitor** | Catches fault events for archival and resubmission | [`fault_monitor`](modules/patterns/fault_monitor) |
-| **Regional health check** | Route 53 health aggregation for failover decisions | [`regional_health_check`](modules/patterns/regional_health_check) |
-| **Frontend edge** | CloudFront + private S3 origin (OAC) with API routing | [`frontend_edge`](modules/patterns/frontend_edge) |
-| **Micro-frontend** | Manifest deployer that aggregates per-app fragments | [`micro_frontend`](modules/patterns/micro_frontend) |
+| Pattern | What it is | Reference | Module |
+| --- | --- | --- | --- |
+| **Event hub** | The central bus services publish facts to and subscribe from | [docs](docs/patterns/event-hub.md) | [`event_hub`](modules/patterns/event_hub) |
+| **BFF service** | Backend for one user activity: HTTP API + functions + owned table | [docs](docs/patterns/bff-service.md) | [`bff_service`](modules/patterns/bff_service) |
+| **Control service** | Reacts to events: an event-reactor or a Step Functions saga | [docs](docs/patterns/control-service.md) | [`control_service`](modules/patterns/control_service) |
+| **ESG service** | Anti-corruption boundary around an external system | [docs](docs/patterns/esg-service.md) | [`esg_service`](modules/patterns/esg_service) |
+| **Event lake** | Immutable, replayable S3 archive of subsystem facts | [docs](docs/patterns/event-lake.md) | [`event_lake`](modules/patterns/event_lake) |
+| **Observability baseline** | Alarms, dashboards, tracing and the SNS topic | [docs](docs/patterns/observability-baseline.md) | [`observability_baseline`](modules/patterns/observability_baseline) |
+| **Fault monitor** | Catches fault events for archival and resubmission | [docs](docs/patterns/fault-monitor.md) | [`fault_monitor`](modules/patterns/fault_monitor) |
+| **Regional health check** | Route 53 health aggregation for failover decisions | [docs](docs/patterns/regional-health-check.md) | [`regional_health_check`](modules/patterns/regional_health_check) |
+| **Frontend edge** | CloudFront + private S3 origin (OAC) with API routing | [docs](docs/patterns/frontend-edge.md) | [`frontend_edge`](modules/patterns/frontend_edge) |
+| **Micro-frontend** | Manifest deployer that aggregates per-app fragments | [docs](docs/patterns/micro-frontend.md) | [`micro_frontend`](modules/patterns/micro_frontend) |
 
-Built on four primitives: [`lambda_function`](modules/primitives/lambda_function), [`api_http`](modules/primitives/api_http), [`dynamodb_table`](modules/primitives/dynamodb_table), [`eventbridge_bus`](modules/primitives/eventbridge_bus).
+Built on four primitives ([reference](docs/patterns/primitives.md)): [`lambda_function`](modules/primitives/lambda_function), [`api_http`](modules/primitives/api_http), [`dynamodb_table`](modules/primitives/dynamodb_table), [`eventbridge_bus`](modules/primitives/eventbridge_bus).
 
 ## Compose a subsystem from a manifest
 
@@ -181,6 +181,8 @@ docs/            architecture diagrams, ADRs, integration guides
 
 ## Documentation
 
+- [Pattern reference](docs/patterns/README.md): a detailed, code-grounded page for every pattern and primitive
+- [Building a subsystem](docs/building-a-subsystem.md): how the composer wires the patterns together, walked through the examples
 - [Architecture diagram](docs/architecture/patterns-clean.drawio): Pattern Icons key, a tab per pattern, two worked examples
 - [Manifest schema](schema/subsystem.schema.json): every field, fully described
 - [Self-service and agentic integration](docs/self-service-integration.md): the deployment topology and front doors

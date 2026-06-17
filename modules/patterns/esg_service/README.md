@@ -1,5 +1,7 @@
 # ESG Service Pattern
 
+> **Full documentation:** [docs/patterns/esg-service.md](../../../docs/patterns/esg-service.md): ingress and egress paths, ingress-only gateways, inputs and outputs, and when to use it.
+
 Creates an External Service Gateway for anti-corruption boundaries:
 
 - Ingress Lambda that normalises external events and publishes internal events to the subsystem event hub.

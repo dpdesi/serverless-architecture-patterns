@@ -1,5 +1,7 @@
 # Regional Health Check Pattern
 
+> **Full documentation:** [docs/patterns/regional-health-check.md](../../../docs/patterns/regional-health-check.md): what it builds, the two aggregations, inputs and outputs, and when to use it.
+
 Maps to Chapter 9 of *Software Architecture Patterns for Serverless Systems*: a calculated
 Route 53 health check aggregating CloudWatch metric alarms that probe the AWS services a
 subsystem depends on. When Route 53 decides the region is unhealthy, latency-based or failover
@@ -15,14 +17,14 @@ For each entry in `metric_alarms`:
 
 And once per module:
 
-- An `aws_cloudwatch_composite_alarm` whose rule is the OR of every child alarm — pass its ARN
+- An `aws_cloudwatch_composite_alarm` whose rule is the OR of every child alarm: pass its ARN
   to `alarm_actions` callers (e.g. the observability_baseline SNS topic) for human notification.
 - An `aws_route53_health_check` of type `CALCULATED` whose `child_health_threshold` defaults to
   `len(metric_alarms)` (every child must be healthy) but can be relaxed for graceful degradation.
 
 ## What's intentionally out of scope
 
-- The Route 53 record sets themselves — they live in the stack so they can mix in latency-based or
+- The Route 53 record sets themselves: they live in the stack so they can mix in latency-based or
   failover routing across two regional instances of this module.
 - The synthetic tracer flow described in the book (API → DDB → Stream → … → DDB update). That
   is application-level: the recommended Terraform-side setup is to point a CloudWatch Synthetics

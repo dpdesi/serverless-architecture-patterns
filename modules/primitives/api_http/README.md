@@ -1,5 +1,7 @@
 # HTTP API Primitive
 
+> **Full documentation:** [docs/patterns/primitives.md](../../../docs/patterns/primitives.md#http-api): all four primitives, what each builds, inputs and outputs.
+
 Creates an API Gateway HTTP API with Lambda proxy integrations and optional JWT authorisation.
 
 ## Defaults

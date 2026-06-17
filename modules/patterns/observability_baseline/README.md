@@ -1,5 +1,7 @@
 # Observability Baseline Pattern
 
+> **Full documentation:** [docs/patterns/observability-baseline.md](../../../docs/patterns/observability-baseline.md): the alarms it creates, the alert topic, inputs and outputs, and when to use it.
+
 Creates the shared observability baseline for autonomous services:
 
 - Alarm SNS topic with KMS encryption.

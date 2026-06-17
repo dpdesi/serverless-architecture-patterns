@@ -1,5 +1,7 @@
 # Micro-Frontend Manifest Deployer
 
+> **Full documentation:** [docs/patterns/micro-frontend.md](../../../docs/patterns/micro-frontend.md): what it builds, how fragments are assembled, inputs and outputs, and when to use it.
+
 Maps to Chapter 3 of *Software Architecture Patterns for Serverless Systems*: the manifest deployer
 that aggregates per-micro-app `mfe.json` fragments into the three master manifests
 (`importmap.json`, `apps.json`, `mount-points.json`) served by the main app.
@@ -7,9 +9,9 @@ that aggregates per-micro-app `mfe.json` fragments into the three master manifes
 ## What it builds
 
 - An S3 bucket (public-access blocked, KMS-encrypted, versioned) with two logical regions:
-  - `manifests_prefix/` — where each micro-app's CI/CD uploads its `mfe.json` after a successful
+  - `manifests_prefix/`: where each micro-app's CI/CD uploads its `mfe.json` after a successful
     deploy. Keys typically look like `manifests/<orgName>-<projectName>.json`.
-  - `master_prefix/` — where the deployer Lambda writes the consolidated master manifests.
+  - `master_prefix/`: where the deployer Lambda writes the consolidated master manifests.
 - A Lambda function (the deployer) packaged from a caller-supplied S3 artefact. The Lambda runs
   on every `s3:ObjectCreated:*` for `manifests_prefix/*.json`, lists all fragments, merges them,
   and writes the three master files under `master_prefix/`.

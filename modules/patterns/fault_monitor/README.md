@@ -1,8 +1,10 @@
 # Fault Monitor Pattern
 
+> **Full documentation:** [docs/patterns/fault-monitor.md](../../../docs/patterns/fault-monitor.md): what it builds, how faults are captured and alerted, inputs and outputs, and when to use it.
+
 Maps to Chapter 4 of *Software Architecture Patterns for Serverless Systems*: a dedicated archive
 for `fault` events flowing on the subsystem event hub. Faults are the byproduct of stream
-processors handling poison events — they need a separate persistent channel so the operator can
+processors handling poison events: they need a separate persistent channel so the operator can
 investigate root cause and resubmit the original payload once the upstream is fixed.
 
 ## What it builds
@@ -17,14 +19,14 @@ investigate root cause and resubmit the original payload once the upstream is fi
 - An SQS DLQ wired into both EventBridge targets so any delivery failure is preserved instead of
   silently dropped.
 - A CloudWatch alarm that fires whenever the rule matches a single fault event (faults are
-  high-signal — the alarm should be loud).
+  high-signal: the alarm should be loud).
 - A second CloudWatch alarm on the rule DLQ depth (in case Firehose or SNS itself is broken).
 
 ## What's intentionally out of scope
 
 - **The resubmission worker.** The book references the [`aws-lambda-stream-cli`](https://github.com/jgilbert01/aws-lambda-stream-cli)
   utility which reads from the bucket and re-invokes the original function. That's an operator
-  tool, not infrastructure — package it alongside your service code and grant it `s3:GetObject` on
+  tool, not infrastructure: package it alongside your service code and grant it `s3:GetObject` on
   `bucket_arn` and `lambda:InvokeFunction` on your processors.
 - **Generic event archival.** Use `event_lake` for the broad archive of business-fact events; this
   module is intentionally narrower (different retention, different alarms, smaller buffers).

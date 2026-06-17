@@ -1,5 +1,7 @@
 # Lambda Function Primitive
 
+> **Full documentation:** [docs/patterns/primitives.md](../../../docs/patterns/primitives.md#lambda-function): all four primitives, what each builds, inputs and outputs.
+
 Creates a production-ready Lambda function from an external artefact reference. The module does not package source code; callers provide either an S3 ZIP artefact or a container image URI.
 
 ## Features
