@@ -35,7 +35,7 @@ flowchart LR
 
 When EventBridge cannot deliver to a target (the destination is unreachable, or rejects the message), the event goes to that target's dead-letter queue rather than being lost. A depth alarm on those DLQs is how a subsystem learns that deliveries are failing; the composition wires those alarms automatically.
 
-## Inputs that matter
+## Inputs
 
 - `name` and `tags` are required.
 - `routes` is a map. Each route is `{ event_pattern, description?, enabled?, targets[] }`, and each target is `{ id, arn, role_arn?, input_path?, dead_letter_queue_arn?, create_dead_letter_queue? }`. The event pattern is standard EventBridge JSON; the most common form matches on `detail-type`.

@@ -26,7 +26,7 @@ flowchart LR
   shell["Shell page"] -->|reads import map, apps, mount points| bucket
 ```
 
-## Inputs that matter
+## Inputs
 
 - `name`, `deployer_artefact`, and `tags` are required.
 - `manifests_prefix` (default `manifests/`) and `master_prefix` (default `main/`) set the bucket layout.

@@ -32,7 +32,7 @@ flowchart TB
 
 The default cache behaviour serves the SPA from the private bucket. Each API origin adds an ordered behaviour that sends its path pattern to a BFF instead. If a secondary origin is configured, the default behaviour targets an origin group and fails over on error.
 
-## Inputs that matter
+## Inputs
 
 - `name` and `tags` are required.
 - `api_origins` is a map of `{ domain_name, path_pattern, origin_path? }`; path patterns must start with `/` and be unique.

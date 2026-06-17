@@ -37,7 +37,7 @@ You hand the baseline two maps: the functions to watch and the off-Lambda queues
 
 The module's `adot_environment_variables` output is a set of environment variables (the OpenTelemetry collector wrapper, sampling at 5%, X-Ray propagation, and Powertools logging and tracing settings). A caller merges these into each function's environment so logs are structured, traces are sampled consistently, and metrics share a namespace. The baseline produces the values; the functions consume them.
 
-## Inputs that matter
+## Inputs
 
 - `name` and `tags` are required.
 - `lambda_functions` is a map of `{ function_name, timeout_seconds, dlq_queue_name? }`. `timeout_seconds` sets the duration threshold; `dlq_queue_name` adds the DLQ-depth alarm.

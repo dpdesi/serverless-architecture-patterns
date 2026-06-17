@@ -46,7 +46,7 @@ Inbound: the external system calls the webhook, the ingress Lambda translates th
 
 A gateway that only receives (a provider that posts status callbacks but takes no calls from us) declares no egress events. The egress queue, rule, Lambda, and DLQs are not created, and a precondition requires the webhook API to be enabled, because an ingress-only gateway with no webhook would have no way to interact with the external system at all. Model a "receive callbacks" integration as an ingress-only ESG, never as a [BFF](bff-service.md) (there is no user activity) and never with a fabricated egress event.
 
-## Inputs that matter
+## Inputs
 
 - `name`, `event_bus_name`, `event_bus_arn`, `artefacts`, and `tags` are required. `artefacts.ingress` is always needed; `artefacts.egress` is required only when the egress path is enabled (a precondition enforces this).
 - `external_event_pattern` (default `null`) enables egress when set. The composer sets it from the manifest's `egress` events.

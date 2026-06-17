@@ -58,7 +58,7 @@ flowchart LR
 
 A matched fact starts an execution. The state machine runs your steps (calls, waits, choices, compensation) and publishes facts back to the hub as it progresses. If you do not supply a definition, the module installs a no-op placeholder that immediately succeeds, so the infrastructure is valid before the real workflow is written; you replace `state_machine_definition` before the saga does anything.
 
-## Inputs that matter
+## Inputs
 
 - `name`, `event_bus_name`, `event_bus_arn`, `event_pattern`, and `tags` are required. `event_pattern` is the EventBridge pattern selecting the facts this service reacts to.
 - `mode` selects the shape (`event_reactor` or `step_functions`).

@@ -47,7 +47,7 @@ The three paths are independent:
 
 The BFF creates its listener queue but **does not** attach the SQS policy that lets EventBridge deliver into it. That policy must name the exact hub rule ARN, and the BFF has no knowledge of the hub. The composition owns that glue and attaches it (see [Building a subsystem](../building-a-subsystem.md#listener-queue-policies)). The `listener_queue_url`, `listener_queue_name`, and `listener_queue_arn` outputs exist for that purpose.
 
-## Inputs that matter
+## Inputs
 
 - `name`, `event_bus_name`, `event_bus_arn`, `artefacts`, `table`, and `tags` are required. `artefacts` supplies the zip location for each of the three functions; `table` needs at least a name (keys default to `pk`/`sk`).
 - `jwt_authorizer` (`{ issuer, audience }`) protects the API at the gateway. Without it the API is open at the infrastructure layer and the REST function must verify tokens itself.

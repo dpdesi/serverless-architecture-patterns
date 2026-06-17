@@ -29,7 +29,7 @@ flowchart LR
 
 A hub rule matches the facts to archive and targets the Firehose stream, using a role the composition creates. Firehose buffers and writes compressed, partitioned objects to S3. The bucket's Object Lock and versioning mean those objects are retained for the configured period and cannot be silently altered.
 
-## Inputs that matter
+## Inputs
 
 - `name` and `tags` are required.
 - `retention_days` (default 2555, about seven years) sets the S3 lifecycle expiry; `0` disables expiry (keep forever). `noncurrent_retention_days` (default 90) expires old versions.

@@ -31,7 +31,7 @@ flowchart LR
 
 A fault published anywhere in the subsystem is matched by the rule and fanned out to both targets at once: archived for resubmission and announced for attention. Failed deliveries to either target land in the rule DLQ, which has its own depth alarm, so the fault monitor cannot fail silently either.
 
-## Inputs that matter
+## Inputs
 
 - `name`, `event_bus_name`, `event_bus_arn`, and `tags` are required.
 - `event_pattern` (default `null`) overrides the `detail-type: fault` match.

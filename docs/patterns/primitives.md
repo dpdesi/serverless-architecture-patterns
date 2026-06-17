@@ -24,7 +24,7 @@ A single Lambda function, its execution role, its log group, and its dead-letter
 - **A KMS-encrypted log group** (`/aws/lambda/<name>`) with finite retention.
 - **A dead-letter queue** (`<name>-dlq`), created by default, used as the function's asynchronous failure destination. You can disable it (`create_dead_letter_queue = false`) or point it at an existing queue (`dead_letter_queue_arn`).
 
-### Inputs that matter
+### Inputs
 
 - `name`, `tags` are required. The artefact is `s3_bucket` plus `s3_key` for a zip, or `image_uri` for a container; a precondition enforces that you supply the right pair for the chosen `package_type`.
 - `policy_statements` is the extension point: a list of `{ actions, resources }` objects appended to the execution policy.
@@ -51,7 +51,7 @@ An API Gateway v2 HTTP API: routes to Lambda integrations, optional JWT authoris
 - **One integration, route, and Lambda permission per entry in `routes`.** Integrations are `AWS_PROXY` with payload format 2.0 and a fixed 30 second timeout. Each route's Lambda permission is scoped to that route's method and path, not the whole API: an `ANY /{proxy+}` route is granted `*` method on `/*`, while `GET /orders` is granted `GET` on `/orders`. A function can only be invoked through the route it was wired for.
 - **An optional JWT authoriser** (`aws_apigatewayv2_authorizer.jwt`), created when `jwt_authorizer` is set. When present, routes default to JWT authorisation; each route can override.
 
-### Inputs that matter
+### Inputs
 
 - `routes` is a map of `{ route_key, lambda_function_arn, lambda_function_name }`, with optional per-route `authorisation_type` and `authorisation_scopes`.
 - `jwt_authorizer` is `{ issuer, audience }` (plus optional identity sources). Without it, routes are unauthenticated at the gateway, and any verification is the function's responsibility.
@@ -72,7 +72,7 @@ A DynamoDB table configured for the database-first event pattern: streams, point
 - **The table** (`aws_dynamodb_table.this`) with on-demand billing by default (`PAY_PER_REQUEST`), customer-managed KMS encryption, **streams enabled** with `NEW_AND_OLD_IMAGES`, **point-in-time recovery enabled**, and **deletion protection enabled**.
 - Optional TTL and global secondary indexes from inputs.
 
-### Inputs that matter
+### Inputs
 
 - `name`, `hash_key`, `attributes`, and `tags` are required. `range_key`, `ttl`, and `global_secondary_indexes` are optional.
 - `stream_enabled` (default `true`) controls whether the table emits a change stream. This is the source of database-first publication: a BFF or control service reads this stream and turns committed writes into events.
@@ -98,7 +98,7 @@ A custom EventBridge bus, encrypted, with an optional archive for replay. This i
 - **An optional archive** (`aws_cloudwatch_event_archive.this`), created when `archive` is set, with its own event pattern and retention (default 30 days). An archive lets you replay past events onto the bus.
 - **An optional resource policy** (`aws_cloudwatch_event_bus_policy.this`), created when `policy_json` is set, for cross-account or cross-service publish grants.
 
-### Inputs that matter
+### Inputs
 
 - `name` and `tags` are required.
 - `archive` is `{ name, event_pattern?, retention_days?, description? }`. Supplying it turns on replay; the event pattern narrows what is archived.

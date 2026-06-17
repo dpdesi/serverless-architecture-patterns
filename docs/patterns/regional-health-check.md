@@ -31,7 +31,7 @@ flowchart TB
   comp --> notify["SNS / on-call"]
 ```
 
-## Inputs that matter
+## Inputs
 
 - `name`, `region`, `metric_alarms`, and `tags` are required. `metric_alarms` must be non-empty: a health check must observe something concrete.
 - Each `metric_alarms` entry is `{ namespace, metric_name, statistic?, period?, evaluation_periods?, threshold?, comparison_operator?, dimensions?, ... }`.
