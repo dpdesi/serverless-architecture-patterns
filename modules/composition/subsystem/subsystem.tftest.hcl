@@ -117,6 +117,11 @@ run "composes_manifest_into_subsystem" {
     condition     = aws_kms_key.this.enable_key_rotation == true
     error_message = "The subsystem key must have rotation enabled."
   }
+
+  assert {
+    condition     = length(local.adot_layers) == 0
+    error_message = "ADOT must be off when no adot_layer_arn is set; functions then use X-Ray active tracing only."
+  }
 }
 
 run "disabling_lake_removes_route_and_glue" {
@@ -211,6 +216,42 @@ run "rejects_esg_with_neither_egress_nor_webhook" {
   }
 
   expect_failures = [var.manifest]
+}
+
+run "adot_layer_attaches_when_set" {
+  command = plan
+
+  variables {
+    manifest = {
+      subsystem = "callbacks"
+      tags = {
+        Environment = "test"
+        System      = "payments"
+        Owner       = "callbacks-team"
+      }
+      artefact_defaults = { bucket = "callbacks-artefacts-test" }
+      bffs = [
+        { name = "intake", path = "/intake/*", publishes = ["PaymentStatusReceived"] },
+      ]
+      operations = {
+        event_lake = { enabled = false }
+        observability = {
+          enabled        = true
+          adot_layer_arn = "arn:aws:lambda:eu-west-2:123456789012:layer:aws-otel-nodejs-arm64-ver-1-0-0:1"
+        }
+      }
+    }
+  }
+
+  assert {
+    condition     = local.adot_layers == tolist(["arn:aws:lambda:eu-west-2:123456789012:layer:aws-otel-nodejs-arm64-ver-1-0-0:1"])
+    error_message = "A configured adot_layer_arn must be attached to every function as a layer."
+  }
+
+  assert {
+    condition     = local.adot_env["AWS_LAMBDA_EXEC_WRAPPER"] == "/opt/otel-handler"
+    error_message = "Enabling ADOT must add the OpenTelemetry exec wrapper to the function environment."
+  }
 }
 
 run "rejects_invalid_control_mode" {

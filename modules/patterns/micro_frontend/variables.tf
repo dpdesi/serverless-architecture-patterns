@@ -83,6 +83,12 @@ variable "kms_key_arn" {
   default     = null
 }
 
+variable "layers" {
+  description = "Lambda layer ARNs to attach to the deployer function, for example the ADOT instrumentation layer. The layer architecture must match the function."
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "Required resource tags. Must include Environment, System, and Owner."
   type        = map(string)

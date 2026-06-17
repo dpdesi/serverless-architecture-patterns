@@ -25,6 +25,23 @@ locals {
 
   alarm_actions = local.obs_enabled ? [module.observability[0].alarm_topic_arn] : []
 
+  # ADOT instrumentation. Set operations.observability.adot_layer_arn to the AWS
+  # Distro for OpenTelemetry layer (matching the function architecture) to attach
+  # it to every function and add the OTel exec wrapper. Off by default: without a
+  # layer the exec wrapper has nothing to run, so functions use X-Ray active
+  # tracing only.
+  adot_layer_arn = try(local.operations.observability.adot_layer_arn, null)
+  adot_layers    = local.adot_layer_arn == null ? [] : [local.adot_layer_arn]
+  adot_env = local.adot_layer_arn == null ? {} : {
+    AWS_LAMBDA_EXEC_WRAPPER            = "/opt/otel-handler"
+    OTEL_PROPAGATORS                   = "tracecontext,baggage,xray"
+    OTEL_TRACES_SAMPLER                = "parentbased_traceidratio"
+    OTEL_TRACES_SAMPLER_ARG            = "0.05"
+    POWERTOOLS_LOGGER_LOG_EVENT        = "false"
+    POWERTOOLS_TRACER_CAPTURE_RESPONSE = "false"
+    POWERTOOLS_TRACER_CAPTURE_ERROR    = "true"
+  }
+
   bff_artefacts = { for k, b in local.bffs : k => {
     rest = {
       s3_bucket = try(b.artefacts.rest.bucket, local.artefact_defaults.bucket)
@@ -366,11 +383,12 @@ module "bff" {
   create_kms_key     = false
   kms_key_arn        = aws_kms_key.this.arn
 
-  environment_variables = {
+  layers = local.adot_layers
+  environment_variables = merge(local.adot_env, {
     POWERTOOLS_SERVICE_NAME      = "${local.name}-${each.key}"
     POWERTOOLS_METRICS_NAMESPACE = local.name
     OTEL_SERVICE_NAME            = "${local.name}-${each.key}"
-  }
+  })
 
   tags = local.tags
 }
@@ -392,11 +410,12 @@ module "control" {
   create_kms_key = false
   kms_key_arn    = aws_kms_key.this.arn
 
-  environment_variables = {
+  layers = local.adot_layers
+  environment_variables = merge(local.adot_env, {
     POWERTOOLS_SERVICE_NAME      = "${local.name}-${each.key}"
     POWERTOOLS_METRICS_NAMESPACE = local.name
     OTEL_SERVICE_NAME            = "${local.name}-${each.key}"
-  }
+  })
 
   tags = local.tags
 }
@@ -418,11 +437,12 @@ module "esg" {
   create_kms_key         = false
   kms_key_arn            = aws_kms_key.this.arn
 
-  environment_variables = {
+  layers = local.adot_layers
+  environment_variables = merge(local.adot_env, {
     POWERTOOLS_SERVICE_NAME      = "${local.name}-${each.key}"
     POWERTOOLS_METRICS_NAMESPACE = local.name
     OTEL_SERVICE_NAME            = "${local.name}-${each.key}"
-  }
+  })
 
   tags = local.tags
 }

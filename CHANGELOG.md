@@ -36,6 +36,15 @@ All notable changes to this repository are documented here.
   manifest schema makes `esgs[*].egress` optional when `webhook: true`, and the composer wires the
   conditional artefacts/observability accordingly. Models gateways that only receive provider
   callbacks (e.g. payment status webhooks) without a fake egress event.
+- (additive) ADOT instrumentation is now wired, not just declared: the `lambda_function` primitive
+  gains a `layers` input, every pattern that builds functions (`bff_service`, `control_service`,
+  `esg_service`, `micro_frontend`) forwards it, and the composer attaches the AWS Distro for
+  OpenTelemetry layer plus the OpenTelemetry exec wrapper to every function when
+  `operations.observability.adot_layer_arn` is set (off by default: functions otherwise keep X-Ray
+  active tracing). Removed the `OPENTELEMETRY_COLLECTOR_CONFIG_FILE = /opt/otel/config.yaml` env var
+  that pointed at a config file nothing shipped (it would have broken the collector); the
+  `public_app` and `customer-engagement-system` reference stacks no longer set the exec wrapper
+  without a layer.
 - (fix) `fault_monitor` SNS topic policy now also grants its own CloudWatch alarms `sns:Publish`
   (the replacement topic policy previously locked them out); `bff_service`/`control_service`/`esg_service`
   no longer create a redundant per-Lambda async DLQ on their SQS-invoked functions (it collided in

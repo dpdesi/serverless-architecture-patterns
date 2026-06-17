@@ -64,6 +64,27 @@ run "requires_tags" {
   expect_failures = [var.tags]
 }
 
+run "attaches_layers" {
+  command = plan
+
+  variables {
+    name      = "contract-handler"
+    s3_bucket = "artefacts"
+    s3_key    = "handler.zip"
+    layers    = ["arn:aws:lambda:eu-west-2:123456789012:layer:aws-otel-nodejs-arm64-ver-1-0-0:1"]
+    tags = {
+      Environment = "test"
+      System      = "contract"
+      Owner       = "platform"
+    }
+  }
+
+  assert {
+    condition     = length(aws_lambda_function.this.layers) == 1 && tolist(aws_lambda_function.this.layers)[0] == "arn:aws:lambda:eu-west-2:123456789012:layer:aws-otel-nodejs-arm64-ver-1-0-0:1"
+    error_message = "Provided layer ARNs must be attached to the function."
+  }
+}
+
 run "rejects_unlimited_log_retention" {
   command = plan
 

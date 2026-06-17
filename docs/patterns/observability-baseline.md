@@ -33,9 +33,21 @@ flowchart TB
 
 You hand the baseline two maps: the functions to watch and the off-Lambda queues to watch. It expands them into alarms, all routed to one topic, all delivered to the configured emails.
 
-## The ADOT and Powertools variables
+## Tracing with ADOT
 
-The module's `adot_environment_variables` output is a set of environment variables (the OpenTelemetry collector wrapper, sampling at 5%, X-Ray propagation, and Powertools logging and tracing settings). A caller merges these into each function's environment so logs are structured, traces are sampled consistently, and metrics share a namespace. The baseline produces the values; the functions consume them.
+Every function has X-Ray active tracing on by default (the Lambda primitive sets it), so basic traces work with no extra setup. Richer OpenTelemetry tracing uses the AWS Distro for OpenTelemetry (ADOT): an AWS-published Lambda layer that adds an OpenTelemetry exec wrapper and collector to the function.
+
+Turning it on has two parts, and the library does both for you. The **layer** is attached through the `layers` input that every pattern carries (and the [`lambda_function`](../../modules/primitives/lambda_function) primitive underneath). The **environment variables** that the wrapper needs (the exec wrapper path, 5% sampling, X-Ray propagation, Powertools settings) are added alongside it. This module's `adot_environment_variables` output is that set, for callers wiring a pattern directly; the composer applies the same set when you enable ADOT.
+
+When using the composer, enable it by giving the ADOT layer ARN for your region and architecture:
+
+```yaml
+operations:
+  observability:
+    adot_layer_arn: arn:aws:lambda:eu-west-2:901920570463:layer:aws-otel-nodejs-arm64-ver-1-32-0:1
+```
+
+The composer then attaches that layer to every function and adds the exec wrapper. Omit it and functions keep X-Ray active tracing only. The exec wrapper is only set when the layer is attached, because it would otherwise have nothing to run.
 
 ## Inputs
 

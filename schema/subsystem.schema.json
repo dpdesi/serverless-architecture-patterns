@@ -444,6 +444,10 @@
             "dashboard": {
               "type": "boolean",
               "default": true
+            },
+            "adot_layer_arn": {
+              "type": "string",
+              "description": "ARN of the AWS Distro for OpenTelemetry (ADOT) Lambda layer to attach to every function. Must match the function architecture (arm64). When set, the composer adds the OpenTelemetry exec wrapper; when omitted, functions use X-Ray active tracing only."
             }
           }
         },

@@ -42,6 +42,7 @@ module "ingress" {
   source = "../../primitives/lambda_function"
 
   name               = "${var.name}-ingress"
+  layers             = var.layers
   s3_bucket          = var.artefacts.ingress.s3_bucket
   s3_key             = var.artefacts.ingress.s3_key
   runtime            = var.runtime
@@ -69,7 +70,8 @@ module "egress" {
   source = "../../primitives/lambda_function"
   count  = local.egress_enabled ? 1 : 0
 
-  name = "${var.name}-egress"
+  name   = "${var.name}-egress"
+  layers = var.layers
   # ESM-invoked (synchronous): the primitive's async DLQ never receives
   # messages and its default name collides with the pattern-level DLQ.
   create_dead_letter_queue = false

@@ -96,6 +96,8 @@ The [observability baseline](patterns/observability-baseline.md) is only as good
 
 The result is that every function and every silent-failure queue in the subsystem has an alarm, derived automatically from what the manifest declared. The baseline's alarm topic ARN is also fed back into the event lake and fault monitor as their alarm action, so all alarms converge on one topic.
 
+Every function has X-Ray active tracing by default. To add OpenTelemetry tracing as well, set `operations.observability.adot_layer_arn` to the ADOT Lambda layer for your region and architecture; the composer attaches it to every function and adds the exec wrapper. See the [observability baseline](patterns/observability-baseline.md#tracing-with-adot) page.
+
 ### Regional health alarms
 
 When `operations.regional_health` is enabled, the composer builds the metric alarms the [health check](patterns/regional-health-check.md) aggregates: per BFF, a Lambda-errors alarm on the REST function and a system-errors alarm on the table. It uses the region from the manifest or the current region. Because the alarms are derived from BFFs, this operation requires at least one BFF.

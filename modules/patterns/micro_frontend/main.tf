@@ -57,6 +57,7 @@ module "deployer" {
   source = "../../primitives/lambda_function"
 
   name           = "${var.name}-deployer"
+  layers         = var.layers
   s3_bucket      = var.deployer_artefact.s3_bucket
   s3_key         = var.deployer_artefact.s3_key
   runtime        = var.runtime

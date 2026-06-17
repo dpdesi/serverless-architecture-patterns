@@ -174,6 +174,12 @@ variable "policy_statements" {
   default = []
 }
 
+variable "layers" {
+  description = "Lambda layer ARNs to attach to the function, for example the ADOT instrumentation layer. The layer architecture must match the function (arm64 by default)."
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "Required resource tags. Must include Environment, System, and Owner."
   type        = map(string)

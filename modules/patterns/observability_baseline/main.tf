@@ -2,16 +2,15 @@ locals {
   effective_kms_key_arn = var.create_kms_key && var.kms_key_arn == null ? aws_kms_key.this[0].arn : var.kms_key_arn
   alarm_actions         = concat([aws_sns_topic.alarms.arn], var.alarm_actions)
   adot_environment_variables = {
-    AWS_LAMBDA_EXEC_WRAPPER             = "/opt/otel-handler"
-    OTEL_PROPAGATORS                    = "tracecontext,baggage,xray"
-    OTEL_TRACES_SAMPLER                 = "parentbased_traceidratio"
-    OTEL_TRACES_SAMPLER_ARG             = "0.05"
-    OPENTELEMETRY_COLLECTOR_CONFIG_FILE = "/opt/otel/config.yaml"
-    POWERTOOLS_LOGGER_LOG_EVENT         = "false"
-    POWERTOOLS_SERVICE_NAME             = var.name
-    POWERTOOLS_TRACER_CAPTURE_RESPONSE  = "false"
-    POWERTOOLS_TRACER_CAPTURE_ERROR     = "true"
-    POWERTOOLS_METRICS_NAMESPACE        = var.name
+    AWS_LAMBDA_EXEC_WRAPPER            = "/opt/otel-handler"
+    OTEL_PROPAGATORS                   = "tracecontext,baggage,xray"
+    OTEL_TRACES_SAMPLER                = "parentbased_traceidratio"
+    OTEL_TRACES_SAMPLER_ARG            = "0.05"
+    POWERTOOLS_LOGGER_LOG_EVENT        = "false"
+    POWERTOOLS_SERVICE_NAME            = var.name
+    POWERTOOLS_TRACER_CAPTURE_RESPONSE = "false"
+    POWERTOOLS_TRACER_CAPTURE_ERROR    = "true"
+    POWERTOOLS_METRICS_NAMESPACE       = var.name
   }
 }
 

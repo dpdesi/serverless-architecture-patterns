@@ -86,7 +86,8 @@ module "listener" {
   count  = local.event_reactor_enabled ? 1 : 0
   source = "../../primitives/lambda_function"
 
-  name = "${var.name}-listener"
+  name   = "${var.name}-listener"
+  layers = var.layers
   # ESM-invoked (synchronous): the primitive's async DLQ never receives
   # messages and its default name collides with the pattern-level DLQ.
   create_dead_letter_queue = false
@@ -129,7 +130,8 @@ module "trigger" {
   count  = local.event_reactor_enabled ? 1 : 0
   source = "../../primitives/lambda_function"
 
-  name = "${var.name}-trigger"
+  name   = "${var.name}-trigger"
+  layers = var.layers
   # ESM-invoked (synchronous): the primitive's async DLQ never receives
   # messages and its default name collides with the pattern-level DLQ.
   create_dead_letter_queue = false

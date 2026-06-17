@@ -22,15 +22,14 @@ locals {
   # raw execute-api domain is used.
   bff_api_domain = coalesce(var.api_origin_domain_name, module.bff.api_domain_name)
 
+  # Powertools flags, meaningful with the active X-Ray tracing every function
+  # already has. Full OpenTelemetry (the exec wrapper and OTel exporter) only
+  # runs when the ADOT layer is attached: pass `layers = [<adot layer arn>]` to
+  # the pattern modules, which adds the wrapper.
   adot_baseline = {
-    AWS_LAMBDA_EXEC_WRAPPER             = "/opt/otel-handler"
-    OTEL_PROPAGATORS                    = "tracecontext,baggage,xray"
-    OTEL_TRACES_SAMPLER                 = "parentbased_traceidratio"
-    OTEL_TRACES_SAMPLER_ARG             = "0.05"
-    OPENTELEMETRY_COLLECTOR_CONFIG_FILE = "/opt/otel/config.yaml"
-    POWERTOOLS_LOGGER_LOG_EVENT         = "false"
-    POWERTOOLS_TRACER_CAPTURE_RESPONSE  = "false"
-    POWERTOOLS_TRACER_CAPTURE_ERROR     = "true"
+    POWERTOOLS_LOGGER_LOG_EVENT        = "false"
+    POWERTOOLS_TRACER_CAPTURE_RESPONSE = "false"
+    POWERTOOLS_TRACER_CAPTURE_ERROR    = "true"
   }
 }
 

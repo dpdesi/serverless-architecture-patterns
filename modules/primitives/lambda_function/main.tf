@@ -141,6 +141,7 @@ resource "aws_lambda_function" "this" {
   s3_object_version              = local.is_zip ? var.s3_object_version : null
   image_uri                      = local.is_image ? var.image_uri : null
   architectures                  = var.architectures
+  layers                         = var.layers
   memory_size                    = var.memory_size
   timeout                        = var.timeout
   reserved_concurrent_executions = var.reserved_concurrent_executions

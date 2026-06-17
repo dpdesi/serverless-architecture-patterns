@@ -18,18 +18,16 @@ locals {
 
   event_lake_bucket_name = coalesce(var.event_lake_bucket_name, "${local.name_prefix}-events")
 
-  # Shared ADOT/Powertools defaults wired into every Lambda. Kept in a local rather
-  # than read from module.observability outputs to avoid a producer->consumer cycle
-  # (observability_baseline consumes Lambda function names from these patterns).
+  # Powertools flags, meaningful with the active X-Ray tracing every function
+  # already has. Kept in a local rather than read from module.observability to
+  # avoid a producer->consumer cycle (observability_baseline consumes Lambda
+  # function names from these patterns). Full OpenTelemetry (the exec wrapper and
+  # OTel exporter) only runs when the ADOT layer is attached: pass
+  # `layers = [<adot layer arn>]` to the pattern modules, which adds the wrapper.
   adot_baseline = {
-    AWS_LAMBDA_EXEC_WRAPPER             = "/opt/otel-handler"
-    OTEL_PROPAGATORS                    = "tracecontext,baggage,xray"
-    OTEL_TRACES_SAMPLER                 = "parentbased_traceidratio"
-    OTEL_TRACES_SAMPLER_ARG             = "0.05"
-    OPENTELEMETRY_COLLECTOR_CONFIG_FILE = "/opt/otel/config.yaml"
-    POWERTOOLS_LOGGER_LOG_EVENT         = "false"
-    POWERTOOLS_TRACER_CAPTURE_RESPONSE  = "false"
-    POWERTOOLS_TRACER_CAPTURE_ERROR     = "true"
+    POWERTOOLS_LOGGER_LOG_EVENT        = "false"
+    POWERTOOLS_TRACER_CAPTURE_RESPONSE = "false"
+    POWERTOOLS_TRACER_CAPTURE_ERROR    = "true"
   }
 }
 

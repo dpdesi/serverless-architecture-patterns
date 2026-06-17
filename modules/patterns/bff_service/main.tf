@@ -68,6 +68,7 @@ module "rest" {
   source = "../../primitives/lambda_function"
 
   name               = "${var.name}-rest"
+  layers             = var.layers
   s3_bucket          = var.artefacts.rest.s3_bucket
   s3_key             = var.artefacts.rest.s3_key
   runtime            = var.runtime
@@ -96,7 +97,8 @@ module "rest" {
 module "listener" {
   source = "../../primitives/lambda_function"
 
-  name = "${var.name}-listener"
+  name   = "${var.name}-listener"
+  layers = var.layers
   # ESM-invoked (synchronous): the primitive's async DLQ never receives
   # messages and its default name collides with the pattern-level DLQ.
   create_dead_letter_queue = false
@@ -133,7 +135,8 @@ module "listener" {
 module "trigger" {
   source = "../../primitives/lambda_function"
 
-  name = "${var.name}-trigger"
+  name   = "${var.name}-trigger"
+  layers = var.layers
   # ESM-invoked (synchronous): the primitive's async DLQ never receives
   # messages and its default name collides with the pattern-level DLQ.
   create_dead_letter_queue = false
