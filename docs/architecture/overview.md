@@ -1,8 +1,10 @@
 # Architecture Overview
 
-This repository provides Terraform modules, reference stacks, scaffolds, tests, policies, and diagrams for building autonomous serverless subsystems on AWS. It is designed to stand on its own: a contributor should be able to understand the patterns from this documentation and the module READMEs without needing any external source material.
+This library builds **autonomous subsystems**: the architecture from *Software Architecture Patterns for Serverless Systems*, the book this repository implements. This overview explains what that means and how the pieces fit together. It stands on its own, so you do not need the book to use the library.
 
-An autonomous subsystem owns a business capability, its data, its deployment boundary, and its operational controls. Other systems interact with it through APIs and events rather than shared databases or copied application code. The patterns in this repository help teams keep those boundaries clear while still supporting frontend delivery, external integrations, orchestration, analytics, observability, and governance.
+A large system is hard to change because everything depends on everything else. The remedy is to split it into subsystems, where each subsystem owns one business capability (ordering, payments, fulfilment) from end to end: its APIs, its functions, its data, its deployment, and its monitoring. One team builds and runs it without waiting on anyone else.
+
+A subsystem is *autonomous* because of how it talks to the rest of the system: only through events, never by reaching into another subsystem's database or calling its API directly. It publishes facts about what happened and reacts to facts published by others. Because nothing crosses a boundary synchronously, one subsystem being slow or down cannot stall the rest, and a mistake stays contained to where it was made. Those boundaries act as bulkheads, and they are what let teams move quickly without breaking each other.
 
 ## Pattern Catalogue
 
@@ -21,21 +23,19 @@ This is the one-line summary. For a detailed page per pattern (what it builds, h
 | Regional health check | Health signals and failover wiring for regional readiness. | A subsystem needs explicit regional availability checks and operator visibility. |
 | Fault monitor | Independent collection, alerting, and persistence of operational fault events. | Failures should be observed outside individual service runtimes so one service failure does not hide another. |
 
-## Pattern Relationships
+## How a subsystem fits together
 
-The patterns are intended to compose rather than compete:
+The rule that separates subsystems also shapes the inside of one: its services do not call each other either. They collaborate through a private **event hub** (a custom EventBridge bus). A service writes to its own data, publishes a fact, and moves on; the services that care about that fact subscribe to it and keep their own copy. No service reads another's database or waits on another's API.
 
-- The **BFF service** handles synchronous user intent and owns frontend-facing state.
-- The **event hub** carries asynchronous business facts between services.
-- The **Control Service** observes events, evaluates policy or workflow state, and emits higher-order decision events.
-- The **ESG service** bridges the subsystem to external systems without leaking external concerns into core services.
-- The **event lake** receives selected facts for analytics, replay, and audit.
-- The **observability baseline** watches the subsystem as an operational product, not just as isolated functions.
-- The **frontend edge**, **regional health check**, and **fault monitor** extend the subsystem for delivery, resilience, and operations.
+Three patterns do the work of a subsystem:
 
-## Subsystem Architecture
+- A **BFF service** backs one user activity, such as checkout or account management. It owns an HTTP API and a database, and turns user actions into facts on the hub.
+- A **control service** reacts to facts to make a decision or run a multi-step process, then publishes the facts that result. It is where logic that spans several services lives.
+- An **ESG service** is the gateway to anything outside the subsystem: a payment provider, a partner API, or another subsystem. It translates the outside world into the subsystem's own facts, and outbound facts into external calls, so external quirks never leak inward.
 
-Editable draw.io diagrams for the implemented patterns are available in [patterns-clean.drawio](patterns-clean.drawio). The file uses one tab per pattern with AWS-service-labelled shapes and short pattern description notes. Tabs cover the four primitives, every pattern module (event hub, BFF, ESG, control service in both modes, event lake, observability baseline, frontend edge, regional health check, fault monitor, micro-frontend manifest deployer), the two reference stacks (subsystem core and public app), and a worked example: *Online order subsystem*: that composes every module into a recognisable retail-checkout architecture so contributors can see how the building blocks fit together for a real domain.
+Three more patterns watch and remember the whole subsystem: the **event lake** keeps an immutable history of every fact for audit and replay, the **observability baseline** alarms on every function and queue, and the **fault monitor** captures failures so they can be investigated and resubmitted.
+
+Inside a subsystem, a single fact flows like this:
 
 ```mermaid
 flowchart LR
@@ -53,6 +53,8 @@ flowchart LR
   hub --> lake["Event lake delivery"]
   hub -. telemetry .-> observability["Observability baseline"]
 ```
+
+Every pattern has its own AWS-labelled, editable tab in [`patterns-clean.drawio`](patterns-clean.drawio), which also includes two end-to-end worked examples: an online order subsystem and a payments payout process. For a detailed page on each pattern, see the [pattern reference](../patterns/README.md).
 
 ## Repository Structure
 
