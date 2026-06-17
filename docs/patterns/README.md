@@ -62,7 +62,7 @@ These defaults are enforced in every module, so the individual pages do not repe
 
 ### The `create_kms_key` switch
 
-Every pattern that encrypts data takes a `create_kms_key` flag (default `true`) and a `kms_key_arn` (default `null`). On its own, a pattern creates its own key. Inside a composition, the composer creates one key for the whole subsystem and passes it to every pattern with `create_kms_key = false` and `kms_key_arn` set. The flag exists because Terraform cannot evaluate `kms_key_arn == null` inside a resource `count` when the ARN is a value that is only known after apply; the explicit boolean breaks that dependency. A precondition in each module rejects `create_kms_key = false` without a key, so a resource can never be created unencrypted.
+Every pattern that encrypts data takes a `create_kms_key` flag (default `true`) and a `kms_key_arn` (default `null`). On its own, a pattern creates its own key. Inside a composition, the composer creates one key for the whole subsystem and hands it to every pattern (`create_kms_key = false`, `kms_key_arn` set), so the subsystem shares a single key. Either way, a precondition stops a resource from ever being created without one.
 
 ## Next
 

@@ -41,11 +41,7 @@ The three paths are independent:
 
 1. **Request path.** The frontend calls the API; the REST Lambda reads or writes the table and returns. It may publish an event inline, but the durable way to publish is the next path.
 2. **Publication path.** A write to the table produces a stream record; the trigger Lambda reads the stream and publishes the corresponding fact to the hub. Because publication is driven by the committed stream, an event is never published for a write that did not commit. Failed stream batches go to the trigger DLQ.
-3. **Read-model path.** Facts the BFF subscribes to arrive on the listener queue; the listener Lambda writes them into the table so the BFF has a local copy. The BFF never calls the producing service to read those facts.
-
-## A deliberate gap: the listener queue policy
-
-The BFF creates its listener queue but **does not** attach the SQS policy that lets EventBridge deliver into it. That policy must name the exact hub rule ARN, and the BFF has no knowledge of the hub. The composition owns that glue and attaches it (see [Building a subsystem](../building-a-subsystem.md#listener-queue-policies)). The `listener_queue_url`, `listener_queue_name`, and `listener_queue_arn` outputs exist for that purpose.
+3. **Read-model path.** Facts the BFF subscribes to arrive on the listener queue; the listener Lambda writes them into the table so the BFF keeps its own copy. It never calls the producing service to read those facts.
 
 ## Inputs
 

@@ -121,7 +121,7 @@ The same shape, in a different domain, is the **Online order** worked example: c
 
 That diagram, and a payments-payout variant, are tabs in [`patterns-clean.drawio`](architecture/patterns-clean.drawio).
 
-## Doing it by hand, and why you usually should not
+## Wiring the patterns by hand
 
 [`examples/systems/customer-engagement-system`](../examples/systems/customer-engagement-system) wires the pattern modules directly, without the composer: it calls `event_hub`, `bff_service`, `control_service`, `esg_service`, `event_lake`, and `observability_baseline`, and writes the glue itself (the events-to-Firehose role, the hub's archive route, the explicit list of functions for observability). It is a useful reference for what the composer does under the hood, and the right approach if you need wiring the manifest schema does not express. For an ordinary subsystem it is more to write and more to get wrong: the manifest plus the composer is the paved road.
 

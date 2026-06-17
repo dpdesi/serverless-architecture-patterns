@@ -1,0 +1,66 @@
+name: Sync wiki
+
+# Regenerates the GitHub wiki from the in-repo documentation whenever the docs
+# change on the default branch. The wiki is a separate git repository; this
+# rebuilds its pages (rewriting links and copying the diagram images) and
+# pushes only when something changed.
+#
+# Auth: pushes with the default GITHUB_TOKEN. If your org restricts the token
+# from writing to wikis, create a fine-grained PAT with Contents:write on this
+# repo and store it as the secret WIKI_TOKEN; this workflow prefers it when set.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/patterns/**
+      - docs/building-a-subsystem.md
+      - docs/architecture/patterns/**
+      - docs/architecture/online-order-subsystem.png
+      - .github/scripts/build_wiki.py
+      - .github/workflows/sync-wiki.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-wiki
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Clone the wiki
+        env:
+          WIKI_TOKEN: ${{ secrets.WIKI_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TOKEN="${WIKI_TOKEN:-$GH_TOKEN}"
+          git clone "https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.wiki.git" wiki
+
+      - name: Build wiki pages from docs
+        env:
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          WIKI_LINK_BRANCH: ${{ github.event.repository.default_branch }}
+        run: python .github/scripts/build_wiki.py wiki
+
+      - name: Commit and push if changed
+        run: |
+          cd wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Wiki already up to date."
+          else
+            git commit -m "Sync wiki from docs (${GITHUB_SHA::7})"
+            git push
+          fi
