@@ -1,5 +1,4 @@
 primary_region   = "eu-west-2"
-secondary_region = "eu-west-1"
 system_name      = "retail"
 subsystem_name   = "customer-engagement"
 environment      = "dev"

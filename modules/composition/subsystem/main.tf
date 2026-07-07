@@ -511,7 +511,6 @@ module "fault_monitor" {
 
   name                = "${local.name}-faults"
   event_bus_name      = module.hub.bus_name
-  event_bus_arn       = module.hub.bus_arn
   bucket_name         = try(local.operations.fault_monitor.bucket_name, null)
   notification_emails = try(local.operations.fault_monitor.emails, [])
   alarm_actions       = local.alarm_actions

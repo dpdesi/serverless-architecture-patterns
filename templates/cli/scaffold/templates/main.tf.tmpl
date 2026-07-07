@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.7, < 2.0"
+}
+
 module "subsystem_core" {
   source = "github.com/example/serverless-architecture-patterns//stacks/reference/subsystem_core?ref=v0.1.0"
 

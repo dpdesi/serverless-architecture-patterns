@@ -2,11 +2,6 @@ provider "aws" {
   region = var.primary_region
 }
 
-provider "aws" {
-  alias  = "secondary"
-  region = var.secondary_region
-}
-
 locals {
   name_prefix = "${var.system_name}-${var.subsystem_name}-${var.environment}"
   tags = merge(var.tags, {

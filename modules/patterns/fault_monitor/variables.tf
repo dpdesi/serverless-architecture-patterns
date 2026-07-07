@@ -8,11 +8,6 @@ variable "event_bus_name" {
   type        = string
 }
 
-variable "event_bus_arn" {
-  description = "Subsystem event hub bus ARN."
-  type        = string
-}
-
 variable "event_pattern" {
   description = "EventBridge pattern matching the subset of events to archive as faults. Defaults to `detail-type = ['fault']`, which matches the event envelope convention from Chapter 4."
   type        = string

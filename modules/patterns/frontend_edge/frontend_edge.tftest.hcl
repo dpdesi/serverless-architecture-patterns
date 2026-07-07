@@ -81,7 +81,7 @@ run "valid_dual_origin_contract" {
   }
 
   assert {
-    condition     = local.api_enabled
+    condition     = length(output.api_origin_ids) == 1
     error_message = "api_origins must enable an ordered cache behaviour for the API path pattern."
   }
 }

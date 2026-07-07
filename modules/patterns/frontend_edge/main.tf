@@ -2,7 +2,6 @@ locals {
   effective_kms_key_arn = var.create_kms_key ? aws_kms_key.this[0].arn : var.kms_key_arn
   primary_bucket_name   = coalesce(var.primary_origin_bucket_name, "${var.name}-primary")
   default_target_origin = var.secondary_origin == null ? "primary" : "primary-secondary"
-  api_enabled           = length(var.api_origins) > 0
   acm_enabled           = var.acm_certificate_arn != null
 }
 

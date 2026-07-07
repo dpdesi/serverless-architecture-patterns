@@ -114,7 +114,6 @@ module "fault_monitor" {
 
   name           = "${local.name_prefix}-faults"
   event_bus_name = module.event_hub.bus_name
-  event_bus_arn  = module.event_hub.bus_arn
   tags           = local.tags
 }
 

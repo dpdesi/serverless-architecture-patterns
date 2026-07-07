@@ -18,7 +18,6 @@ module "fault_monitor" {
 
   name           = "example-fault-monitor"
   event_bus_name = module.event_hub.bus_name
-  event_bus_arn  = module.event_hub.bus_arn
 
   tags = {
     Environment = "dev"

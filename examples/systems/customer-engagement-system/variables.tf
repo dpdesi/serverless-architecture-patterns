@@ -4,12 +4,6 @@ variable "primary_region" {
   default     = "eu-west-2"
 }
 
-variable "secondary_region" {
-  description = "Secondary AWS region shown for future failover wiring."
-  type        = string
-  default     = "eu-west-1"
-}
-
 variable "system_name" {
   description = "System name used in resource names and tags."
   type        = string
