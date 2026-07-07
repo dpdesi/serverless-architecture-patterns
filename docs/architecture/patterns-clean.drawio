@@ -1,4 +1,4 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0" pages="17">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0" pages="19">
   <diagram name="Primitives" id="primitives">
     <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
       <root>
@@ -2448,6 +2448,121 @@
         </mxCell>
         <mxCell id="po_desc" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#FAFBFC;strokeColor=#D5DBDB;fontColor=#2B3A42;align=left;verticalAlign=top;spacing=14;fontSize=13;fontStyle=0;fontFamily=Segoe UI;arcSize=4;gradientColor=#E6E6E6;gradientDirection=north;" value="&lt;b&gt;An autonomous payouts subsystem assembled entirely from the pattern glyphs&lt;/b&gt; (each glyph hides the finer wiring - Lambdas, queues, DLQs, streams - shown on that pattern&#39;s own tab).&lt;br&gt;&lt;b&gt;Flow&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;1-2&lt;/b&gt;&amp;nbsp; Ops initiate a payout through the Initiation BFF behind the portal CDN.&lt;/li&gt;&lt;li&gt;&lt;b&gt;3&lt;/b&gt;&amp;nbsp; The write to its table publishes PayoutRequested through the stream trigger.&lt;/li&gt;&lt;li&gt;&lt;b&gt;4-5&lt;/b&gt;&amp;nbsp; Compliance and Risk Screening (control_service, reactor) checks sanctions, limits and balances, then emits PayoutApproved or PayoutRejected.&lt;/li&gt;&lt;li&gt;&lt;b&gt;6-7&lt;/b&gt;&amp;nbsp; The Execution Saga (control_service, Step Functions) orchestrates the transfer with waits, retries and compensation, emitting TransferInstructed.&lt;/li&gt;&lt;li&gt;&lt;b&gt;8-11&lt;/b&gt;&amp;nbsp; The Banking Rails Gateway (esg_service) makes the idempotent call to the partner bank and normalises settlement / return webhooks back into TransferSettled / TransferReturned events.&lt;/li&gt;&lt;li&gt;&lt;b&gt;12&lt;/b&gt;&amp;nbsp; The read-only Tracking BFF view is materialised from those events (CQRS).&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Payments-specific notes&lt;/b&gt;&lt;ul&gt;&lt;li&gt;The event lake Object-Locked bucket is the immutable regulatory audit trail.&lt;/li&gt;&lt;li&gt;The fault monitor catches fault-typed events (rejected instructions, unmatched settlements) for operator resubmission.&lt;/li&gt;&lt;li&gt;Every hop carries a DLQ, so no payout instruction is silently lost.&lt;/li&gt;&lt;li&gt;Idempotency keys must travel in the event detail so retries at any layer (EventBridge, SQS redrive, saga retry, bank API) never double-pay.&lt;/li&gt;&lt;/ul&gt;" vertex="1">
           <mxGeometry height="300" width="1660" x="40" y="1140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Identity" id="identity">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="id_t" parent="1" style="text;html=1;fontSize=18;fontStyle=1;fontColor=#232F3E;align=left;verticalAlign=middle;" value="Identity pattern [identity]" vertex="1">
+          <mxGeometry height="30" width="700" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="id_b" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=none;strokeColor=#879196;dashed=1;verticalAlign=top;align=center;fontSize=12;fontStyle=1;fontColor=#232F3E;spacingLeft=8;spacingTop=2;" value="identity module" vertex="1">
+          <mxGeometry height="600" width="640" x="320" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="id_user" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#232F3E;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.user;labelWidth=130;" value="Browser client (SPA)" vertex="1">
+          <mxGeometry height="68" width="68" x="100" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="id_hui" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#C7131F;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="Hosted UI domain&lt;br&gt;(optional)" vertex="1">
+          <mxGeometry height="68" width="68" x="420" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="id_pool" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#C7131F;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="User pool&lt;br&gt;(deletion protection, MFA, 12-char passwords)" vertex="1">
+          <mxGeometry height="68" width="68" x="640" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="id_spa" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#EEEEEE;strokeColor=#666666;fontColor=#333333;fontSize=11;fontStyle=1;align=center;" value="SPA client&lt;br&gt;public - no secret, code flow + PKCE" vertex="1">
+          <mxGeometry height="60" width="200" x="400" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="id_conf" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#EEEEEE;strokeColor=#666666;fontColor=#333333;fontSize=11;fontStyle=1;align=center;" value="Confidential client&lt;br&gt;secret for server-side callers" vertex="1">
+          <mxGeometry height="60" width="200" x="680" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="id_api" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#FF4F8B;gradientDirection=north;fillColor=#BC1356;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="[bff_service] HTTP API&lt;br&gt;+ JWT authoriser" vertex="1">
+          <mxGeometry height="68" width="68" x="1170" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="id_e1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;fontStyle=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="1. sign in (code + PKCE)" source="id_user" target="id_hui" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id_e2" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;dashed=1;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="authenticates against" source="id_hui" target="id_pool" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id_e3" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="2. JWT (id + access token)" source="id_pool" target="id_user" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id_e4" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" value="3. Authorization: Bearer JWT" source="id_user" target="id_api" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="134" y="730" />
+              <mxPoint x="1204" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id_e5" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;dashed=1;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="4. validate issuer + audience&lt;br&gt;(the jwt_authorizer output)" source="id_api" target="id_pool" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id_e6" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;dashed=1;fontStyle=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="issues tokens for" source="id_pool" target="id_spa" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id_e7" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;dashed=1;fontStyle=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="" source="id_pool" target="id_conf" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id_note" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#FAFBFC;strokeColor=#D5DBDB;fontColor=#2B3A42;align=left;verticalAlign=top;spacing=14;fontSize=13;" value="&lt;b&gt;Intent&lt;/b&gt; - The OpenID Connect provider the rest of the library assumes: it issues the JWTs every jwt_authorizer input validates.&lt;br&gt;&lt;b&gt;Flow&lt;/b&gt; - The SPA signs in through the hosted UI (authorisation-code flow with PKCE) and receives a JWT (1-2); it sends the token as a bearer header (3) and the BFF JWT authoriser validates it against the pool issuer and the client IDs, the audience (4). The module jwt_authorizer output carries exactly that issuer + audience pair.&lt;br&gt;&lt;b&gt;Boundary&lt;/b&gt; - Secure defaults are the point: deletion protection, 12-character complex passwords, software-token MFA available, self sign-up off, no SPA secrets, and the implicit grant never enabled. Federation and identity pools are composed alongside, not hidden inside." vertex="1">
+          <mxGeometry height="170" width="1320" x="40" y="790" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Artefact Pipeline" id="artefact-pipeline">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1400" pageHeight="1040" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ap_t" parent="1" style="text;html=1;fontSize=18;fontStyle=1;fontColor=#232F3E;align=left;verticalAlign=middle;" value="Artefact pipeline [artefact_pipeline]" vertex="1">
+          <mxGeometry height="30" width="700" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_b" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=none;strokeColor=#879196;dashed=1;verticalAlign=top;align=center;fontSize=12;fontStyle=1;fontColor=#232F3E;spacingLeft=8;spacingTop=2;" value="artefact_pipeline module" vertex="1">
+          <mxGeometry height="600" width="620" x="340" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_gha" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#EEEEEE;strokeColor=#666666;fontColor=#333333;fontSize=11;fontStyle=1;align=center;" value="GitHub Actions&lt;br&gt;app repo build workflow" vertex="1">
+          <mxGeometry height="60" width="190" x="80" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_pre" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#EEEEEE;strokeColor=#666666;fontColor=#333333;fontSize=11;fontStyle=1;align=center;" value="manage-infra pre-flight&lt;br&gt;scripts/preflight.sh" vertex="1">
+          <mxGeometry height="60" width="190" x="80" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_role" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#C7131F;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="Publisher role&lt;br&gt;(OIDC, repo-scoped subjects)" vertex="1">
+          <mxGeometry height="68" width="68" x="440" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_s3" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#60A337;gradientDirection=north;fillColor=#277116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="Artefact bucket&lt;br&gt;(versioned, TLS-only, lifecycle)" vertex="1">
+          <mxGeometry height="68" width="68" x="720" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_kms" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#C7131F;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.key_management_service;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="KMS key&lt;br&gt;(rotation on)" vertex="1">
+          <mxGeometry height="68" width="68" x="440" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_lambda" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F78E04;gradientDirection=north;fillColor=#D05C17;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;fontStyle=1;labelWidth=130;whiteSpace=wrap;" value="[lambda_function]&lt;br&gt;fetches the zip at apply time" vertex="1">
+          <mxGeometry height="68" width="68" x="1180" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_e1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="1. assume via OIDC id-token" source="ap_gha" target="ap_role" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_e2" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="2. s3:PutObject (zips)" source="ap_role" target="ap_s3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_e3" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;dashed=1;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" value="encrypt objects" source="ap_kms" target="ap_s3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_e4" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="4. code fetched at apply" source="ap_s3" target="ap_lambda" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_e5" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#232F3E;strokeColor=#545B64;jettySize=auto;dashed=1;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" value="3. head-bucket / head-object before plan and apply" source="ap_pre" target="ap_s3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="754" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ap_note" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#FAFBFC;strokeColor=#D5DBDB;fontColor=#2B3A42;align=left;verticalAlign=top;spacing=14;fontSize=13;" value="&lt;b&gt;Intent&lt;/b&gt; - The first mile of the paved road: the versioned, encrypted bucket every module artefact reference points at, plus the least-privilege role CI uses to fill it.&lt;br&gt;&lt;b&gt;Flow&lt;/b&gt; - The app repo build workflow assumes the publisher role via the GitHub OIDC provider, no stored keys (1), and publishes each component zip (2). Before every plan and apply, preflight.sh verifies the bucket and every expected artefact exist (3), failing with instructions instead of an opaque apply error; Lambda then fetches the code at apply time (4).&lt;br&gt;&lt;b&gt;Boundary&lt;/b&gt; - The role can publish into this bucket and use its key - nothing else. Versioning is the rollback mechanism: superseded artefact versions are kept for a bounded window. Lives under modules/delivery: it ships subsystems and deploys before them, it is not part of one." vertex="1">
+          <mxGeometry height="170" width="1320" x="40" y="790" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -76,3 +76,13 @@ already runs a central identity provider: in that case pass that provider's issu
 directly to the `jwt_authorizer` inputs and do not deploy this pattern at all. Federation into the
 pool (SAML/OIDC/social) and Cognito identity pools are out of scope by design; see the module
 README for how to extend.
+
+## Diagram
+
+![Identity pattern: a browser signs in through the hosted UI, receives a JWT from the user pool, and presents it as a bearer token; the BFF's JWT authoriser validates it against the pool's issuer and the clients' IDs](../architecture/patterns/identity.png)
+
+This is the **Identity** tab of [`patterns-clean.drawio`](../architecture/patterns-clean.drawio); open the source for the editable, zoomable version.
+
+---
+
+[Back to the pattern reference](README.md)

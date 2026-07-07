@@ -5,6 +5,10 @@ artefact reference, which means a bucket must exist - and be versioned, encrypte
 CI - before anything can deploy. Until now that bucket was a "create it yourself" instruction in
 the template README; this module makes it a first-class, tested building block.
 
+![Artefact pipeline: a GitHub Actions build workflow assumes the OIDC publisher role and publishes zips into the versioned, KMS-encrypted artefact bucket; preflight.sh verifies the bucket and every expected artefact before plan and apply; Lambda fetches the code at apply time](../../../docs/architecture/patterns/artefact-pipeline.png)
+
+*The **Artefact Pipeline** tab of [`patterns-clean.drawio`](../../../docs/architecture/patterns-clean.drawio); open the source for the editable version.*
+
 ## What it builds
 
 - **A hardened artefact bucket**: versioning on (superseded artefact versions are the rollback
