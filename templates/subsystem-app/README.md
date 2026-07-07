@@ -176,7 +176,7 @@ scripts/                         build-artefacts (publishes zips) · iac-role (b
 
 **Troubleshooting**:
 
-- *`terraform init` 404s on the library*: it's a pinned, private dependency (`?ref=v0.2.0`); make sure the tag exists and this repo can access it.
+- *`terraform init` 404s on the library*: it's a pinned, private dependency (`?ref=v0.2.1`); make sure the tag exists and this repo can access it.
 - *Apply fails, Lambda code not found in S3*: the artefact bucket is missing or the build didn't run (apply, not plan, builds and uploads).
 - *Apply fails assuming the role*: re-run `scripts/iac-role.sh` and check `AWS_ACCOUNT_ID` is set on the environment.
 - *Config rejected in CI*: the `manifest schema` job names the offending field.

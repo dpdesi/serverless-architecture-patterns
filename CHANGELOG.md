@@ -2,6 +2,35 @@
 
 All notable changes to this repository are documented here.
 
+## 0.2.1 - 2026-07-07
+
+The first fully green CI run. v0.2.0's workflows had never executed (they only
+triggered on pushes to `main`, which is not the default branch); running them
+surfaced four rounds of latent gate bugs, all fixed here. Consumers should pin
+this tag rather than v0.2.0.
+
+- (fix) CI workflows now trigger on the default branch; the `terraform test`
+  matrix initialises each module before testing; `scripts/validate.sh` and
+  `tests/smoke/localstack-smoke.sh` regain their executable bits; tflint's five
+  findings are fixed at the source (unused secondary providers in two examples,
+  an unused `fault_monitor.event_bus_arn` input removed from the module and its
+  callers, a dead `frontend_edge` local, a missing `required_version` in the
+  CLI scaffold).
+- (fix) The conftest gate now actually evaluates the policies: `--all-namespaces`
+  (the rules live in per-concern namespaces, so the gate previously tested
+  nothing in either direction) and OPA 1.x `deny contains msg if` syntax. The
+  trivy gate installs a pinned real release and skips the intentionally
+  non-compliant `tests/fixtures`; its first genuine scan found five example
+  artefact buckets on AES256, now encrypted with customer-managed KMS keys.
+  `validate.sh` no longer exports TMPDIR into the workspace (the AWS provider's
+  handshake socket exceeded the Linux socket-path limit).
+- (fix) The LocalStack smoke test passes: the example applies a control-service
+  reactor instead of a BFF (API Gateway v2 is a LocalStack Pro feature), the
+  image moves to LocalStack 4 (v3's DynamoDB emulation hung the provider's
+  post-create wait), and the Docker socket is mounted so Lambda containers can
+  start. The smoke event now traverses the real rule-to-queue path.
+- (docs) Template and README pins updated to v0.2.1; `*.tfstate` ignored.
+
 ## 0.2.0 - 2026-07-07
 
 First published release. Everything below shipped together as the initial tag;

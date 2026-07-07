@@ -20,7 +20,7 @@ jobs:
           python-version: "3.12"
       - run: pip install --quiet check-jsonschema
       - name: Fetch the pinned schema
-        run: curl -fsSL "https://raw.githubusercontent.com/dpdesi/serverless-architecture-patterns/v0.2.0/schema/subsystem.schema.json" -o subsystem.schema.json
+        run: curl -fsSL "https://raw.githubusercontent.com/dpdesi/serverless-architecture-patterns/v0.2.1/schema/subsystem.schema.json" -o subsystem.schema.json
       - run: check-jsonschema --schemafile subsystem.schema.json infra/terraform/subsystem.yaml
 
   terraform:

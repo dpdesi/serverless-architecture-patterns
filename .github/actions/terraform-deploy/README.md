@@ -42,7 +42,7 @@ jobs:
       # component the manifest references) and upload them to the artefact bucket.
       # This step is subsystem-specific and stays in the app repo / template.
 
-      - uses: dpdesi/serverless-architecture-patterns/.github/actions/terraform-deploy@v0.2.0
+      - uses: dpdesi/serverless-architecture-patterns/.github/actions/terraform-deploy@v0.2.1
         with:
           command:      ${{ inputs.action }}
           aws-region:   ${{ vars.AWS_REGION || 'eu-west-2' }}

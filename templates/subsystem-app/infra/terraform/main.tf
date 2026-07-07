@@ -17,7 +17,7 @@ provider "aws" {
 # The whole subsystem backend, from one manifest. Pin the library to a released
 # tag - never track a moving branch in a deploy root.
 module "subsystem" {
-  source   = "git::https://github.com/dpdesi/serverless-architecture-patterns.git//modules/composition/subsystem?ref=v0.2.0"
+  source   = "git::https://github.com/dpdesi/serverless-architecture-patterns.git//modules/composition/subsystem?ref=v0.2.1"
   manifest = local.manifest
 }
 
@@ -27,7 +27,7 @@ module "subsystem" {
 # up from the same manifest, fed by the composer's api_origins output.
 module "edge" {
   count     = try(local.manifest.edge.enabled, false) ? 1 : 0
-  source    = "git::https://github.com/dpdesi/serverless-architecture-patterns.git//modules/patterns/frontend_edge?ref=v0.2.0"
+  source    = "git::https://github.com/dpdesi/serverless-architecture-patterns.git//modules/patterns/frontend_edge?ref=v0.2.1"
   providers = { aws = aws.us_east_1 }
 
   name                = "${local.manifest.subsystem}-edge"
