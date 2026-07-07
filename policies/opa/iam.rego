@@ -8,7 +8,7 @@ policy_types := {
   "aws_iam_role_policy",
 }
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.type in policy_types
   policy := json.unmarshal(resource.change.after.policy)
@@ -18,7 +18,7 @@ deny[msg] if {
   msg := sprintf("%s must not grant wildcard IAM actions", [resource.address])
 }
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.type in policy_types
   policy := json.unmarshal(resource.change.after.policy)

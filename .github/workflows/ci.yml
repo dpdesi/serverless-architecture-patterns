@@ -116,20 +116,27 @@ jobs:
           curl -fsSL "https://github.com/open-policy-agent/conftest/releases/download/v0.68.2/conftest_0.68.2_Linux_x86_64.tar.gz" | tar -xz conftest
           sudo install -m 0755 conftest /usr/local/bin/conftest
           conftest --version
-      - run: conftest test tests/fixtures/pass --policy policies/opa
-      - run: "! conftest test tests/fixtures/fail --policy policies/opa"
+      # The policies live in per-concern namespaces (terraform.kms, terraform.s3,
+      # ...); without --all-namespaces conftest evaluates only "main" and the
+      # gate silently tests nothing.
+      - run: conftest test tests/fixtures/pass --policy policies/opa --all-namespaces
+      - run: "! conftest test tests/fixtures/fail --policy policies/opa --all-namespaces"
 
   security:
     name: trivy config
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: aquasecurity/trivy-action@v0.33.1
-        with:
-          scan-type: config
-          scan-ref: .
-          severity: HIGH,CRITICAL
-          exit-code: "1"
+      # Install the pinned release binary directly: the trivy-action's own
+      # setup step has failed on both nonexistent versions and download flakes.
+      - name: Install trivy
+        run: |
+          curl -fsSL "https://github.com/aquasecurity/trivy/releases/download/v0.72.0/trivy_0.72.0_Linux-64bit.tar.gz" | tar -xz trivy
+          sudo install -m 0755 trivy /usr/local/bin/trivy
+          trivy --version
+      # tests/fixtures/fail contains intentionally non-compliant plans for the
+      # OPA gate; scanning them here would guarantee findings.
+      - run: trivy config . --severity HIGH,CRITICAL --exit-code 1 --skip-dirs tests/fixtures
 
   localstack-smoke:
     name: localstack smoke

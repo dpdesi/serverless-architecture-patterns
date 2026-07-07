@@ -26,7 +26,7 @@ taggable_types := {
   "aws_sqs_queue",
 }
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.mode == "managed"
   resource.type in taggable_types
@@ -34,7 +34,7 @@ deny[msg] if {
   msg := sprintf("%s.%s must define tags", [resource.type, resource.name])
 }
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.mode == "managed"
   resource.type in taggable_types

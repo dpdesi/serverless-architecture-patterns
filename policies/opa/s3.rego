@@ -2,7 +2,7 @@ package terraform.s3
 
 import future.keywords.if
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.type == "aws_s3_bucket_public_access_block"
   after := resource.change.after
@@ -10,7 +10,7 @@ deny[msg] if {
   msg := sprintf("%s must block public ACLs", [resource.address])
 }
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.type == "aws_s3_bucket_public_access_block"
   after := resource.change.after

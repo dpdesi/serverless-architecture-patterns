@@ -30,11 +30,11 @@ runtime-test:
 	cd examples/services/hello-service && node --test
 
 policy:
-	conftest test tests/fixtures/pass --policy policies/opa
-	! conftest test tests/fixtures/fail --policy policies/opa
+	conftest test tests/fixtures/pass --policy policies/opa --all-namespaces
+	! conftest test tests/fixtures/fail --policy policies/opa --all-namespaces
 
 security:
-	trivy config .
+	trivy config . --severity HIGH,CRITICAL --exit-code 1 --skip-dirs tests/fixtures
 
 smoke:
 	./tests/smoke/localstack-smoke.sh

@@ -11,7 +11,7 @@ encrypted_types := {
   "aws_sns_topic",
 }
 
-deny[msg] if {
+deny contains msg if {
   resource := input.resource_changes[_]
   resource.type in encrypted_types
   resource.mode == "managed"

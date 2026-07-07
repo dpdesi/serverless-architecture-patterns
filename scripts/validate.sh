@@ -1,8 +1,12 @@
 #!/usr/bin/env sh
 set -eu
 
-mkdir -p .terraform-tmp .terraform-plugin-cache
-export TMPDIR="$PWD/.terraform-tmp"
+# The plugin cache keeps ~30 roots from each downloading the (large) AWS
+# provider. Do NOT also point TMPDIR into the workspace: the provider's
+# go-plugin handshake creates a unix socket under TMPDIR, and a deeply nested
+# workspace path exceeds the ~104-character socket-path limit on Linux,
+# failing every validate with "plugin failed to negotiate the handshake".
+mkdir -p .terraform-plugin-cache
 export TF_PLUGIN_CACHE_DIR="$PWD/.terraform-plugin-cache"
 
 scan_dirs="examples stacks/reference"

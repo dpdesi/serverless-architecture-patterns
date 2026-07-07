@@ -8,6 +8,16 @@ data "archive_file" "handler" {
   output_path = "${path.module}/handler.zip"
 }
 
+resource "aws_kms_key" "artefacts" {
+  description         = "KMS key for the example artefact bucket"
+  enable_key_rotation = true
+  tags = {
+    Environment = "dev"
+    System      = "example"
+    Owner       = "platform"
+  }
+}
+
 resource "aws_s3_bucket" "artefacts" {
   bucket_prefix = "sap-esg-artefacts-"
   tags = {
@@ -30,7 +40,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "artefacts" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.artefacts.arn
     }
   }
 }
