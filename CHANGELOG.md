@@ -2,7 +2,10 @@
 
 All notable changes to this repository are documented here.
 
-## 0.1.0 - Unreleased
+## 0.2.0 - 2026-07-07
+
+First published release. Everything below shipped together as the initial tag;
+the `subsystem-app` template and the `terraform-deploy` action pin against it.
 
 - Add Phase 1 primitives for Lambda, HTTP API, DynamoDB, and EventBridge.
 - Add `event_hub` and `bff_service` pattern modules.
@@ -49,3 +52,24 @@ All notable changes to this repository are documented here.
   (the replacement topic policy previously locked them out); `bff_service`/`control_service`/`esg_service`
   no longer create a redundant per-Lambda async DLQ on their SQS-invoked functions (it collided in
   name with the pattern-level DLQ).
+- Add the runtime contract (`docs/runtime-contract.md`): the normative spec for what the Lambda
+  code inside each component must do — the event envelope and its EventBridge mapping,
+  deterministic ids, idempotency and order-tolerance duties, per-component obligations, fault
+  events, and the environment variables the modules inject. Ships with a zero-dependency Node.js
+  reference implementation (`runtime/nodejs`, 34 unit tests via `node --test`, no install step)
+  and a complete worked service (`examples/services/hello-service`) whose round-trip test walks a
+  REST write through the stream trigger onto the hub and into a subscribing listener. New
+  `runtime-tests` CI job and `make runtime-test` target.
+- Add the `identity` pattern (`modules/patterns/identity`): a Cognito user pool with the library's
+  security posture as defaults (deletion protection, 12-character complex passwords, software-token
+  MFA available, self sign-up off), a `clients` map (public SPA clients without secrets;
+  confidential clients with), and an optional hosted UI domain. Its `jwt_authorizer` output is
+  shaped exactly for the `bff_service` / `esg_service` / `api_http` input of the same name.
+- Add the `artefact_pipeline` module under a new `modules/delivery/` category: the versioned,
+  KMS-encrypted, TLS-only artefact bucket the whole library assumes, plus an optional GitHub-OIDC
+  publisher role scoped to one repository. The `subsystem-app` template gains
+  `scripts/preflight.sh`, wired into `manage-infra`, verifying the bucket before every plan and
+  every expected artefact (co-located and external) after the build — failing with instructions
+  instead of an opaque apply error.
+- Add **Identity** and **Artefact Pipeline** tabs to `patterns-clean.drawio` (19 pages), exported
+  and embedded in the pattern reference.

@@ -26,7 +26,7 @@ the template README; this module makes it a first-class, tested building block.
 
 ```hcl
 module "artefacts" {
-  source = "git::https://github.com/dpdesi/serverless-architecture-patterns.git//modules/delivery/artefact_pipeline?ref=v0.3.0"
+  source = "git::https://github.com/dpdesi/serverless-architecture-patterns.git//modules/delivery/artefact_pipeline?ref=v0.2.0"
 
   name = "payouts-artefacts"
 
