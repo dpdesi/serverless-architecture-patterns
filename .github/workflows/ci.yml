@@ -32,6 +32,22 @@ jobs:
           terraform_version: 1.14.1
       - run: ./scripts/validate.sh
 
+  runtime-tests:
+    name: service runtime tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Zero-dependency packages: no install step, node:test only.
+      - name: Runtime contract reference implementation
+        run: node --test
+        working-directory: runtime/nodejs
+      - name: hello-service round trip
+        run: node --test
+        working-directory: examples/services/hello-service
+
   terraform-test:
     name: terraform test
     runs-on: ubuntu-latest

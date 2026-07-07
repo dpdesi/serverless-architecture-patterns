@@ -1,0 +1,20 @@
+{
+  "name": "@atrium/service-runtime",
+  "version": "0.1.0",
+  "description": "Reference implementation of the serverless-architecture-patterns runtime contract: event envelopes, listener/trigger/rest handler factories, fault events, and hub publishing.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "license": "MIT"
+}

@@ -2,6 +2,14 @@
 
 The Lambda source for this subsystem's components. **Co-location is the default**: the deploy workflow builds each component here and publishes the zip to the key the composer expects.
 
+The infrastructure expects the code inside each component to honour the library's
+[runtime contract](https://github.com/dpdesi/serverless-architecture-patterns/blob/main/docs/runtime-contract.md):
+the event envelope shape, `ReportBatchItemFailures` semantics, and fault events for poison
+messages. A zero-dependency Node.js reference implementation (`@atrium/service-runtime`) and a
+worked `hello-service` live in the library repository — vendor the runtime package into this repo
+(e.g. `vendor/service-runtime`) and depend on it per component with a `file:` dependency, or
+implement the contract directly in the runtime of your choice.
+
 ## Layout
 
 One directory per component, named to match the manifest:
