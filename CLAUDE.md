@@ -39,6 +39,7 @@ terraform test ./modules/patterns/frontend_edge
 terraform test ./modules/patterns/regional_health_check
 terraform test ./modules/patterns/fault_monitor
 terraform test ./modules/patterns/micro_frontend
+terraform test ./modules/patterns/identity
 terraform test ./modules/composition/subsystem
 ```
 
@@ -79,6 +80,7 @@ cd examples/subsystem-core/customer-subsystem && terraform init && terraform app
 - `regional_health_check` — Calculated Route 53 health check aggregating CloudWatch metric alarms per AWS dependency; composite alarm for human notification
 - `fault_monitor` — Dedicated Firehose-to-S3 archive for `fault` events with SNS alerting and rule DLQ; pairs with the resubmission workflow described in Chapter 4
 - `micro_frontend` — Manifest bucket + deployer Lambda that aggregates per-app `mfe.json` fragments into master `importmap/apps/mount-points` manifests; optional CloudFront invalidation
+- `identity` — Cognito user pool + app clients + optional hosted UI; the `jwt_authorizer` output plugs unchanged into every `jwt_authorizer` input in the library
 
 **Composition** (`modules/composition/`) — the abstraction on top of the patterns:
 - `subsystem` — Renders a whole autonomous subsystem from a declarative `subsystem.yaml` manifest (schema in `schema/subsystem.schema.json`); derives hub routes, SQS queue policies for EventBridge delivery, per-route DLQs, the events→Firehose glue role, KMS service grants, and observability inputs. Example: `examples/systems/payouts-subsystem`
@@ -120,7 +122,7 @@ Each module contains `.tftest.hcl` files running contract-level tests via `terra
 - Modules follow semantic versioning: breaking input/output changes = major, additive inputs/outputs = minor, internal fixes = patch; `CHANGELOG.md` is curated by humans before each release tag
 
 ### CI Pipeline (`.github/workflows/ci.yml`)
-Eight jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (matrix across all 15 modules) → `manifest schema` (subsystem.yaml files against `schema/subsystem.schema.json`) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
+Eight jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (matrix across all 16 modules) → `manifest schema` (subsystem.yaml files against `schema/subsystem.schema.json`) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
 
 ### Manifest abstraction and delivery topology
 The library is consumed, not deployed. The deployment topology lives outside it:

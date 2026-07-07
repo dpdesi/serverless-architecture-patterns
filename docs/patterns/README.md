@@ -13,7 +13,7 @@ Every pattern has a glyph in that key, and each detailed page below embeds the m
 The library is organised in three layers. Each layer is usable on its own, and each higher layer is built from the one below it.
 
 1. **Primitives** (`modules/primitives/`) wrap a single AWS resource and apply the library's security defaults. There are four: a Lambda function, an HTTP API, a DynamoDB table, and an EventBridge bus. You rarely call these directly; the patterns call them for you.
-2. **Patterns** (`modules/patterns/`) are the named building blocks of an autonomous subsystem. Each one is a complete concern (a user-facing service, a gateway to an external system, the event bus itself, the audit archive) composed from primitives and the wiring between them. There are ten.
+2. **Patterns** (`modules/patterns/`) are the named building blocks of an autonomous subsystem. Each one is a complete concern (a user-facing service, a gateway to an external system, the event bus itself, the audit archive) composed from primitives and the wiring between them. There are eleven.
 3. **Composition** (`modules/composition/subsystem`) takes a single declarative manifest and instantiates the patterns, then derives the cross-pattern wiring that no individual pattern can own: the shared encryption key, the hub routes, the queue policies that let the bus deliver into each service, and the monitoring inputs. This is the layer the two worked examples and the app template use.
 
 ## The patterns
@@ -32,6 +32,7 @@ Every pattern is composed from the four primitives and exchanges information wit
 | Regional health check | A Route 53 health signal aggregated from the subsystem's own alarms. | [regional-health-check.md](regional-health-check.md) | [`regional_health_check`](../../modules/patterns/regional_health_check) |
 | Frontend edge | CloudFront over a private S3 origin, with optional API and failover routing. | [frontend-edge.md](frontend-edge.md) | [`frontend_edge`](../../modules/patterns/frontend_edge) |
 | Micro-frontend | A manifest store and deployer that assembles per-app fragments into one import map. | [micro-frontend.md](micro-frontend.md) | [`micro_frontend`](../../modules/patterns/micro_frontend) |
+| Identity | The OpenID Connect provider: a user pool, its app clients, and the hosted UI. | [identity.md](identity.md) | [`identity`](../../modules/patterns/identity) |
 
 The four primitives are documented together in [primitives.md](primitives.md).
 

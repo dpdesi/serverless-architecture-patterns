@@ -70,6 +70,7 @@ jobs:
           - modules/patterns/regional_health_check
           - modules/patterns/fault_monitor
           - modules/patterns/micro_frontend
+          - modules/patterns/identity
           - modules/composition/subsystem
     steps:
       - uses: actions/checkout@v4

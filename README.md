@@ -6,7 +6,7 @@
 
 [![Terraform](https://img.shields.io/badge/Terraform-%E2%89%A5%201.7-7B42BC?logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
 [![AWS Provider](https://img.shields.io/badge/AWS%20Provider-~%3E%206.0-FF9900?logo=amazonwebservices&logoColor=white)](https://registry.terraform.io/providers/hashicorp/aws/latest)
-[![Contract tests](https://img.shields.io/badge/contract%20tests-15%20modules-2EA44F)](#testing-and-quality-gates)
+[![Contract tests](https://img.shields.io/badge/contract%20tests-16%20modules-2EA44F)](#testing-and-quality-gates)
 
 </div>
 
@@ -34,11 +34,11 @@ The idea running through all of it: **services never call each other.** They exc
 
 ## Features
 
-- **Hardened building blocks**: 4 primitives and 10 patterns, each with secure, opinionated defaults baked in rather than bolted on.
+- **Hardened building blocks**: 4 primitives and 11 patterns, each with secure, opinionated defaults baked in rather than bolted on.
 - **Event-first by construction**: a central EventBridge hub, database-first event publication, and per-service data stores that keep services decoupled and resilient.
 - **One manifest, a whole subsystem**: a declarative `subsystem.yaml` plus a composer that derives roughly 150-200 wired AWS resources, so you stop hand-wiring queue policies and IAM glue.
 - **A paved road to production**: an app-repo template, a reusable OIDC deploy action, and a GitOps flow with a human-gated apply.
-- **Quality enforced in CI**: 15 module contract tests, OPA and Sentinel policy gates, a Trivy scan, and a LocalStack smoke test.
+- **Quality enforced in CI**: 16 module contract tests, OPA and Sentinel policy gates, a Trivy scan, and a LocalStack smoke test.
 - **Documented visually**: a 16-tab architecture diagram, every pattern as a glyph, plus end-to-end worked examples.
 
 ## The pattern catalogue
@@ -57,6 +57,7 @@ Every pattern is a composition of the primitives. Each row links to its detailed
 | **Regional health check** | Route 53 health aggregation for failover decisions | [docs](docs/patterns/regional-health-check.md) | [`regional_health_check`](modules/patterns/regional_health_check) |
 | **Frontend edge** | CloudFront + private S3 origin (OAC) with API routing | [docs](docs/patterns/frontend-edge.md) | [`frontend_edge`](modules/patterns/frontend_edge) |
 | **Micro-frontend** | Manifest deployer that aggregates per-app fragments | [docs](docs/patterns/micro-frontend.md) | [`micro_frontend`](modules/patterns/micro_frontend) |
+| **Identity** | Cognito user pool + clients; issues the JWTs the BFFs validate | [docs](docs/patterns/identity.md) | [`identity`](modules/patterns/identity) |
 
 Built on four primitives ([reference](docs/patterns/primitives.md)): [`lambda_function`](modules/primitives/lambda_function), [`api_http`](modules/primitives/api_http), [`dynamodb_table`](modules/primitives/dynamodb_table), [`eventbridge_bus`](modules/primitives/eventbridge_bus).
 
@@ -155,7 +156,7 @@ CI runs eight jobs on every pull request, and you can run them all locally:
 | --- | --- | --- |
 | Format | `terraform fmt -check -recursive` | Canonical formatting |
 | Validate | `./scripts/validate.sh` | Every example and stack root |
-| Contract tests | `terraform test ./modules/...` | 15 modules, behaviour asserted on a mock provider |
+| Contract tests | `terraform test ./modules/...` | 16 modules, behaviour asserted on a mock provider |
 | Manifest schema | `check-jsonschema --schemafile schema/subsystem.schema.json ...` | Manifests match the contract |
 | Lint | `tflint --recursive` | Provider and Terraform rules |
 | Policy | `conftest test tests/fixtures/pass --policy policies/opa` | KMS, IAM, S3, tags (OPA, both directions) |
