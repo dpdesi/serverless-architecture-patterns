@@ -1,8 +1,12 @@
 services:
   localstack:
-    image: localstack/localstack:3
+    image: localstack/localstack:4
     ports:
       - "4566:4566"
     environment:
       - SERVICES=apigateway,apigatewayv2,cloudwatch,dynamodb,events,firehose,iam,kinesis,kms,lambda,logs,s3,sns,sqs,sts
       - AWS_DEFAULT_REGION=eu-west-2
+    volumes:
+      # LocalStack 4 executes Lambda functions in sibling Docker containers,
+      # so it needs access to the host's Docker daemon.
+      - "/var/run/docker.sock:/var/run/docker.sock"

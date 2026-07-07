@@ -146,12 +146,16 @@ jobs:
       - terraform-test
     services:
       localstack:
-        image: localstack/localstack:3
+        image: localstack/localstack:4
         ports:
           - 4566:4566
         env:
           SERVICES: apigateway,apigatewayv2,cloudwatch,dynamodb,events,firehose,iam,kinesis,kms,lambda,logs,s3,sns,sqs,sts
           AWS_DEFAULT_REGION: eu-west-2
+        # LocalStack 4 executes Lambda functions in sibling Docker containers,
+        # so the service container needs the runner's Docker daemon.
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3

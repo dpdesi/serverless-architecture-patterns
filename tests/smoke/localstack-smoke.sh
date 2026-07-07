@@ -12,10 +12,10 @@ terraform apply -auto-approve
 
 echo "--- asserting outputs are populated ---"
 BUS_NAME="$(terraform output -raw event_bus_name)"
-API_ENDPOINT="$(terraform output -raw bff_api_endpoint)"
+QUEUE_ARN="$(terraform output -raw listener_queue_arn)"
 TABLE_NAME="$(terraform output -raw customer_table_name)"
 
-for value in "$BUS_NAME" "$API_ENDPOINT" "$TABLE_NAME"; do
+for value in "$BUS_NAME" "$QUEUE_ARN" "$TABLE_NAME"; do
   if [ -z "$value" ]; then
     echo "FAIL: expected a non-empty Terraform output" >&2
     exit 1
@@ -46,6 +46,14 @@ if [ "$GOT" != "smoke#1" ]; then
   exit 1
 fi
 
+# The control service's listener queue is the EventBridge rule target; its
+# name is the last ARN segment.
+QUEUE_NAME="${QUEUE_ARN##*:}"
+aws --endpoint-url "$ENDPOINT" sqs get-queue-url --queue-name "$QUEUE_NAME" >/dev/null \
+  || { echo "FAIL: listener queue $QUEUE_NAME not found" >&2; exit 1; }
+
+# The example's control rule matches Source smoke.test, so this event flows
+# through the real rule -> queue path, not just past the bus.
 aws --endpoint-url "$ENDPOINT" events put-events --entries \
   "[{\"EventBusName\": \"$BUS_NAME\", \"Source\": \"smoke.test\", \"DetailType\": \"SmokeTest\", \"Detail\": \"{}\"}]" \
   --query 'FailedEntryCount' --output text | grep -q '^0$' \

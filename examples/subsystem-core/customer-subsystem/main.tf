@@ -66,13 +66,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "artefacts" {
   }
 }
 
-resource "aws_s3_object" "rest" {
-  bucket = aws_s3_bucket.artefacts.bucket
-  key    = "rest.zip"
-  source = data.archive_file.handler.output_path
-  etag   = data.archive_file.handler.output_md5
-}
-
 resource "aws_s3_object" "listener" {
   bucket = aws_s3_bucket.artefacts.bucket
   key    = "listener.zip"
@@ -103,7 +96,7 @@ module "event_hub" {
   routes = {
     customer_events = {
       event_pattern = jsonencode({
-        source = ["customer.bff"]
+        source = ["customer.control"]
       })
       targets = []
     }
@@ -111,17 +104,26 @@ module "event_hub" {
   tags = local.tags
 }
 
-module "customer_bff" {
-  source = "../../../modules/patterns/bff_service"
+# The smoke path deliberately uses a control service, not a BFF: LocalStack
+# Community does not implement API Gateway v2, and the reactor still exercises
+# the heart of the library on real (emulated) APIs - the custom bus, an
+# EventBridge rule with an SQS target and queue policy, per-function IAM,
+# KMS-encrypted queues/logs, and a streamed DynamoDB table.
+module "customer_control" {
+  source = "../../../modules/patterns/control_service"
 
-  name           = "customer-customer-dev-customer-bff"
+  name           = "customer-customer-dev-customer-control"
+  mode           = "event_reactor"
   event_bus_name = module.event_hub.bus_name
   event_bus_arn  = module.event_hub.bus_arn
+
+  # Matches the event the smoke script publishes, so the rule -> queue path
+  # carries real traffic during the test.
+  event_pattern = jsonencode({
+    source = ["smoke.test"]
+  })
+
   artefacts = {
-    rest = {
-      s3_bucket = aws_s3_bucket.artefacts.bucket
-      s3_key    = aws_s3_object.rest.key
-    }
     listener = {
       s3_bucket = aws_s3_bucket.artefacts.bucket
       s3_key    = aws_s3_object.listener.key
@@ -131,8 +133,6 @@ module "customer_bff" {
       s3_key    = aws_s3_object.trigger.key
     }
   }
-  table = {
-    name = "customer-customer-dev-customer"
-  }
-  tags = local.tags
+  table_name = "customer-customer-dev-customer"
+  tags       = local.tags
 }

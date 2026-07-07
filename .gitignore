@@ -13,3 +13,5 @@ crash.*.log
 .claude/worktrees/
 # draw.io editor lock/backup/temp files
 .$*
+*.tfstate
+*.tfstate.backup
