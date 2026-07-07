@@ -1,4 +1,4 @@
-.PHONY: fmt validate test policy security smoke
+.PHONY: fmt validate test runtime-test policy security smoke
 
 fmt:
 	terraform fmt -check -recursive
@@ -21,7 +21,13 @@ test:
 	terraform test ./modules/patterns/regional_health_check
 	terraform test ./modules/patterns/fault_monitor
 	terraform test ./modules/patterns/micro_frontend
+	terraform test ./modules/patterns/identity
 	terraform test ./modules/composition/subsystem
+	terraform test ./modules/delivery/artefact_pipeline
+
+runtime-test:
+	cd runtime/nodejs && node --test
+	cd examples/services/hello-service && node --test
 
 policy:
 	conftest test tests/fixtures/pass --policy policies/opa

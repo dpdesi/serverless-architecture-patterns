@@ -71,6 +71,7 @@ jobs:
           - modules/patterns/fault_monitor
           - modules/patterns/micro_frontend
           - modules/patterns/identity
+          - modules/delivery/artefact_pipeline
           - modules/composition/subsystem
     steps:
       - uses: actions/checkout@v4

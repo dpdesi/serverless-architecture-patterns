@@ -116,7 +116,7 @@ The events under `publishes` / `subscribes` / `egress` are how blocks connect: a
 
 1. **Deploy role**: run [`scripts/iac-role.sh`](scripts/iac-role.sh) (`ORG=<org> REPO=<this-repo> ./scripts/iac-role.sh`). Creates the GitHub OIDC provider and the IAM role the workflows assume; no AWS keys are stored.
 2. **State bucket**: run the **Provision state bucket** Action (Actions tab).
-3. **Artefact bucket**: create the S3 bucket named in your config (`artefact_defaults.bucket`).
+3. **Artefact bucket**: deploy the library's [`artefact_pipeline`](https://github.com/dpdesi/serverless-architecture-patterns/tree/main/modules/delivery/artefact_pipeline) module (a small bootstrap root is enough - see its README). It creates a versioned, KMS-encrypted, TLS-only bucket plus an optional OIDC publisher role scoped to this repository. Set the module's `bucket_name` output as `artefact_defaults.bucket` in your config. Any versioned private bucket works, but the module is the tested path. The `manage-infra` workflow runs [`scripts/preflight.sh`](scripts/preflight.sh) before every plan and apply, so a missing bucket or missing artefact fails with instructions rather than an opaque Terraform error.
 
 **One-time per environment** (dev / staging / prod, as [GitHub Environments](https://docs.github.com/en/actions/deployment/targeting-different-environments)):
 

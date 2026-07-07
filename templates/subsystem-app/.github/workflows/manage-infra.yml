@@ -66,11 +66,27 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/${{ vars.IAC_ROLE_NAME || 'atriumIaC' }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # Fail early, with a readable message, if the artefact bucket is missing -
+      # far better than an opaque Terraform error minutes later.
+      - name: Pre-flight - artefact bucket exists
+        if: ${{ inputs.action == 'plan' || inputs.action == 'apply' }}
+        run: ./scripts/preflight.sh bucket
+        env:
+          MANIFEST: infra/terraform/subsystem.yaml
+
       # The Lambda artefacts must exist in S3 before apply (AWS fetches them at
       # apply time). Plans do not need them - the module references by key.
       - name: Build and publish Lambda artefacts
         if: ${{ inputs.action == 'apply' }}
         run: ./scripts/build-artefacts.sh
+        env:
+          MANIFEST: infra/terraform/subsystem.yaml
+
+      # After the build, every component's zip (co-located or external) must be
+      # present at the key Terraform will reference.
+      - name: Pre-flight - all artefacts present
+        if: ${{ inputs.action == 'apply' }}
+        run: ./scripts/preflight.sh artefacts
         env:
           MANIFEST: infra/terraform/subsystem.yaml
 

@@ -22,7 +22,7 @@ tflint --init && tflint --recursive # Lint (config in .tflint.hcl)
 
 ### Testing
 ```bash
-make test   # Runs all 15 module contract tests
+make test   # Runs all 17 module contract tests
 
 # Run a single module's tests
 terraform test ./modules/primitives/lambda_function
@@ -41,6 +41,7 @@ terraform test ./modules/patterns/fault_monitor
 terraform test ./modules/patterns/micro_frontend
 terraform test ./modules/patterns/identity
 terraform test ./modules/composition/subsystem
+terraform test ./modules/delivery/artefact_pipeline
 ```
 
 ### Policy & Security Gates
@@ -85,6 +86,11 @@ cd examples/subsystem-core/customer-subsystem && terraform init && terraform app
 **Composition** (`modules/composition/`) — the abstraction on top of the patterns:
 - `subsystem` — Renders a whole autonomous subsystem from a declarative `subsystem.yaml` manifest (schema in `schema/subsystem.schema.json`); derives hub routes, SQS queue policies for EventBridge delivery, per-route DLQs, the events→Firehose glue role, KMS service grants, and observability inputs. Example: `examples/systems/payouts-subsystem`
 
+**Delivery** (`modules/delivery/`) — the machinery that ships a subsystem, deployed before it:
+- `artefact_pipeline` — Versioned, KMS-encrypted, TLS-only artefact bucket + optional GitHub-OIDC publisher role scoped to one repository; pairs with the template's `scripts/preflight.sh` bucket/artefact checks in `manage-infra`
+
+**Runtime contract** (`docs/runtime-contract.md` + `runtime/nodejs/`) — the normative spec for what the Lambda code inside each component must do (envelope shape, `ReportBatchItemFailures`, fault events), with a zero-dependency Node.js reference implementation and a worked `examples/services/hello-service`. Runtime tests run via `node --test` (no install step) in the `runtime-tests` CI job.
+
 ### Topology
 ```
 Event Hub (EventBridge) ← central routing layer
@@ -122,7 +128,7 @@ Each module contains `.tftest.hcl` files running contract-level tests via `terra
 - Modules follow semantic versioning: breaking input/output changes = major, additive inputs/outputs = minor, internal fixes = patch; `CHANGELOG.md` is curated by humans before each release tag
 
 ### CI Pipeline (`.github/workflows/ci.yml`)
-Eight jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (matrix across all 16 modules) → `manifest schema` (subsystem.yaml files against `schema/subsystem.schema.json`) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
+Eight jobs run on every PR: `terraform fmt` → `terraform validate` → `terraform test` (matrix across all 17 modules) → `manifest schema` (subsystem.yaml files against `schema/subsystem.schema.json`) → `tflint` → `conftest` OPA → `trivy` → LocalStack smoke test. All must pass (see `.github/required-checks.md`).
 
 ### Manifest abstraction and delivery topology
 The library is consumed, not deployed. The deployment topology lives outside it:
